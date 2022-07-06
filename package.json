@@ -10,9 +10,15 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "axios": "^0.27.2",
+    "cart-localstorage": "^1.1.5",
+    "jwt-decode": "^3.1.2",
+    "proxy-polyfill": "^0.3.2",
     "react": "^18.2.0",
+    "react-admin": "^4.2.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-world-flags": "^1.5.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
@@ -20,7 +26,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "git-cz",
+    "postinstall": "husky install"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +52,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@types/react-world-flags": "^1.4.2",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.1"
   }
 }
