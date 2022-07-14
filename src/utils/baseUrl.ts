@@ -7,3 +7,4 @@ export const baseUrl = path => {
     parts.push(path.replace(/^\//, ''));
     return parts.join('/');
 };
+

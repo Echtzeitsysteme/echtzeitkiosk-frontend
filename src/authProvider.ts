@@ -52,9 +52,7 @@ const authProvider: AuthProvider = {
         const token = localStorage.getItem('token');
         if (token) {
             const decodedToken: any = jwtDecode(token); // Returns with the JwtPayload type
-            console.log('decodedToken', decodedToken);
-            console.log('decodedToken.exp', decodedToken.exp);
-            console.log(Date.now());
+          
 
             if (decodedToken?.exp * 1000 < new Date().getTime()) {
                 console.log('Token expired');

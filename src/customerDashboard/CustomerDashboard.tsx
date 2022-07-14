@@ -28,8 +28,8 @@ const CustomerDashboard = () => {
         <div style={styles.flexColumn as CSSProperties}>
             <div style={styles.singleCol}>
                 <ShoppingCart />
-                <Spacer />
-                <ShoppingTable />
+                {/* <Spacer /> */}
+                {/* <ShoppingTable /> */}
             </div>
         </div>
     );

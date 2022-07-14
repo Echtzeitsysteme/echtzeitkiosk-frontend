@@ -16,10 +16,13 @@
     "proxy-polyfill": "^0.3.2",
     "react": "^18.2.0",
     "react-admin": "^4.2.1",
+    "react-daisyui": "^2.0.5",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-world-flags": "^1.5.0",
+    "sweetalert2": "^11.4.22",
     "typescript": "^4.4.2",
+    "usehooks-ts": "^2.6.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
