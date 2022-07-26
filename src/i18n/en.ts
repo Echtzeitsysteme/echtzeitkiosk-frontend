@@ -3,6 +3,19 @@ import englishMessages from 'ra-language-english';
 
 const customEnglishMessages: TranslationMessages = {
     ...englishMessages,
+    custom_auth: {
+
+        forgot_password: 'Forgot your password?',
+        register: 'Register',
+        register_error: 'Register error',
+        register_success: 'Registered successfully! Please check your email.',
+        confirm_password: 'Confirm password',
+        invitation_code: 'Invitation code',
+        login: 'Login',
+        already_have_an_account: 'Already have an account? Login',
+        create_a_new_account: "Create a new account"
+
+    },
     pos: {
         search: 'Search',
         configuration: 'Configuration',
@@ -49,6 +62,8 @@ const customEnglishMessages: TranslationMessages = {
                 last_seen: 'Last seen',
                 last_seen_gte: 'Visited Since',
                 name: 'Name',
+                first_name: 'First name',
+                last_name: 'Last name',
                 total_spent: 'Total spent',
                 password: 'Password',
                 confirm_password: 'Confirm password',

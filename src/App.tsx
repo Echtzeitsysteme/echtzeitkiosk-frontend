@@ -7,6 +7,8 @@ import {
   combineDataProviders,
 } from "react-admin";
 
+import { CssBaseline } from "@mui/material";
+
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import jsonServerProvider from "ra-data-json-server";
 import { Route } from "react-router";
@@ -14,6 +16,12 @@ import { Route } from "react-router";
 import authProvider from "./authProvider";
 import { Login, Layout } from "./layout";
 import { Dashboard } from "./dashboard";
+
+import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
+
 import englishMessages from "./i18n/en";
 import { lightTheme } from "./layout/themes";
 
@@ -60,9 +68,30 @@ const App = () => {
       disableTelemetry
       theme={lightTheme}
     >
+      {/* <CssBaseline /> */}
       <CustomRoutes>
         <Route path="/configuration" element={<Configuration />} />
       </CustomRoutes>
+
+      <CustomRoutes noLayout>
+        <Route path="/register" element={<Register />} />
+      </CustomRoutes>
+
+      <CustomRoutes noLayout>
+        <Route path="/verify-email" element={<VerifyEmail />} />
+      </CustomRoutes>
+
+      <CustomRoutes noLayout>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </CustomRoutes>
+
+      <CustomRoutes noLayout>
+        <Route path="/reset-password" element={<ResetPassword />} />
+      </CustomRoutes>
+
+      {/* <CustomRoutes noLayout>
+        <Route path="/forgot-password" element={<ForgetPassword />} />
+      </CustomRoutes> */}
 
       <Resource name="dummy" list={ListGuesser} />
     </Admin>

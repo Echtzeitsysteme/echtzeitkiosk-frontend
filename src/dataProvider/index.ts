@@ -5,7 +5,7 @@ import { stringify } from 'query-string';
 
 // const dataProvider = simpleRestProvider('http://localhost:4000/v1');
 
-const apiUrl = 'http://localhost:4000/v1';
+import { API_URL } from '../utils/API_URL';
 const httpClient = (url: string, options?: fetchUtils.Options | undefined) => {
     if (!options) {
         options = {};
@@ -35,9 +35,9 @@ const dataProvider = {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        // const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        // const url = `${API_URL}/${resource}?${stringify(query)}`;
 
-        const url = `${apiUrl}/${resource}`;
+        const url = `${API_URL}/${resource}`;
 
         return httpClient(url).then(({ headers, json }) => ({
             data: json.data,
@@ -50,7 +50,7 @@ const dataProvider = {
     },
 
     getOne: (resource: any, params: { id: any }) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+        httpClient(`${API_URL}/${resource}/${params.id}`).then(({ json }) => ({
             data: json,
         })),
 
@@ -58,7 +58,7 @@ const dataProvider = {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${API_URL}/${resource}?${stringify(query)}`;
         return httpClient(url).then(({ json }) => ({ data: json }));
     },
 
@@ -82,7 +82,7 @@ const dataProvider = {
                 [params.target]: params.id,
             }),
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${API_URL}/${resource}?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => ({
             data: json,
@@ -94,7 +94,7 @@ const dataProvider = {
     },
 
     update: (resource: any, params: { id: any; data: any }) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${API_URL}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json })),
@@ -103,14 +103,14 @@ const dataProvider = {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(`${API_URL}/${resource}?${stringify(query)}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }));
     },
 
     create: (resource: any, params: { data: any }) =>
-        httpClient(`${apiUrl}/${resource}`, {
+        httpClient(`${API_URL}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
@@ -118,7 +118,7 @@ const dataProvider = {
         })),
 
     delete: (resource: any, params: { id: any }) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${API_URL}/${resource}/${params.id}`, {
             method: 'DELETE',
         }).then(({ json }) => ({ data: json })),
 
@@ -126,7 +126,7 @@ const dataProvider = {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(`${API_URL}/${resource}?${stringify(query)}`, {
             method: 'DELETE',
         }).then(({ json }) => ({ data: json }));
     },

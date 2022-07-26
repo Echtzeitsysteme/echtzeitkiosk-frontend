@@ -163,8 +163,8 @@ const ShoppingCart = () => {
     }
   };
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error</p>;
+  // if (loading) return <CircularProgress />;
+  // if (error) return <p>Error, try again later...</p>;
 
   return (
     <>
@@ -198,7 +198,7 @@ const ShoppingCart = () => {
                   flexWrap: "wrap",
                 }}
               >
-                {products.map(
+                {exampleProductsData2.map(
                   (product) =>
                     product.quantity !== 0 && (
                       <Card
