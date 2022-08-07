@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  echtzeitkiosk-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:arm64
+    # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:amd64
+    container_name: echtzeitkiosk-frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+
+    networks:
+      - proxy
+      - default
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      # routers
+      - "traefik.http.routers.echtzeitkiosk-frontend-secure.entrypoints=websecure"
+      - "traefik.http.routers.echtzeitkiosk-frontend-secure.rule=Host(`echtzeitkiosk.mertalpulus.eu`)"
+      - "traefik.http.routers.echtzeitkiosk-frontend-secure.service=echtzeitkiosk-frontend"
+      # services
+      - "traefik.http.services.echtzeitkiosk-frontend.loadbalancer.server.port=80"
+
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 256M
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "512m"
+
+networks:
+  proxy:
+    external: true
