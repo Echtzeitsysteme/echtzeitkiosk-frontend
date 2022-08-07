@@ -3,8 +3,6 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-// const dataProvider = simpleRestProvider('http://localhost:4000/v1');
-
 import { API_URL } from '../utils/API_URL';
 const httpClient = (url: string, options?: fetchUtils.Options | undefined) => {
     if (!options) {

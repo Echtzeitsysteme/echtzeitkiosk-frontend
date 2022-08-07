@@ -11,6 +11,7 @@ import {
 import { Card, Button, Toolbar, TextField } from "@mui/material";
 import axios from "axios";
 import { add, get } from "cart-localstorage";
+import { API_URL } from "../utils/API_URL";
 
 const useFetchList = (method: any, url: any, body: any, options?: any) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +92,7 @@ const ShoppingTable = () => {
     isLoading,
   } = useFetchList(
     "GET",
-    "http://localhost:4000/v1/products",
+    `${API_URL}/products`,
     null
     // {
     //     filter: { q: filter },

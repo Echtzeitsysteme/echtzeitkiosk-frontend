@@ -198,7 +198,7 @@ const ShoppingCart = () => {
                   flexWrap: "wrap",
                 }}
               >
-                {exampleProductsData2.map(
+                {products.map(
                   (product) =>
                     product.quantity !== 0 && (
                       <Card
