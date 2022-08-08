@@ -5,12 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:arm64
+    image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:arm64
     # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:amd64
     container_name: echtzeitkiosk-frontend
     restart: unless-stopped
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV}
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
+    
+    expose:
+      - '80'
+    # ports:
+    #   - '80:80'
 
     networks:
       - proxy
@@ -29,9 +35,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
-        reservations:
           memory: 256M
+        reservations:
+          memory: 128M
 
     logging:
       driver: "json-file"
