@@ -1,4 +1,4 @@
 export const API_URL =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL
-    : process.env.REACT_APP_API_URL_DEVELOPMENT;
+    ? "https://api.echtzeitkiosk.mertalpulus.eu/v1"
+    : "http://localhost:4000/v1";
