@@ -8296,6 +8296,30 @@ ra-core@^4.2.1:
     react-is "^17.0.2"
     react-query "^3.32.1"
 
+ra-core@^4.2.6:
+  version "4.2.6"
+  resolved "https://repo.huaweicloud.com/repository/npm/ra-core/-/ra-core-4.2.6.tgz#8c138b0d1cded261da0c7aae8e693afea02ced3a"
+  integrity sha512-N4ooTRohfp4pPbWQUhUC6WrkW304YvwMCAfW4x8m2DelJigEJo9WoY1ktCZ9gTspyrOUDGrMVZeG+a+xLMER5Q==
+  dependencies:
+    clsx "^1.1.1"
+    date-fns "^2.19.0"
+    eventemitter3 "^4.0.7"
+    inflection "~1.12.0"
+    jsonexport "^3.2.0"
+    lodash "~4.17.5"
+    prop-types "^15.6.1"
+    query-string "^7.1.1"
+    react-is "^17.0.2"
+    react-query "^3.32.1"
+
+ra-data-json-server@^4.2.6:
+  version "4.2.6"
+  resolved "https://repo.huaweicloud.com/repository/npm/ra-data-json-server/-/ra-data-json-server-4.2.6.tgz#95b75c889fcad82dbb24ee6cdbeacbd679977181"
+  integrity sha512-u70Fk4IMsgHShTjz4EifEmFWA3WMbgP1dC8LoRoZ+1SwTCGkY2QbXzGT63rM/uFuY539u5GmQLajynhz5tMwXw==
+  dependencies:
+    query-string "^7.1.1"
+    ra-core "^4.2.6"
+
 ra-i18n-polyglot@^4.2.1:
   version "4.2.1"
   resolved "https://repo.huaweicloud.com/repository/npm/ra-i18n-polyglot/-/ra-i18n-polyglot-4.2.1.tgz#8c4abb542b68c37d4b8276ce8957f8b04e9552b9"
