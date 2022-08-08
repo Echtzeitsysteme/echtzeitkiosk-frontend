@@ -4,7 +4,6 @@ import jwtDecode from "jwt-decode";
 
 import { API_URL } from "./utils/API_URL";
 
-
 const authProvider: AuthProvider = {
   login: ({ email, password }) => {
     const url = `${API_URL}/auth/login`;
@@ -20,7 +19,6 @@ const authProvider: AuthProvider = {
     return axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data);
         if (response.data.message === "Token successfully created.") {
           const decodedToken: any = jwtDecode(response.data.data);
 
@@ -53,7 +51,6 @@ const authProvider: AuthProvider = {
       const decodedToken: any = jwtDecode(token); // Returns with the JwtPayload type
 
       if (decodedToken?.exp * 1000 < new Date().getTime()) {
-        console.log("Token expired");
         removeAuthenticationItems();
         return Promise.reject();
       }

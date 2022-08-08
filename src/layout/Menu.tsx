@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import LabelIcon from "@mui/icons-material/Label";
+import GroupIcon from "@mui/icons-material/Group";
 
 import {
   useTranslate,
@@ -9,6 +9,7 @@ import {
   MenuItemLink,
   MenuProps,
   useSidebarState,
+  useGetIdentity,
 } from "react-admin";
 
 import SubMenu from "./SubMenu";
@@ -16,10 +17,19 @@ import SubMenu from "./SubMenu";
 type MenuName = "menuCatalog" | "menuSales" | "menuCustomers";
 
 const Menu = ({ dense = false }: MenuProps) => {
+  const [userRole, setUserRole] = useState<any>();
+  const { identity, isLoading: identityLoading } = useGetIdentity();
+
+  useEffect(() => {
+    if (identity) {
+      setUserRole(identity.userRole);
+    }
+  }, [identity]);
+
   const [state, setState] = useState({
-    menuCatalog: true,
-    menuSales: true,
-    menuCustomers: true,
+    // menuCatalog: true,
+    // menuSales: true,
+    // menuCustomers: true,
   });
   const translate = useTranslate();
   const [open] = useSidebarState();
@@ -42,6 +52,18 @@ const Menu = ({ dense = false }: MenuProps) => {
       }}
     >
       <DashboardMenuItem />
+
+      {userRole === "SUPERUSER" && (
+        <MenuItemLink
+          to="/users"
+          state={{ _scrollToTop: true }}
+          primaryText={translate(`resources.users.name`, {
+            smart_count: 2,
+          })}
+          leftIcon={<GroupIcon />}
+          dense={dense}
+        />
+      )}
     </Box>
   );
 };
