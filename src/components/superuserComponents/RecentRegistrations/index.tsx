@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import axios from "axios";
+import moment from "moment";
+import Swal from "sweetalert2";
 
 import {
   Form,
@@ -23,6 +26,8 @@ import {
 } from "@mui/material";
 
 import { API_URL } from "../../../utils/API_URL";
+import { AnyNaptrRecord } from "dns";
+
 const columns: GridColDef[] = [
   {
     field: "firstName",
@@ -51,14 +56,46 @@ const columns: GridColDef[] = [
   {
     field: "isApproved",
     //   headerName: translate("resources.users.isApproved"),
-    headerName: "Is Approved",
-    width: 150,
+    headerName: "Approved",
+    width: 200,
+    renderCell: (params: any) => {
+      return params.value ? (
+        "Yes"
+      ) : (
+        <>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={(event) => {
+              handleApproveRegistration(event, params);
+              // console.log("params", params);
+            }}
+          >
+            Approve
+          </Button>
+
+          <Button
+            sx={{ marginLeft: "1rem" }}
+            variant="contained"
+            color="error"
+            onClick={(event) => {
+              handleDeclineRegistration(event, params);
+            }}
+          >
+            Decline
+          </Button>
+        </>
+      );
+    },
   },
   {
     field: "isEmailVerified",
     //   headerName: translate("resources.users.isEmailVerified"),
-    headerName: "Is Email Verified",
-    width: 150,
+    headerName: "Email Verified",
+    width: 100,
+    renderCell: (params: any) => {
+      return params.value ? "Yes" : "No";
+    },
   },
   {
     field: "createdAt",
@@ -70,66 +107,166 @@ const columns: GridColDef[] = [
   {
     field: "balance",
     //   headerName: translate("resources.users.balance"),
-    headerName: "Balance",
+    headerName: "Balance (EUR)",
     width: 150,
+    renderCell: (params: any) => {
+      // show the current balance and add a button to update the balance of the user. The button should open a modal that allows the user to update the balance. Use Swal for the modal.
+
+      return (
+        <>
+          <Typography variant="body2">{params.value}</Typography>
+          <Button
+            sx={{ marginLeft: "1rem" }}
+            variant="contained"
+            color="primary"
+            onClick={(event) => {
+              handleUpdateBalance(event, params);
+            }}
+          >
+            Update
+          </Button>
+        </>
+      );
+    },
   },
 ];
-const rows: GridRowsProp = [
-  {
-    id: 1,
-    firstName: "firstName",
-    lastName: "lastName",
-    email: "email",
-    username: "username",
-    isApproved: "isApproved",
-    isEmailVerified: "isEmailVerified",
-    createdAt: "createdAt",
-    balance: "balance",
-  },
-  {
-    id: 2,
-    firstName: "firstName",
-    lastName: "lastName",
-    email: "email",
-    username: "username",
-    isApproved: "isApproved",
-    isEmailVerified: "isEmailVerified",
-    createdAt: "createdAt",
-    balance: "balance",
-  },
-];
+
+const rows: GridRowsProp = [];
+
+const handleApproveRegistration = async (event: any, params: any) => {
+  console.log("handleApproveRegistration", params);
+
+  const fetchData = async () => {
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: `${API_URL}/auth/register/approve-registration/` + params.row.id,
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+    } catch (error) {}
+  };
+
+  await fetchData();
+
+  window.location.reload();
+};
+
+const handleDeclineRegistration = async (event: any, params: any) => {
+  console.log("handleDeclineRegistration", params);
+
+  const fetchData = async () => {
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: `${API_URL}/auth/register/decline-registration/` + params.row.id,
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+    } catch (error) {}
+  };
+
+  await fetchData();
+
+  window.location.reload();
+};
+
+const handleUpdateBalance = async (event: any, params: any) => {
+  console.log("handleUpdateBalance", params);
+
+  const updateBalance = async (balance, id) => {
+    try {
+      const urlParams = {
+        balance,
+      };
+      const data = Object.keys(urlParams)
+        .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
+        .join("&");
+
+      console.log(data);
+      // => format=json&option=value
+
+      const options = {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+
+        data,
+        url: `${API_URL}/users/` + id,
+      };
+
+      const resp = await axios(options);
+    } catch (error) {}
+  };
+
+  Swal.fire({
+    title: "Update Balance",
+    text: "Enter the new balance",
+    input: "text",
+    inputAttributes: {
+      autocapitalize: "off",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Update",
+    showLoaderOnConfirm: true,
+    preConfirm: (balance) => {
+      updateBalance(balance, params.row.id);
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).finally(() => {
+    window.location.reload();
+  });
+};
+
 const RecentRegistrations = () => {
   const [loading, setLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [rows, setRows] = useState([]);
 
   const translate = useTranslate();
   const notify = useNotify();
   const navigate = useNavigate();
 
-  //   const rows: GridRowsProp[] = [
-  //     {
-  //       id: 1,
-  //       firstName: "John",
-  //       lastName: "Doe",
-  //       email: "test@example.com",
-  //       username: "test",
-  //       isApproved: true,
-  //       isEmailVerified: true,
-  //       createdAt: "2020-01-01",
-  //       balance: 0,
-  //     },
-  //     {
-  //       id: 2,
-  //       firstName: "John",
-  //       lastName: "Doe",
-  //       email: "test@example.com",
-  //       username: "test",
-  //       isApproved: true,
-  //       isEmailVerified: true,
-  //       createdAt: "2020-01-01",
-  //       balance: 0,
-  //     },
-  //   ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await axios({
+          method: "GET",
+          url: `${API_URL}/users`,
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+
+        const data: [] = await resp?.data.data;
+
+        setLoading(false);
+        setIsSuccess(true);
+
+        const usersToShow = data.filter((user: any) => {
+          console.log("user", user);
+
+          return (
+            user.isApproved === false ||
+            (!moment(user.createdAt).isBefore(moment().subtract(1, "days")) &&
+              user.role !== "SUPERUSER")
+          );
+        });
+
+        setRows(usersToShow);
+        console.log(usersToShow);
+      } catch (error) {
+        // setServerError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -141,7 +278,7 @@ const RecentRegistrations = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        background: "url(https://source.unsplash.com/random/1600x900/?food)",
+        // background: "url(https://source.unsplash.com/random/1600x900/?food)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
@@ -169,24 +306,13 @@ const RecentRegistrations = () => {
           }}
         >
           <Typography variant="h5">Recent Registrations</Typography>
-          {/* <DataGrid
-            columns={columns}
-            rows={rows}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            // loading={loading}
-            disableSelectionOnClick
-            sx={{
-              border: "none",
-            }}
-          /> */}
+
           <Box sx={{ minHeight: "300%", width: "600%" }}>
             <DataGrid
               rows={rows}
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
-              checkboxSelection
               disableSelectionOnClick
             />
           </Box>

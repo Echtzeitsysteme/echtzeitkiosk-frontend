@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import GroupIcon from "@mui/icons-material/Group";
 
 import {
@@ -61,6 +62,18 @@ const Menu = ({ dense = false }: MenuProps) => {
             smart_count: 2,
           })}
           leftIcon={<GroupIcon />}
+          dense={dense}
+        />
+      )}
+
+      {userRole === "SUPERUSER" && (
+        <MenuItemLink
+          to="/products"
+          state={{ _scrollToTop: true }}
+          primaryText={translate(`resources.products.name`, {
+            smart_count: 2,
+          })}
+          leftIcon={<WarehouseIcon />}
           dense={dense}
         />
       )}

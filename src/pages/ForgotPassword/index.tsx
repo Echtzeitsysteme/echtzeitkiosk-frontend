@@ -40,7 +40,7 @@ const ResetPassword = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `email=${forgotPasswordFormValus.email}`,
+        body: `email=${encodeURIComponent(forgotPasswordFormValus.email)}`,
       })
         .then((response) => {
           if (response.status === 200) {

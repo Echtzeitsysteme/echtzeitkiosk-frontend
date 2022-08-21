@@ -102,6 +102,17 @@ const App = () => {
         />
       </CustomRoutes>
 
+      <CustomRoutes>
+        <Route
+          path="/products"
+          element={
+            <Authenticated>
+              {/* <Products /> */}
+            </Authenticated>
+          }
+        />
+      </CustomRoutes>
+
       {/* <CustomRoutes noLayout>
         <Route path="/forgot-password" element={<ForgetPassword />} />
       </CustomRoutes> */}

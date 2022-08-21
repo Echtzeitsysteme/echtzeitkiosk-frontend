@@ -24,17 +24,19 @@ const Dashboard = () => {
   return isXSmall ? (
     <div>
       <div style={styles.flexColumn as CSSProperties}>
-        <WelcomeSuperuser />
+      <RecentRegistrations />
+        {/* <WelcomeSuperuser />
         <WelcomeSuperuser />
         <VerticalSpacer />
         <WelcomeSuperuser />
         <VerticalSpacer />
-        <WelcomeSuperuser />
+        <WelcomeSuperuser /> */}
       </div>
     </div>
   ) : isSmall ? (
     <div style={styles.flexColumn as CSSProperties}>
-      <div style={styles.singleCol}>
+      <RecentRegistrations />
+      {/* <div style={styles.singleCol}>
         <WelcomeSuperuser />
       </div>
       <div style={styles.flex}>
@@ -47,12 +49,12 @@ const Dashboard = () => {
       </div>
       <div style={styles.singleCol}>
         <WelcomeSuperuser />
-      </div>
+      </div> */}
     </div>
   ) : (
     <>
       <RecentRegistrations />
-      <div style={styles.flex}>
+      {/* <div style={styles.flex}>
         <div style={styles.leftCol}>
           <div style={styles.flex}>
             <WelcomeSuperuser />
@@ -73,7 +75,7 @@ const Dashboard = () => {
             <WelcomeSuperuser />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

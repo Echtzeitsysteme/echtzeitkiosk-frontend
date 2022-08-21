@@ -12,7 +12,9 @@ const authProvider: AuthProvider = {
       method: "POST",
       url,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      data: `email=${email}&password=${password}`,
+      data: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(
+        password
+      )}`,
     };
 
     // TODO take precautions to prevent XSS attacks. Use cookies with httpOnly. Do not use url-encoded method, use JSON.
