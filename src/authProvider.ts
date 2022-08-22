@@ -4,7 +4,6 @@ import jwtDecode from "jwt-decode";
 
 import { API_URL } from "./utils/API_URL";
 
-
 const authProvider: AuthProvider = {
   login: ({ email, password }) => {
     const url = `${API_URL}/auth/login`;
@@ -13,14 +12,15 @@ const authProvider: AuthProvider = {
       method: "POST",
       url,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      data: `email=${email}&password=${password}`,
+      data: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(
+        password
+      )}`,
     };
 
     // TODO take precautions to prevent XSS attacks. Use cookies with httpOnly. Do not use url-encoded method, use JSON.
     return axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data);
         if (response.data.message === "Token successfully created.") {
           const decodedToken: any = jwtDecode(response.data.data);
 
@@ -53,7 +53,6 @@ const authProvider: AuthProvider = {
       const decodedToken: any = jwtDecode(token); // Returns with the JwtPayload type
 
       if (decodedToken?.exp * 1000 < new Date().getTime()) {
-        console.log("Token expired");
         removeAuthenticationItems();
         return Promise.reject();
       }

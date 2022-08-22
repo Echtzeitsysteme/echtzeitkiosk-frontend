@@ -49,7 +49,9 @@ const ResetPassword = () => {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: `password=${resetPasswordFormValues.newPassword}`,
+          body: `password=${encodeURIComponent(
+            resetPasswordFormValues.newPassword
+          )}`,
         }
       )
         .then((response) => {

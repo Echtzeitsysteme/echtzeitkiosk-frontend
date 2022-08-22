@@ -49,13 +49,13 @@ const Register = () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
-          email: registerFormValues.email,
-          password: registerFormValues.password,
-          firstName: registerFormValues.firstName,
-          lastName: registerFormValues.lastName,
-          invitationCode: registerFormValues.invitationCode,
-          username: registerFormValues.username,
-          language: registerFormValues.language,
+          email: encodeURIComponent(registerFormValues.email),
+          password: encodeURIComponent(registerFormValues.password),
+          firstName: encodeURIComponent(registerFormValues.firstName),
+          lastName: encodeURIComponent(registerFormValues.lastName),
+          invitationCode: encodeURIComponent(registerFormValues.invitationCode),
+          username: encodeURIComponent(registerFormValues.username),
+          language: encodeURIComponent(registerFormValues.language),
         }),
       });
 
@@ -91,7 +91,7 @@ const Register = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} >
+    <Form onSubmit={handleSubmit}>
       <Box
         sx={{
           display: "flex",

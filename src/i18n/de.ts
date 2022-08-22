@@ -40,6 +40,9 @@ const customGermanMessages: TranslationMessages = {
         },
     },
     resources: {
+        users: {
+            name: 'Benutzer |||| Benutzer',
+          },
         customers: {
             name: 'Kunde |||| Kunden',
             fields: {

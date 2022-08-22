@@ -5,6 +5,7 @@ import {
   Resource,
   ListGuesser,
   combineDataProviders,
+  Authenticated,
 } from "react-admin";
 
 import { CssBaseline } from "@mui/material";
@@ -28,6 +29,8 @@ import { lightTheme } from "./layout/themes";
 import RESTdataProvider from "./dataProvider";
 
 import Configuration from "./configuration/Configuration";
+import Users from "./pages/superuserPages/Users";
+import Products from "./pages/superuserPages/Products";
 
 const dummyDataProvider = jsonServerProvider(
   "https://jsonplaceholder.typicode.com"
@@ -87,6 +90,28 @@ const App = () => {
 
       <CustomRoutes noLayout>
         <Route path="/reset-password" element={<ResetPassword />} />
+      </CustomRoutes>
+
+      <CustomRoutes>
+        <Route
+          path="/users"
+          element={
+            <Authenticated>
+              <Users />
+            </Authenticated>
+          }
+        />
+      </CustomRoutes>
+
+      <CustomRoutes>
+        <Route
+          path="/products"
+          element={
+            <Authenticated>
+              <Products />
+            </Authenticated>
+          }
+        />
       </CustomRoutes>
 
       {/* <CustomRoutes noLayout>
