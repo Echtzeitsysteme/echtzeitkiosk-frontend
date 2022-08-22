@@ -30,6 +30,7 @@ import RESTdataProvider from "./dataProvider";
 
 import Configuration from "./configuration/Configuration";
 import Users from "./pages/superuserPages/Users";
+import Products from "./pages/superuserPages/Products";
 
 const dummyDataProvider = jsonServerProvider(
   "https://jsonplaceholder.typicode.com"
@@ -107,7 +108,7 @@ const App = () => {
           path="/products"
           element={
             <Authenticated>
-              {/* <Products /> */}
+              <Products />
             </Authenticated>
           }
         />

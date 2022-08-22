@@ -26,7 +26,6 @@ import {
 } from "@mui/material";
 
 import { API_URL } from "../../../utils/API_URL";
-import { AnyNaptrRecord } from "dns";
 
 const columns: GridColDef[] = [
   {
@@ -248,8 +247,6 @@ const RecentRegistrations = () => {
         setIsSuccess(true);
 
         const usersToShow = data.filter((user: any) => {
-          console.log("user", user);
-
           return (
             user.isApproved === false ||
             (!moment(user.createdAt).isBefore(moment().subtract(1, "days")) &&
