@@ -122,7 +122,7 @@ const ShoppingCart = () => {
     };
 
     fetchProducts();
-  }, [onChange(setCart), products]);
+  }, [onChange(setCart)]);
 
   const handleCheckout = async () => {
     const body = {
@@ -149,22 +149,12 @@ const ShoppingCart = () => {
       destroy();
       Swal.fire("Current balance:", `${data?.balanceAfterOrder}`, "success");
 
-      // fetch products again
-      // fetchProducts();
-
-      // refresh the page
-      // window.location.reload(true);
-
-      // setCart([]);
-      // setIsLoading(false);
+      window.location.reload();
     } catch (error) {
       // setServerError(error);
       // setIsLoading(false);
     }
   };
-
-  // if (loading) return <CircularProgress />;
-  // if (error) return <p>Error, try again later...</p>;
 
   return (
     <>
@@ -217,7 +207,11 @@ const ShoppingCart = () => {
                           <CardMedia
                             component="img"
                             height="100%"
-                            image={product.productPhotoUrl}
+                            image={
+                              product.productPhotoUrl !== "null" // TODO fix
+                                ? product.productPhotoUrl
+                                : "https://via.placeholder.com/150"
+                            }
                           />
                         )}
                         <CardContent>
