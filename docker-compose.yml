@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:arm64
-    # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:amd64
+    #image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:arm64
+    image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:amd64
     container_name: echtzeitkiosk-frontend
     restart: unless-stopped
     # environment:
