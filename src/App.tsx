@@ -32,6 +32,8 @@ import Configuration from "./configuration/Configuration";
 import Users from "./pages/superuserPages/Users";
 import Products from "./pages/superuserPages/Products";
 
+import { API_URL } from "./utils/API_URL";
+
 const dummyDataProvider = jsonServerProvider(
   "https://jsonplaceholder.typicode.com"
 );
@@ -59,6 +61,7 @@ const i18nProvider = polyglotI18nProvider((locale) => {
 }, "en");
 
 const App = () => {
+  console.log("API_URL", API_URL);
   return (
     <Admin
       title="Echtzeitkiosk"
