@@ -9,28 +9,17 @@ services:
     # image: ghcr.io/echtzeitsysteme/echtzeitkiosk-frontend:amd64
     container_name: echtzeitkiosk-frontend
     restart: unless-stopped
-    environment:
-      NODE_ENV: ${NODE_ENV}
-      REACT_APP_API_URL: ${REACT_APP_API_URL}
+    # environment:
+      # NODE_ENV: 'production'
+      # REACT_APP_API_URL: 'http://kiosk.fg.es.e-technik.tu-darmstadt.de:4000/v1'
 
     expose:
       - '80'
-    # ports:
-    #   - 80:80
+    ports:
+      - 80:80
 
     networks:
-      - proxy
       - default
-
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=proxy"
-      # routers
-      - "traefik.http.routers.echtzeitkiosk-frontend-secure.entrypoints=websecure"
-      - "traefik.http.routers.echtzeitkiosk-frontend-secure.rule=Host(`echtzeitkiosk.mertalpulus.eu`)"
-      - "traefik.http.routers.echtzeitkiosk-frontend-secure.service=echtzeitkiosk-frontend"
-      # services
-      - "traefik.http.services.echtzeitkiosk-frontend.loadbalancer.server.port=80"
 
     deploy:
       resources:

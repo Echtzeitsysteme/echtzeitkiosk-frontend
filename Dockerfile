@@ -4,6 +4,8 @@ ENV TZ Europe/Berlin
 ENV GENERATE_SOURCEMAP=false 
 ENV DISABLE_ESLINT_PLUGIN=true
 ENV TSC_COMPILE_ON_ERROR=true
+ENV NODE_ENV=production
+ENV REACT_APP_API_URL=http://kiosk.fg.es.e-technik.tu-darmstadt.de:4000/v1
 
 RUN apk add --update --no-cache bash
 RUN apk update && apk add tzdata
