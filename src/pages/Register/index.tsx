@@ -22,6 +22,7 @@ import {
 
 import { API_URL } from "../../utils/API_URL";
 import Logo from "../../layout/Logo";
+import axios from "axios";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -32,31 +33,33 @@ const Register = () => {
 
   const handleSubmit = async (registerFormValues: RegisterFormValues) => {
     setLoading(true);
+    let response;
     try {
       if (registerFormValues.password !== registerFormValues.confirmPassword) {
-        console.log(registerFormValues.password);
-        console.log(registerFormValues.confirmPassword);
         throw new Error("Passwords do not match");
       }
 
-      const response = await fetch(API_URL + "/auth/register", {
-        method: "POST",
-        // data: `email=${registerFormValues.email}&password=${registerFormValues.password}&registerFormValues.${registerFormValues.firstName}&registerFormValues.${registerFormValues.lastName}&registerFormValues.${registerFormValues.invitationCode}&registerFormValues.${registerFormValues.username}&registerFormValues.${registerFormValues.language}`,
-        // data: `email=${registerFormValues.email}&password=${registerFormValues.password}&firstName=${registerFormValues.firstName}&lastName=${registerFormValues.lastName}&invitationCode=${registerFormValues.invitationCode}&username=${registerFormValues.username}&language=${registerFormValues.language}`,
-        // body: JSON.stringify(registerFormValues),
+      const urlParams = {
+        email: registerFormValues.email,
+        password: registerFormValues.password,
+        firstName: registerFormValues.firstName,
+        lastName: registerFormValues.lastName,
+        invitationCode: registerFormValues.invitationCode,
+        username: registerFormValues.username,
+        language: registerFormValues.language,
+      };
 
+      const data = Object.keys(urlParams)
+        .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
+        .join("&");
+
+      response = await axios({
+        method: "POST",
+        url: `${API_URL}/auth/register`,
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `${localStorage.getItem("token")}`,
         },
-        body: new URLSearchParams({
-          email: encodeURIComponent(registerFormValues.email),
-          password: encodeURIComponent(registerFormValues.password),
-          firstName: encodeURIComponent(registerFormValues.firstName),
-          lastName: encodeURIComponent(registerFormValues.lastName),
-          invitationCode: encodeURIComponent(registerFormValues.invitationCode),
-          username: encodeURIComponent(registerFormValues.username),
-          language: encodeURIComponent(registerFormValues.language),
-        }),
+        data,
       });
 
       if (response.status === 200) {
