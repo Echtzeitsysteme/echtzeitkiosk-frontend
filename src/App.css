@@ -1,3 +1,16 @@
 body {
   margin: 0% !important;
 }
+
+/* 
+https://stackoverflow.com/questions/57510975/react-admin-how-to-hide-refresh-button-from-appbar
+*/
+header.MuiPaper-root button[aria-label="Refresh"] {
+  display: none;
+}
+header.MuiPaper-root button[aria-label="Actualiser"] {
+  display: none;
+}
+header.MuiPaper-root button[aria-label="Aktualisieren"] {
+  display: none;
+}
