@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import {
@@ -155,6 +155,44 @@ const handleDeleteProduct = async (event: any, params: any) => {
   window.location.reload();
 };
 
+// const handleCreateProduct = async (formValues: object): object => {
+//   const callAPI = async (formValues): Promise<any> => {
+//     try {
+//       const { productTitle, quantity, productPhotoUrl, resalePricePerUnit } =
+//         formValues;
+
+//       const urlParams = {
+//         productTitle,
+//         resalePricePerUnit,
+//         quantity,
+//         productPhotoUrl,
+//       };
+
+//       const data = Object.keys(urlParams)
+//         .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
+//         .join("&");
+
+//       console.log(data);
+
+//       const resp = await axios({
+//         method: "POST",
+//         url: `${API_URL}/products`,
+//         headers: {
+//           Authorization: `${localStorage.getItem("token")}`,
+//         },
+//         data,
+//       });
+
+//       return resp;
+//     } catch (error) {
+//       return error;
+//     }
+//   };
+//   const result = await callAPI(formValues);
+
+//   return result;
+// };
+
 const handleUpdateProduct = async (params: any) => {
   const updateProduct = async (
     id,
@@ -231,6 +269,11 @@ const Products = () => {
   const translate = useTranslate();
   const notify = useNotify();
   const navigate = useNavigate();
+
+  const productTitleRef = useRef<HTMLInputElement>(null);
+  const resalePricePerUnitRef = useRef<HTMLInputElement>(null);
+  const quantityRef = useRef<HTMLInputElement>(null);
+  const productPhotoUrlRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -403,8 +446,105 @@ const Products = () => {
               color="primary"
               onClick={() => {
                 // open a dialog to add a new product
+                (async () => {
+                  const { value: formValues } = await Swal.fire({
+                    title: "Create New Product",
+                    html:
+                      `<input type="text" id="swal-input1" class="swal2-input" placeholder="Product Title">` +
+                      `<input type="number" id="swal-input2" class="swal2-input" placeholder="Resale Price per Unit">` +
+                      `<input type="number" id="swal-input3" class="swal2-input" placeholder="Quantity">` +
+                      `<input type="url" id="swal-input4" class="swal2-input" placeholder="Photo URL">`,
+                    focusConfirm: false,
+                    preConfirm: () => {
+                      const productTitle = (
+                        Swal.getPopup().querySelector(
+                          "#swal-input1"
+                        ) as HTMLInputElement
+                      ).value;
+                      const resalePricePerUnit = (
+                        Swal.getPopup().querySelector(
+                          "#swal-input2"
+                        ) as HTMLInputElement
+                      ).value;
+                      const quantity = (
+                        Swal.getPopup().querySelector(
+                          "#swal-input3"
+                        ) as HTMLInputElement
+                      ).value;
+                      const productPhotoUrl = (
+                        Swal.getPopup().querySelector(
+                          "#swal-input4"
+                        ) as HTMLInputElement
+                      ).value;
 
-         
+                      return {
+                        productTitle,
+                        resalePricePerUnit,
+                        quantity,
+                        productPhotoUrl,
+                      };
+                    },
+                  });
+
+                  if (formValues) {
+                    const {
+                      productTitle,
+                      resalePricePerUnit,
+                      quantity,
+                      productPhotoUrl,
+                    } = formValues;
+
+                    const urlParams = {
+                      productTitle,
+                      resalePricePerUnit,
+                      quantity,
+                      productPhotoUrl,
+                    };
+
+                    const data = Object.keys(urlParams)
+                      .map(
+                        (key) => `${key}=${encodeURIComponent(urlParams[key])}`
+                      )
+                      .join("&");
+
+                    let response;
+                    try {
+                      response = await axios({
+                        method: "POST",
+                        url: `${API_URL}/products`,
+                        headers: {
+                          Authorization: `${localStorage.getItem("token")}`,
+                        },
+                        data,
+                      });
+                    } catch (error) {
+                      await Swal.fire({
+                        title: "Error",
+                        text: `Something went wrong. Error:
+                              ${error}`,
+
+                        icon: "error",
+                      });
+                      window.location.reload();
+                    }
+
+                    if (response.status === 200) {
+                      await Swal.fire({
+                        title: "Product successfully saved",
+                        icon: "success",
+                      });
+                      window.location.reload();
+                    } else {
+                      await Swal.fire({
+                        title: "Error",
+                        text: `Something went wrong:
+                              ${response}`,
+                        icon: "error",
+                      });
+                      window.location.reload();
+                    }
+                  }
+                })();
               }}
             >
               Create New Product
@@ -419,13 +559,13 @@ const Products = () => {
               minHeight: "50vh",
             }}
           >
-            <div style={{ height: 400, width: "100%" }}>
+            <div style={{ height: "100%", width: "100%" }}>
               {renderConfirmDialog()}
               <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
                 disableSelectionOnClick
                 processRowUpdate={processRowUpdate}
                 experimentalFeatures={{ newEditingApi: true }}

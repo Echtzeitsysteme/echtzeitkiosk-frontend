@@ -38,12 +38,10 @@ const ConfigurationMenu = React.forwardRef((props, ref) => {
   );
 });
 
-const ChangePassword = React.forwardRef((props, ref) => {
+const ChangePassword = () => {
   const translate = useTranslate();
   return (
     <MenuItem
-      ref={ref}
-      {...props}
       onClick={() => {
         (async () => {
           const { value: formValues } = await Swal.fire({
@@ -132,7 +130,7 @@ const ChangePassword = React.forwardRef((props, ref) => {
       </ListItemText>
     </MenuItem>
   );
-});
+};
 
 const CustomUserMenu = () => (
   <UserMenu>
