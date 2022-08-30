@@ -184,9 +184,6 @@ const handleUpdateBalance = async (event: any, params: any) => {
         .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
         .join("&");
 
-      console.log(data);
-      // => format=json&option=value
-
       const options = {
         method: "PATCH",
         headers: {
@@ -206,9 +203,7 @@ const handleUpdateBalance = async (event: any, params: any) => {
     title: "Update Balance",
     text: "Enter the new balance",
     input: "text",
-    inputAttributes: {
-      autocapitalize: "off",
-    },
+    inputPlaceholder: "New Balance, e.g. 100.00",
     showCancelButton: true,
     confirmButtonText: "Update",
     showLoaderOnConfirm: true,
