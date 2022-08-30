@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { any } from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import axios from "axios";
@@ -187,9 +187,7 @@ const handleUpdateBalance = async (event: any, params: any) => {
     title: "Update Balance",
     text: "Enter the new balance",
     input: "text",
-    inputAttributes: {
-      autocapitalize: "off",
-    },
+    inputPlaceholder: "New Balance, e.g. 100.00",
     showCancelButton: true,
     confirmButtonText: "Update",
     showLoaderOnConfirm: true,

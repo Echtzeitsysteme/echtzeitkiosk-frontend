@@ -20,9 +20,12 @@ import {
   Typography,
 } from "@mui/material";
 
+import HelpIcon from "@mui/icons-material/Help";
+
 import { API_URL } from "../../utils/API_URL";
 import Logo from "../../layout/Logo";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -161,7 +164,15 @@ const Register = () => {
                   variant="standard"
                 />
               </Box>
-              <Box sx={{ marginTop: "1em" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "1em",
+                }}
+              >
                 <TextInput
                   source="password"
                   label={translate("ra.auth.password")}
@@ -170,6 +181,19 @@ const Register = () => {
                   validate={required()}
                   fullWidth
                   variant="standard"
+                />
+                <HelpIcon
+                  sx={{
+                    color: "red",
+                    marginLeft: "0.3em",
+                  }}
+                  onClick={() => {
+                    Swal.fire({
+                      title:
+                        "Password must be at least 8 characters long and contain at least one number, one uppercase letter and one lowercase letter!",
+                      icon: "info",
+                    });
+                  }}
                 />
               </Box>
               <Box sx={{ marginTop: "1em" }}>
