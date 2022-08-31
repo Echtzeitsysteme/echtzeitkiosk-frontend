@@ -74,25 +74,41 @@ const Register = () => {
       }
     } catch (error) {
       setLoading(false);
-      notify(
-        typeof error === "string"
-          ? error
-          : typeof error === "undefined" || !error.message
-          ? "custom.sign_in_error"
-          : error.message,
-        {
-          type: "warning",
-          messageArgs: {
-            _:
-              typeof error === "string"
-                ? error
-                : error && error.message
-                ? error.message
-                : undefined,
-          },
-        }
-      );
-      console.log(error);
+
+      if (error.response?.data.errorsValidation.length > 0) {
+        error.response?.data.errorsValidation.forEach((temp) => {
+          // notify(temp);
+
+          const [keyTemp, valueTemp] = Object.entries(temp)[0];
+
+          Swal.fire({
+            title: `Error: ${keyTemp}`,
+            text: JSON.stringify(valueTemp),
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        });
+      } else {
+        notify(
+          typeof error === "string"
+            ? error
+            : typeof error === "undefined" || !error.message
+            ? "custom.sign_in_error"
+            : error.message,
+          {
+            type: "warning",
+            messageArgs: {
+              _:
+                typeof error === "string"
+                  ? error
+                  : error && error.message
+                  ? error.message
+                  : undefined,
+            },
+          }
+        );
+        console.log(error);
+      }
     }
   };
 

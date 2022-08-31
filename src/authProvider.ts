@@ -3,6 +3,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 import { API_URL } from "./utils/API_URL";
+import Swal from "sweetalert2";
 
 const authProvider: AuthProvider = {
   login: ({ email, password }) => {
@@ -36,7 +37,12 @@ const authProvider: AuthProvider = {
         }
       })
       .catch(function (error) {
-        console.error(error);
+        // console.error(error);
+        Swal.fire({
+          title: "Error",
+          text: error.response.data.errors[0],
+          icon: "error",
+        });
         throw new Error(error);
       });
   },

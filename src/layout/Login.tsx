@@ -28,6 +28,7 @@ import {
 } from "react-admin";
 
 import Logo from "./Logo";
+import Swal from "sweetalert2";
 
 const LanguageDropdown = () => {
   const [locale, setLocale] = useLocaleState();
@@ -143,8 +144,9 @@ const Login = () => {
     login(
       auth,
       location.state ? (location.state as any).nextPathname : "/"
-    ).catch((error: Error) => {
+    ).catch((error) => {
       setLoading(false);
+
       notify(
         typeof error === "string"
           ? error
