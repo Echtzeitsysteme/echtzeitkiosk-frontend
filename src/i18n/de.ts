@@ -230,6 +230,9 @@ const customGermanMessages: TranslationMessages = {
             },
         },
     },
+    echtzeitkiosk:{
+        recentRegistrations: 'Neueste Registrierungen',
+    }
 };
 
 export default customGermanMessages;

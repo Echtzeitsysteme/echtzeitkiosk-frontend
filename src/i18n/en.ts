@@ -228,6 +228,9 @@ const customEnglishMessages: TranslationMessages = {
       },
     },
   },
+  echtzeitkiosk:{
+    recentRegistrations: 'Recent Registrations',
+}
 };
 
 export default customEnglishMessages;
