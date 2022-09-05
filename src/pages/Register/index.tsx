@@ -39,8 +39,10 @@ const Register = () => {
     let response;
     try {
       if (registerFormValues.password !== registerFormValues.confirmPassword) {
-        throw new Error("Passwords do not match");
+        throw new Error(translate("resources.customers.fieldGroups.password_missmatch"));
       }
+
+      
 
       const urlParams = {
         email: registerFormValues.email,
@@ -206,7 +208,7 @@ const Register = () => {
                   onClick={() => {
                     Swal.fire({
                       title:
-                        "Password must be at least 8 characters long and contain at least one number, one uppercase letter and one lowercase letter!",
+                        translate("resources.customers.fieldGroups.password_req"),
                       icon: "info",
                     });
                   }}

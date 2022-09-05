@@ -27,239 +27,6 @@ import {
 
 import { API_URL } from "../../../utils/API_URL";
 
-const columns: GridColDef[] = [
-  {
-    field: "firstName",
-    //   headerName: translate("resources.users.firstName"),
-    headerName: "First Name",
-    width: 150,
-  },
-  {
-    field: "lastName",
-    //   headerName: translate("resources.users.lastName"),
-    headerName: "Last Name",
-    width: 150,
-  },
-  {
-    field: "email",
-    //   headerName: translate("resources.users.email"),
-    headerName: "Email",
-    width: 150,
-  },
-  {
-    field: "username",
-    //   headerName: translate("resources.users.username"),
-    headerName: "Username",
-    width: 150,
-  },
-  {
-    field: "isApproved",
-    //   headerName: translate("resources.users.isApproved"),
-    headerName: "Approved",
-    width: 200,
-    renderCell: (params: any) => {
-      return params.value ? (
-        "Yes"
-      ) : (
-        <>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={(event) => {
-              handleApproveRegistration(event, params);
-              // console.log("params", params);
-            }}
-          >
-            Approve
-          </Button>
-
-          <Button
-            sx={{ marginLeft: "1rem" }}
-            variant="contained"
-            color="error"
-            onClick={(event) => {
-              handleDeclineRegistration(event, params);
-            }}
-          >
-            Decline
-          </Button>
-        </>
-      );
-    },
-  },
-  {
-    field: "isEmailVerified",
-    //   headerName: translate("resources.users.isEmailVerified"),
-    headerName: "Email Verified",
-    width: 100,
-    renderCell: (params: any) => {
-      return params.value ? "Yes" : "No";
-    },
-  },
-  {
-    field: "createdAt",
-    //   headerName: translate("resources.users.createdAt"),
-    headerName: "Created At",
-
-    width: 150,
-  },
-  {
-    field: "balance",
-    //   headerName: translate("resources.users.balance"),
-    headerName: "Balance (EUR)",
-    width: 150,
-    renderCell: (params: any) => {
-      // show the current balance and add a button to update the balance of the user. The button should open a modal that allows the user to update the balance. Use Swal for the modal.
-
-      return (
-        <>
-          <Typography variant="body2">{params.value}</Typography>
-          <Button
-            sx={{ marginLeft: "1rem" }}
-            variant="contained"
-            color="primary"
-            onClick={(event) => {
-              handleUpdateBalance(event, params);
-            }}
-          >
-            Update
-          </Button>
-        </>
-      );
-    },
-  },
-  {
-    field: "",
-    headerName: "DELETE!",
-    width: 100,
-    renderCell: (params: any) => {
-      return (
-        <>
-          <Button
-            sx={{ marginLeft: "1rem" }}
-            variant="contained"
-            color="primary"
-            onClick={(event) => {
-              handleDeleteUser(event, params);
-            }}
-          >
-            Delete
-          </Button>
-        </>
-      );
-    },
-  },
-];
-
-const rows: GridRowsProp = [];
-
-const handleUpdateBalance = async (event: any, params: any) => {
-  console.log("handleUpdateBalance", params);
-
-  const updateBalance = async (balance, id) => {
-    try {
-      const urlParams = {
-        balance,
-      };
-      const data = Object.keys(urlParams)
-        .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
-        .join("&");
-
-      console.log(data);
-      // => format=json&option=value
-
-      const options = {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-
-        data,
-        url: `${API_URL}/users/` + id,
-      };
-
-      const resp = await axios(options);
-    } catch (error) {}
-  };
-
-  Swal.fire({
-    title: "Update Balance",
-    text: "Enter the new balance",
-    input: "text",
-    inputPlaceholder: "New Balance, e.g. 100.00",
-    showCancelButton: true,
-    confirmButtonText: "Update",
-    showLoaderOnConfirm: true,
-    preConfirm: (balance) => {
-      updateBalance(balance, params.row.id);
-    },
-    allowOutsideClick: () => !Swal.isLoading(),
-  }).finally(() => {
-    window.location.reload();
-  });
-};
-
-const handleApproveRegistration = async (event: any, params: any) => {
-  console.log("handleApproveRegistration", params);
-
-  const callAPI = async () => {
-    try {
-      const resp = await axios({
-        method: "POST",
-        url: `${API_URL}/auth/register/approve-registration/` + params.row.id,
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-    } catch (error) {}
-  };
-
-  await callAPI();
-
-  window.location.reload();
-};
-
-const handleDeclineRegistration = async (event: any, params: any) => {
-  console.log("handleDeclineRegistration", params);
-
-  const callAPI = async () => {
-    try {
-      const resp = await axios({
-        method: "POST",
-        url: `${API_URL}/auth/register/decline-registration/` + params.row.id,
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-    } catch (error) {}
-  };
-
-  await callAPI();
-
-  window.location.reload();
-};
-
-const handleDeleteUser = async (event: any, params: any) => {
-  console.log("handleDeleteUser", params);
-
-  const callAPI = async () => {
-    try {
-      const resp = await axios({
-        method: "DELETE",
-        url: `${API_URL}/users/` + params.row.id,
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-    } catch (error) {}
-  };
-
-  await callAPI();
-
-  window.location.reload();
-};
-
 const Users = () => {
   const [loading, setLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -268,6 +35,253 @@ const Users = () => {
   const translate = useTranslate();
   const notify = useNotify();
   const navigate = useNavigate();
+
+
+  const columns: GridColDef[] = [
+    {
+      field: "firstName",
+      headerName: translate("resources.customers.fields.first_name"),
+      width: 150,
+    },
+    {
+      field: "lastName",
+      headerName: translate("resources.customers.fields.last_name"),
+      width: 150,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 150,
+    },
+    {
+      field: "username",
+      headerName: translate("resources.customers.fields.user_name"),
+      width: 150,
+    },
+    {
+      field: "isApproved",
+      headerName: translate("resources.customers.fields.is_approved"),
+      width: 220,
+      renderCell: (params: any) => {
+        return params.value ? (
+          translate("echtzeitkiosk.feedback.success.approved")
+        ) : (
+          <>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={(event) => {
+                handleApproveRegistration(event, params);
+                // console.log("params", params);
+              }}
+            >
+              {translate("resources.customers.fields.approval")}
+            </Button>
+  
+            <Button
+              sx={{ marginLeft: "1rem" }}
+              variant="contained"
+              color="error"
+              onClick={(event) => {
+                handleDeclineRegistration(event, params);
+              }}
+            >
+              {translate("resources.customers.fields.non_approval")}
+            </Button>
+          </>
+        );
+      },
+    },
+    {
+      field: "isEmailVerified",
+      headerName: translate("resources.customers.fields.mail_verified"),
+      width: 150,
+      renderCell: (params: any) => {
+        return params.value ? translate("resources.customers.fields.is_verified") : translate("resources.customers.fields.is_not_verified");
+      },
+    },
+    {
+      field: "createdAt",
+      headerName: translate("resources.customers.fields.created_at"),
+      width: 200,
+    },
+    {
+      field: "balance",
+      headerName: translate("resources.customers.fields.balance"),
+      width: 200,
+      renderCell: (params: any) => {  
+        return (
+          <>
+            <Box display="flex" 
+            justifyContent="center" 
+            alignItems="space-between"
+            >           
+            
+            <Typography variant="body2">{params.value}</Typography>
+            <Button
+              sx={{ marginLeft: "1rem"}}
+              variant="contained"
+              color="primary"
+              onClick={(event) => {
+                handleUpdateBalance(event, params);
+              }}
+            >
+              {translate("echtzeitkiosk.buttons.update")}
+            </Button>
+            </Box>
+          </>
+        );
+
+      },
+    },
+    {
+      
+      field: "Delete",
+      hideSortIcons: true,
+      filterable: false,
+      sortable: false,
+      headerName: translate("echtzeitkiosk.products.delete_option"),
+      width: 150,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <Button
+              sx={{ marginLeft: "1rem" }}
+              variant="contained"
+              color="primary"
+              onClick={(event) => {
+                handleDeleteUser(event, params);
+              }}
+            >
+              {translate("echtzeitkiosk.buttons.delete")}
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
+  
+  // const rows: GridRowsProp = [];
+  
+  const handleUpdateBalance = async (event: any, params: any) => {
+    console.log("handleUpdateBalance", params);
+  
+    const updateBalance = async (balance, id) => {
+      try {
+        const urlParams = {
+          balance,
+        };
+        const data = Object.keys(urlParams)
+          .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
+          .join("&");
+  
+        console.log(data);
+        // => format=json&option=value
+  
+        const options = {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+  
+          data,
+          url: `${API_URL}/users/` + id,
+        };
+  
+        const resp = await axios(options);
+      } catch (error) {}
+    };
+  
+    Swal.fire({
+      title: translate("echtzeitkiosk.balance.update"),
+      text: translate("echtzeitkiosk.balance.update_descr"),
+      input: "text",
+      inputPlaceholder: translate("echtzeitkiosk.balance.update_placeholder"),
+      showCancelButton: true,
+      cancelButtonText: translate("echtzeitkiosk.buttons.cancel"),
+      confirmButtonText: translate("echtzeitkiosk.buttons.update"),
+      showLoaderOnConfirm: true,
+      preConfirm: (balance) => {
+        updateBalance(balance, params.row.id);
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).finally(() => {
+      window.location.reload();
+    });
+  };
+  
+  const handleApproveRegistration = async (event: any, params: any) => {
+    console.log("handleApproveRegistration", params);
+  
+    const callAPI = async () => {
+      try {
+        const resp = await axios({
+          method: "POST",
+          url: `${API_URL}/auth/register/approve-registration/` + params.row.id,
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+      } catch (error) {}
+    };
+  
+    await callAPI();
+  
+    window.location.reload();
+  };
+  
+  const handleDeclineRegistration = async (event: any, params: any) => {
+    console.log("handleDeclineRegistration", params);
+  
+    const callAPI = async () => {
+      try {
+        const resp = await axios({
+          method: "POST",
+          url: `${API_URL}/auth/register/decline-registration/` + params.row.id,
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+      } catch (error) {}
+    };
+  
+    await callAPI();
+  
+    window.location.reload();
+  };
+  
+  const handleDeleteUser = async (event: any, params: any) => {
+    console.log("handleDeleteUser", params);
+  
+    const callAPI = async () => {
+      try {
+        const resp = await axios({
+          method: "DELETE",
+          url: `${API_URL}/users/` + params.row.id,
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+      } catch (error) {}
+    };
+  
+    await callAPI();
+  
+    window.location.reload();
+  };
+
+
+
+
+
+
+
+
+
+
+
+  // ----------------
 
   useEffect(() => {
     const fetchData = async () => {
@@ -337,7 +351,7 @@ const Users = () => {
             padding: "1em",
           }}
         >
-          <Typography variant="h5">USERS</Typography>
+          <Typography variant="h5">{translate("resources.users.name")}</Typography>
           <Box
             sx={{
               padding: "1em",

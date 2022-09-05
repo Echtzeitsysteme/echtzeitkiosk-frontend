@@ -41,226 +41,6 @@ import Alert, { AlertProps } from "@mui/material/Alert";
 
 import { API_URL } from "../../../utils/API_URL";
 
-const columns: GridColDef[] = [
-  {
-    field: "productTitle",
-    headerName: "Product Title",
-    width: 200,
-    editable: true,
-  },
-  {
-    field: "quantity",
-    headerName: "Quantity",
-    width: 100,
-    editable: true,
-  },
-  {
-    field: "productPhotoUrl",
-    //   headerName: translate("resources.users.email"),
-    headerName: "Product Photo URL",
-    width: 200,
-    editable: true,
-    renderCell: (params: any) => {
-      return params.value === "null" || !params.value ? (
-        "-"
-      ) : (
-        <>
-          <Avatar
-            sx={{
-              width: 40,
-              height: 40,
-            }}
-            src={params.row.productPhotoUrl}
-          />
-        </>
-      );
-    },
-  },
-  {
-    field: "createdAt",
-    //   headerName: translate("resources.users.createdAt"),
-    headerName: "Created At",
-
-    width: 200,
-    editable: true,
-  },
-  {
-    field: "resalePricePerUnit",
-    //   headerName: translate("resources.users.balance"),
-    headerName: "Unit Price (EUR)",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "DELETE!",
-    headerName: "DELETE!",
-    width: 100,
-    renderCell: (params: any) => {
-      return (
-        <>
-          <Button
-            sx={{ marginLeft: "1rem" }}
-            variant="contained"
-            color="error"
-            onClick={(event) => {
-              handleDeleteProduct(event, params);
-            }}
-          >
-            Delete
-          </Button>
-        </>
-      );
-    },
-  },
-  // {
-  //   field: "UPDATE!",
-  //   headerName: "UPDATE!",
-  //   width: 100,
-  //   renderCell: (params: any) => {
-  //     return (
-  //       <>
-  //         <Button
-  //           sx={{ marginLeft: "1rem" }}
-  //           variant="contained"
-  //           color="warning"
-  //           onClick={(event) => {
-  //             handleUpdateProduct(event, params);
-  //           }}
-  //         >
-  //           Update
-  //         </Button>
-  //       </>
-  //     );
-  //   },
-  // },
-];
-
-const rows: GridRowsProp = [];
-
-const handleDeleteProduct = async (event: any, params: any) => {
-  const callAPI = async () => {
-    try {
-      const resp = await axios({
-        method: "DELETE",
-        url: `${API_URL}/products/` + params.row.id,
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-    } catch (error) {}
-  };
-
-  await callAPI();
-
-  window.location.reload();
-};
-
-// const handleCreateProduct = async (formValues: object): object => {
-//   const callAPI = async (formValues): Promise<any> => {
-//     try {
-//       const { productTitle, quantity, productPhotoUrl, resalePricePerUnit } =
-//         formValues;
-
-//       const urlParams = {
-//         productTitle,
-//         resalePricePerUnit,
-//         quantity,
-//         productPhotoUrl,
-//       };
-
-//       const data = Object.keys(urlParams)
-//         .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
-//         .join("&");
-
-//       console.log(data);
-
-//       const resp = await axios({
-//         method: "POST",
-//         url: `${API_URL}/products`,
-//         headers: {
-//           Authorization: `${localStorage.getItem("token")}`,
-//         },
-//         data,
-//       });
-
-//       return resp;
-//     } catch (error) {
-//       return error;
-//     }
-//   };
-//   const result = await callAPI(formValues);
-
-//   return result;
-// };
-
-const handleUpdateProduct = async (params: any) => {
-  const updateProduct = async (
-    id,
-    productTitle,
-    resalePricePerUnit,
-    quantity,
-    productPhotoUrl
-  ) => {
-    try {
-      const urlParams = {
-        productTitle,
-        resalePricePerUnit,
-        quantity,
-        productPhotoUrl,
-      };
-
-      const data = Object.keys(urlParams)
-        .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
-        .join("&");
-
-      console.log(data);
-
-      const options = {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-
-        data,
-        url: `${API_URL}/products/` + id,
-      };
-
-      const resp = await axios(options);
-    } catch (error) {}
-  };
-
-  await updateProduct(
-    params.id,
-    params.productTitle,
-    params.resalePricePerUnit,
-    params.quantity,
-    params.productPhotoUrl
-  );
-};
-
-function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
-  if (newRow.productTitle !== oldRow.productTitle) {
-    return `productTitle from '${oldRow.productTitle}' to '${newRow.productTitle}'`;
-  }
-  if (newRow.resalePricePerUnit !== oldRow.resalePricePerUnit) {
-    return `resalePricePerUnit from '${oldRow.resalePricePerUnit || ""}' to '${
-      newRow.resalePricePerUnit || ""
-    }'`;
-  }
-
-  if (newRow.quantity !== oldRow.quantity) {
-    return `quantity from '${oldRow.quantity}' to '${newRow.quantity}'`;
-  }
-  if (newRow.productPhotoUrl !== oldRow.productPhotoUrl) {
-    return `productPhotoUrl from '${oldRow.productPhotoUrl || ""}' to '${
-      newRow.productPhotoUrl || ""
-    }'`;
-  }
-
-  return null;
-}
-
 const Products = () => {
   const [loading, setLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -274,6 +54,167 @@ const Products = () => {
   const resalePricePerUnitRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
   const productPhotoUrlRef = useRef<HTMLInputElement>(null);
+
+  const columns: GridColDef[] = [
+    {
+      field: "productTitle",
+      headerName: translate("echtzeitkiosk.products.product_title"),
+      width: 200,
+      editable: true,
+    },
+    {
+      field: "quantity",
+      headerName: translate("echtzeitkiosk.products.quantity"),
+      width: 100,
+      editable: true,
+    },
+    {
+      field: "productPhotoUrl",
+      headerName: translate("echtzeitkiosk.products.photo_url"),
+      width: 200,
+      editable: true,
+      renderCell: (params: any) => {
+        return params.value === "null" || !params.value ? (
+          "-"
+        ) : (
+          <>
+            <Avatar
+              sx={{
+                width: 40,
+                height: 40,
+              }}
+              src={params.row.productPhotoUrl}
+            />
+          </>
+        );
+      },
+    },
+    {
+      field: "createdAt",
+      headerName: translate("echtzeitkiosk.products.created_at"),
+      width: 200,
+      editable: true,
+    },
+    {
+      field: "resalePricePerUnit",
+      headerName: translate("echtzeitkiosk.products.unit_price"),
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "Delete",
+      hideSortIcons: true,
+      filterable: false,
+      sortable: false,
+      headerName: translate("echtzeitkiosk.products.delete_option"),
+      width: 150,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <Button
+              sx={{ marginLeft: "1rem" }}
+              variant="contained"
+              color="error"
+              onClick={(event) => {
+                handleDeleteProduct(event, params);
+              }}
+            >
+              {translate("echtzeitkiosk.buttons.delete")}
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
+    
+  const handleDeleteProduct = async (event: any, params: any) => {
+    const callAPI = async () => {
+      try {
+        const resp = await axios({
+          method: "DELETE",
+          url: `${API_URL}/products/` + params.row.id,
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+      } catch (error) {}
+    };
+  
+    await callAPI();
+  
+    window.location.reload();
+  };
+
+  const handleUpdateProduct = async (params: any) => {
+    const updateProduct = async (
+      id,
+      productTitle,
+      resalePricePerUnit,
+      quantity,
+      productPhotoUrl
+    ) => {
+      try {
+        const urlParams = {
+          productTitle,
+          resalePricePerUnit,
+          quantity,
+          productPhotoUrl,
+        };
+  
+        const data = Object.keys(urlParams)
+          .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
+          .join("&");
+  
+        console.log(data);
+  
+        const options = {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+  
+          data,
+          url: `${API_URL}/products/` + id,
+        };
+  
+        const resp = await axios(options);
+      } catch (error) {}
+    };
+  
+    await updateProduct(
+      params.id,
+      params.productTitle,
+      params.resalePricePerUnit,
+      params.quantity,
+      params.productPhotoUrl
+    );
+  };
+  
+  function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
+    if (newRow.productTitle !== oldRow.productTitle) {
+      return `${translate("echtzeitkiosk.products.product_title")}  ${translate("from")} '${oldRow.productTitle}' ${translate("to")} '${newRow.productTitle}'`;
+    }
+    if (newRow.resalePricePerUnit !== oldRow.resalePricePerUnit) {
+      return `${translate("echtzeitkiosk.products.unit_price")}  ${translate("from")} '${oldRow.resalePricePerUnit || ""}' ${translate("to")} '${
+        newRow.resalePricePerUnit || ""
+      }'`;
+    }
+  
+    if (newRow.quantity !== oldRow.quantity) {
+      return `${translate("echtzeitkiosk.products.quantity")} ${translate("from")}  '${oldRow.quantity}' ${translate("to")}  '${newRow.quantity}'`;
+    }
+    if (newRow.productPhotoUrl !== oldRow.productPhotoUrl) {
+      return `${translate("echtzeitkiosk.products.photo_url")} ${translate("from")} '${oldRow.productPhotoUrl || ""}' ${translate("to")}  '${
+        newRow.productPhotoUrl || ""
+      }'`;
+    }
+  
+    return null;
+  }
+
+
+// ---------- 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -378,15 +319,17 @@ const Products = () => {
         TransitionProps={{ onEntered: handleEntered }}
         open={!!promiseArguments}
       >
-        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogTitle>{translate("echtzeitkiosk.feedback.question.sure")}</DialogTitle>
         <DialogContent dividers>
-          {`Pressing 'Yes' will change ${mutation}.`}
+          {`${translate("echtzeitkiosk.feedback.question.sure_yes")} ${mutation}.`}
         </DialogContent>
         <DialogActions>
           <Button ref={noButtonRef} onClick={handleNo}>
-            No
+            {translate("echtzeitkiosk.buttons.no")}
           </Button>
-          <Button onClick={handleYes}>Yes</Button>
+          <Button onClick={handleYes}>
+            {translate("echtzeitkiosk.buttons.yes")}
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -440,7 +383,7 @@ const Products = () => {
               padding: "1em",
             }}
           >
-            <Typography variant="h5">PRODUCTS</Typography>
+            <Typography variant="h5">{translate("echtzeitkiosk.products.title")}</Typography>
             <Button
               variant="contained"
               color="primary"
@@ -448,12 +391,12 @@ const Products = () => {
                 // open a dialog to add a new product
                 (async () => {
                   const { value: formValues } = await Swal.fire({
-                    title: "Create New Product",
+                    title: translate("echtzeitkiosk.buttons.create_product"),
                     html:
-                      `<input type="text" id="swal-input1" class="swal2-input" placeholder="Product Title">` +
-                      `<input type="number" id="swal-input2" class="swal2-input" placeholder="Resale Price per Unit">` +
-                      `<input type="number" id="swal-input3" class="swal2-input" placeholder="Quantity">` +
-                      `<input type="url" id="swal-input4" class="swal2-input" placeholder="Photo URL">`,
+                      `<input type="text" id="swal-input1" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.product_title")}">` +
+                      `<input type="number" id="swal-input2" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.unit_price")}">` +
+                      `<input type="number" id="swal-input3" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.quantity")}">` +
+                      `<input type="url" id="swal-input4" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.photo_url")}">`,
                     focusConfirm: false,
                     preConfirm: () => {
                       const productTitle = (
@@ -517,10 +460,11 @@ const Products = () => {
                         },
                         data,
                       });
+                      // throw new Error("Testerror");
                     } catch (error) {
                       await Swal.fire({
                         title: "Error",
-                        text: `Something went wrong. Error:
+                        text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
                               ${error}`,
 
                         icon: "error",
@@ -530,14 +474,14 @@ const Products = () => {
 
                     if (response.status === 200) {
                       await Swal.fire({
-                        title: "Product successfully saved",
+                        title: translate("echtzeitkiosk.feedback.success.product_saved"),
                         icon: "success",
                       });
                       window.location.reload();
                     } else {
                       await Swal.fire({
                         title: "Error",
-                        text: `Something went wrong:
+                        text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
                               ${response}`,
                         icon: "error",
                       });
@@ -547,7 +491,7 @@ const Products = () => {
                 })();
               }}
             >
-              Create New Product
+              {translate("echtzeitkiosk.buttons.create_product")}
             </Button>
           </Box>
 
