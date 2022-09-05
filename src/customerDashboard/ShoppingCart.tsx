@@ -153,10 +153,18 @@ const ShoppingCart = () => {
           flexGrow: 1,
           height: "100vh",
           overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Container maxWidth="lg" sx={{}}>
-          <Accordion defaultExpanded={false}>
+        <Container maxWidth="lg" sx={{
+          // display: "flex",
+          // flexDirection: "column",
+          // alignItems: "center",
+          minWidth: "85vw",
+        }}>
+          <Accordion defaultExpanded={true}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"

@@ -1,8 +1,10 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import WarehouseIcon from '@mui/icons-material/Warehouse';
+import WarehouseIcon from "@mui/icons-material/Warehouse";
 import GroupIcon from "@mui/icons-material/Group";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import HistoryIcon from "@mui/icons-material/History";
 
 import {
   useTranslate,
@@ -53,7 +55,6 @@ const Menu = ({ dense = false }: MenuProps) => {
       }}
     >
       <DashboardMenuItem />
-
       {userRole === "SUPERUSER" && (
         <MenuItemLink
           to="/users"
@@ -65,7 +66,6 @@ const Menu = ({ dense = false }: MenuProps) => {
           dense={dense}
         />
       )}
-
       {userRole === "SUPERUSER" && (
         <MenuItemLink
           to="/products"
@@ -77,6 +77,26 @@ const Menu = ({ dense = false }: MenuProps) => {
           dense={dense}
         />
       )}
+      {userRole === "STANDARD" && (
+        <MenuItemLink
+          to="/previous-orders"
+          state={{ _scrollToTop: true }}
+          primaryText={translate(`resources.previous_orders.name`, {
+            smart_count: 2,
+          })}
+          leftIcon={<HistoryIcon />}
+          dense={dense}
+        />
+      )}
+      <MenuItemLink
+        to="/customer-invoices"
+        state={{ _scrollToTop: true }}
+        primaryText={translate(`resources.invoices.name`, {
+          smart_count: 2,
+        })}
+        leftIcon={<ReceiptLongIcon />}
+        dense={dense}
+      />
     </Box>
   );
 };

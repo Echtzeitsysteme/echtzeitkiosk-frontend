@@ -31,8 +31,11 @@ import RESTdataProvider from "./dataProvider";
 import Configuration from "./configuration/Configuration";
 import Users from "./pages/superuserPages/Users";
 import Products from "./pages/superuserPages/Products";
+import PreviousOrders from "./components/commonComponents/PreviousOrders";
+import Invoices from "./components/commonComponents/CustomerInvoices";
 
 import { API_URL } from "./utils/API_URL";
+import CustomerInvoices from "./components/commonComponents/CustomerInvoices";
 
 const dummyDataProvider = jsonServerProvider(
   "https://jsonplaceholder.typicode.com"
@@ -64,7 +67,7 @@ const App = () => {
   console.log("API_URL", API_URL);
   return (
     <Admin
-      title="Echtzeitkiosk"
+      title=""
       dataProvider={dataProvider}
       authProvider={authProvider}
       dashboard={Dashboard}
@@ -74,7 +77,6 @@ const App = () => {
       disableTelemetry
       theme={lightTheme}
     >
-      {/* <CssBaseline /> */}
       <CustomRoutes>
         <Route path="/configuration" element={<Configuration />} />
       </CustomRoutes>
@@ -112,6 +114,42 @@ const App = () => {
           element={
             <Authenticated>
               <Products />
+            </Authenticated>
+          }
+        />
+      </CustomRoutes>
+
+      <CustomRoutes>
+        <Route
+          path="/previous-orders"
+          element={
+            <Authenticated>
+              <PreviousOrders
+                dataGridSx={{
+                  minHeight: "80vh",
+                  minWidth: "88vw",
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                }}
+              />
+            </Authenticated>
+          }
+        />
+      </CustomRoutes>
+
+      <CustomRoutes>
+        <Route
+          path="/customer-invoices"
+          element={
+            <Authenticated>
+              <CustomerInvoices
+                dataGridSx={{
+                  minHeight: "80vh",
+                  minWidth: "88vw",
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
+                }}
+              />
             </Authenticated>
           }
         />

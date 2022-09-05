@@ -261,7 +261,6 @@ const RecentRegistrations = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        // background: "url(https://source.unsplash.com/random/1600x900/?food)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
@@ -273,9 +272,10 @@ const RecentRegistrations = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          minWidth: "94vw",
+          minWidth: "90vw",
+
           minHeight: "50vh",
-          marginTop: "3em",
+          marginTop: "2em",
           boxShadow: "0px 10px 13px -7px #000000",
           border: "5px 5px 15px 5px #000000",
         }}
@@ -288,19 +288,26 @@ const RecentRegistrations = () => {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h5">
+          <Typography
+            variant="h5"
+            sx={{
+              marginTop: "1rem",
+            }}
+          >
             {translate("echtzeitkiosk.recentRegistrations")}
           </Typography>
 
-          <Box sx={{ minHeight: "300%", width: "600%" }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-              disableSelectionOnClick
-            />
-          </Box>
+          <DataGrid
+            sx={{
+              minWidth: "88vw",
+              minHeight: "40vh",
+            }}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+          />
         </Box>
       </Card>
     </Box>

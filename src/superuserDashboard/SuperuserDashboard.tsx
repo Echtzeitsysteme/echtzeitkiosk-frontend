@@ -3,6 +3,7 @@ import { useMediaQuery, Theme } from "@mui/material";
 
 import WelcomeSuperuser from "./WelcomeSuperuser";
 import RecentRegistrations from "../components/superuserComponents/RecentRegistrations";
+import PreviousOrders from "../components/commonComponents/PreviousOrders";
 
 const styles = {
   flex: { display: "flex" },
@@ -24,7 +25,9 @@ const Dashboard = () => {
   return isXSmall ? (
     <div>
       <div style={styles.flexColumn as CSSProperties}>
-      <RecentRegistrations />
+        <RecentRegistrations />
+        <Spacer />
+        <PreviousOrders />
         {/* <WelcomeSuperuser />
         <WelcomeSuperuser />
         <VerticalSpacer />
@@ -36,6 +39,8 @@ const Dashboard = () => {
   ) : isSmall ? (
     <div style={styles.flexColumn as CSSProperties}>
       <RecentRegistrations />
+      <Spacer />
+      <PreviousOrders />
       {/* <div style={styles.singleCol}>
         <WelcomeSuperuser />
       </div>
@@ -54,6 +59,8 @@ const Dashboard = () => {
   ) : (
     <>
       <RecentRegistrations />
+      <Spacer />
+      <PreviousOrders />
       {/* <div style={styles.flex}>
         <div style={styles.leftCol}>
           <div style={styles.flex}>

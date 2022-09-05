@@ -344,7 +344,6 @@ const Products = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        // background: "url(https://source.unsplash.com/random/1600x900/?food)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
@@ -497,7 +496,7 @@ const Products = () => {
 
           <Box
             sx={{
-              padding: "1em",
+              // padding: "1em",
               // minHeight: "300%",
               minWidth: "90vw",
               minHeight: "50vh",

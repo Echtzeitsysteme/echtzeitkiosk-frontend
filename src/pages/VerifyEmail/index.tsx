@@ -22,6 +22,8 @@ import {
 } from "@mui/material";
 
 import { API_URL } from "../../utils/API_URL";
+import { getRandomBackground } from "../../utils/getRandomBackground";
+
 import Logo from "../../layout/Logo";
 
 const VerifyEmail = () => {
@@ -71,7 +73,7 @@ const VerifyEmail = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        background: "url(https://source.unsplash.com/random/1600x900/?food)",
+        background: getRandomBackground(),
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,

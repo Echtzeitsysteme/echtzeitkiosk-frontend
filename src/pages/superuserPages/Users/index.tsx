@@ -323,7 +323,6 @@ const Users = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        // background: "url(https://source.unsplash.com/random/1600x900/?food)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
@@ -354,7 +353,7 @@ const Users = () => {
           <Typography variant="h5">{translate("resources.users.name")}</Typography>
           <Box
             sx={{
-              padding: "1em",
+              // padding: "1em",
               // minHeight: "300%",
               minWidth: "90vw",
               minHeight: "50vh",
