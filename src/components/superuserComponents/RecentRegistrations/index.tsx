@@ -33,36 +33,31 @@ const RecentRegistrations = () => {
   const columns: GridColDef[] = [
     {
       field: "firstName",
-      //   headerName: translate("resources.users.firstName"),
       headerName: translate("resources.customers.fields.first_name"),
       width: 150,
     },
     {
       field: "lastName",
-      //   headerName: translate("resources.users.lastName"),
-      headerName: "Last Name",
+      headerName: translate("resources.customers.fields.last_name"),
       width: 150,
     },
     {
       field: "email",
-      //   headerName: translate("resources.users.email"),
       headerName: "Email",
       width: 150,
     },
     {
       field: "username",
-      //   headerName: translate("resources.users.username"),
-      headerName: "Username",
+      headerName: translate("resources.customers.fields.user_name"),
       width: 150,
     },
     {
       field: "isApproved",
-      //   headerName: translate("resources.users.isApproved"),
-      headerName: "Approved",
-      width: 200,
+      headerName: translate("resources.customers.fields.is_approved"),
+      width: 220,
       renderCell: (params: any) => {
         return params.value ? (
-          "Yes"
+          translate("echtzeitkiosk.feedback.success.approved")
         ) : (
           <>
             <Button
@@ -73,7 +68,7 @@ const RecentRegistrations = () => {
                 // console.log("params", params);
               }}
             >
-              Approve
+              {translate("resources.customers.fields.approval")}
             </Button>
 
             <Button
@@ -84,7 +79,7 @@ const RecentRegistrations = () => {
                 handleDeclineRegistration(event, params);
               }}
             >
-              Decline
+              {translate("resources.customers.fields.non_approval")}
             </Button>
           </>
         );
@@ -92,25 +87,21 @@ const RecentRegistrations = () => {
     },
     {
       field: "isEmailVerified",
-      //   headerName: translate("resources.users.isEmailVerified"),
-      headerName: "Email Verified",
-      width: 100,
+      headerName: translate("resources.customers.fields.mail_verified"),
+      width: 150,
       renderCell: (params: any) => {
-        return params.value ? "Yes" : "No";
-      },
+        return params.value ? translate("resources.customers.fields.is_verified") : translate("resources.customers.fields.is_not_verified");
+      }
     },
     {
       field: "createdAt",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Created At",
-
-      width: 150,
+      headerName: translate("resources.customers.fields.created_at"),
+      width: 200,
     },
     {
       field: "balance",
-      //   headerName: translate("resources.users.balance"),
-      headerName: "Balance (EUR)",
-      width: 150,
+      headerName: translate("resources.customers.fields.balance"),
+      width: 200,
       renderCell: (params: any) => {
         // show the current balance and add a button to update the balance of the user. The button should open a modal that allows the user to update the balance. Use Swal for the modal.
 
@@ -125,7 +116,7 @@ const RecentRegistrations = () => {
                 handleUpdateBalance(event, params);
               }}
             >
-              Update
+              {translate("echtzeitkiosk.buttons.update")}
             </Button>
           </>
         );
@@ -243,12 +234,13 @@ const RecentRegistrations = () => {
     };
 
     Swal.fire({
-      title: "Update Balance",
-      text: "Enter the new balance",
+      title: translate("echtzeitkiosk.balance.update"),
+      text: translate("echtzeitkiosk.balance.update_descr"),
       input: "text",
-      inputPlaceholder: "New Balance, e.g. 100.00",
+      inputPlaceholder: translate("echtzeitkiosk.balance.update_placeholder"),
       showCancelButton: true,
-      confirmButtonText: "Update",
+      cancelButtonText: translate("echtzeitkiosk.buttons.cancel"),
+      confirmButtonText: translate("echtzeitkiosk.buttons.update"),
       showLoaderOnConfirm: true,
       preConfirm: (balance) => {
         updateBalance(balance, params.row.id);

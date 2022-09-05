@@ -3,6 +3,18 @@ import germanMessages from '../packages/ra-language-german-ts'
 
 const customGermanMessages: TranslationMessages = {
     ...germanMessages,
+    custom_auth: {
+        forgot_password: "Passwort vergessen?",
+        register: "Registrieren",
+        register_error: "Registrierungserror",
+        register_success: "Erfolgreich registriert! Please überprüfen Sie Ihre Emails.",
+        confirm_password: "Passwort bestätigen",
+        invitation_code: "Einladungscode",
+        login: "Login",
+        already_have_an_account: "Bereits registriert? Login",
+        create_a_new_account: "Neuen Account erstellen",
+        email_error: "Falsche oder fehlende Email Adresse. Bitte versuchen Sie es nochmal.",
+      },
     pos: {
         search: 'Suche',
         configuration: 'Konfiguration',
@@ -41,7 +53,7 @@ const customGermanMessages: TranslationMessages = {
     },
     resources: {
         users: {
-            name: 'Benutzer |||| Benutzer',
+            name: 'Benutzer',
           },
         customers: {
             name: 'Kunde |||| Kunden',
@@ -51,6 +63,7 @@ const customGermanMessages: TranslationMessages = {
                 city: 'Stadt',
                 stateAbbr: 'Bundesland',
                 commands: 'Bestellungen',
+                user_name: 'Benutzername',
                 first_name: 'Vorname',
                 first_seen: 'zum ersten Mal gesehen',
                 groups: 'Segmente',
@@ -65,6 +78,14 @@ const customGermanMessages: TranslationMessages = {
                 zipcode: 'PLZ',
                 password: 'Passwort',
                 confirm_password: 'Passwort bestätigen',
+                is_approved: "Registrierung bestätigt",
+                approval: "Bestätigen",
+                non_approval: "Ablehnen",
+                mail_verified: "Email Verifikation",
+                is_verified: "Verifiziert",
+                is_not_verified: "Nicht verifiziert",
+                created_at: "Erstellt am",
+                balance: "Guthaben (EUR)"
             },
             filters: {
                 last_visited: 'Zuletzt besucht',
@@ -85,6 +106,12 @@ const customGermanMessages: TranslationMessages = {
                 history: 'Verlauf',
                 password: 'Passwort',
                 change_password: 'Passwort ändern',
+                old_password: "Altes Passwort",
+                new_password: "Neues Passwort",
+                confirm_password: "Passwort wiederholen",
+                password_success: "Password erfolgreicht geändert.",
+                password_missmatch: "Passwörter stimmen nicht überein.",
+                password_req: "Passwörter müssen mindestens ein Kleinbuchstabe, ein Großbuchstabe, eine Zahl und ein Spezialcharakter enthalten.",
             },
             page: {
                 delete: 'Kunde löschen',
@@ -232,7 +259,49 @@ const customGermanMessages: TranslationMessages = {
     },
     echtzeitkiosk:{
         recentRegistrations: 'Neueste Registrierungen',
-    }
+        balance:{
+            update: "Guthaben Aktualisieren",
+            update_descr: "Geben Sie einen neuen Guthabenstand ein",
+            update_placeholder: "Neues Guthaben, z.B. 100.00"
+        },
+        buttons:{
+            update: "Aktualisieren",
+            cancel: "Abbrechen",
+            delete: "Löschen",
+            create_product: "Neues Produkt hinzufügen",
+            yes: "Ja",
+            no: "Nein",
+            reset_pw: "Passwort zurücksetzen",
+        },
+        feedback:{
+            success:{
+                product_saved: "Produkt erfolgreich gespeichert",
+                approved: "Bestätigt",
+                not_approved: "Nicht bestätigt",
+                forgot_pw_mail_sent: "Email für Passwortrücksetzung erfolgreich gesendet.",
+            },
+            errors:{
+                something_wrong: "Etwas lief schief.",
+                email_mismatch: "Email Adressen stimmen nicht überein.",
+                forgot_pw_mail: "Email für Passwortrücksetzung fehlgeschlagen:",
+            },
+            question:{
+                sure: "Bist du sicher?",
+                sure_yes: "Bestätigung mit 'Ja' ändert",
+            },
+        },
+        products:{
+            title: "Produkte",
+            product_title: "Produktname",
+            quantity: "Menge",
+            photo_url: "URL Produktfoto",
+            created_at: "Erstellt am",
+            unit_price: "Stückpreis (EUR)",
+            delete_option: "Option Löschen",
+        },
+    },
+    from: "von",
+    to: "zu",
 };
 
 export default customGermanMessages;
