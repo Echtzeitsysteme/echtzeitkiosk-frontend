@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
-  Avatar,
   Button,
   Card,
   CardActions,
@@ -13,7 +12,6 @@ import {
   Stack,
   Box,
 } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
 
 import Flag from "react-world-flags";
 
@@ -28,6 +26,7 @@ import {
 } from "react-admin";
 
 import Logo from "./Logo";
+import { getRandomBackground } from "../utils/getRandomBackground";
 
 const LanguageDropdown = () => {
   const [locale, setLocale] = useLocaleState();
@@ -44,8 +43,8 @@ const LanguageDropdown = () => {
     switch (localeCode) {
       case "en":
         return <Flag code="GB" />;
-      case "fr":
-        return <Flag code="FR" />;
+      // case "fr":
+      //   return <Flag code="FR" />;
       case "de":
         return <Flag code="DE" />;
       default:
@@ -143,8 +142,9 @@ const Login = () => {
     login(
       auth,
       location.state ? (location.state as any).nextPathname : "/"
-    ).catch((error: Error) => {
+    ).catch((error) => {
       setLoading(false);
+
       notify(
         typeof error === "string"
           ? error
@@ -175,7 +175,7 @@ const Login = () => {
           minHeight: "100vh",
           alignItems: "center",
           justifyContent: "flex-start",
-          background: "url(https://source.unsplash.com/random/1600x900/?food)",
+          background: getRandomBackground(),
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           zIndex: -1,

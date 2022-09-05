@@ -45,11 +45,12 @@ const ChangePassword = () => {
       onClick={() => {
         (async () => {
           const { value: formValues } = await Swal.fire({
-            title: "Change Password",
+            title: translate("resources.customers.fieldGroups.change_password"),
             html:
-              '<input id="swal-input1" class="swal2-input" placeholder="Old Password" type="password">' +
-              '<input id="swal-input2" class="swal2-input" placeholder="New Password" type="password">' +
-              '<input id="swal-input3" class="swal2-input" placeholder="Confirm Password" type="password">',
+            `<b> ${translate("resources.customers.fieldGroups.password_req")}</b> <br>` +
+            `<input type="password" id="swal-input1" class="swal2-input"  placeholder="${translate("resources.customers.fieldGroups.old_password")}">` +
+            `<input type="password" id="swal-input2" class="swal2-input"  placeholder="${translate("resources.customers.fieldGroups.new_password")}">` +
+            `<input type="password" id="swal-input3" class="swal2-input"  placeholder="${translate("resources.customers.fieldGroups.confirm_password")}">`,
             focusConfirm: false,
             preConfirm: () => {
               return [
@@ -68,7 +69,7 @@ const ChangePassword = () => {
             if (passwordNew !== passwordConfirm) {
               Swal.fire(
                 "Error",
-                "New Password and Confirm Password do not match",
+                translate("resources.customers.fieldGroups.password_missmatch"), 
                 "error"
               );
             } else {
@@ -95,9 +96,8 @@ const ChangePassword = () => {
               } catch (error) {
                 await Swal.fire({
                   title: "Error",
-                  text: `Something went wrong. Error:
-                          ${error}`,
-
+                  text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
+                        ${error}`,
                   icon: "error",
                 });
               }
@@ -105,15 +105,14 @@ const ChangePassword = () => {
               if (response.status === 200) {
                 await Swal.fire({
                   title: "Success",
-                  text: "Password changed successfully",
+                  text: translate("resources.customers.fieldGroups.password_success"),
                   icon: "success",
                 });
               } else {
                 await Swal.fire({
                   title: "Error",
-                  text: `Something went wrong. Error:
+                  text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
                           ${response}`,
-
                   icon: "error",
                 });
               }

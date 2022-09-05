@@ -72,14 +72,6 @@ interface Product {
 }
 
 const ShoppingCart = () => {
-  // const productsFromBackend = rawData.map((product) => ({
-  //   id: product.id,
-  //   price: product.resalePricePerUnit,
-  //   productTitle: product.productTitle,
-  //   quantity: product.quantity,
-  //   productPhotoUrl: product.productPhotoUrl,
-  // }));
-
   const [cart, setCart] = useState(() => {
     let cart = list();
     return cart || null;
@@ -150,10 +142,7 @@ const ShoppingCart = () => {
       Swal.fire("Current balance:", `${data?.balanceAfterOrder}`, "success");
 
       window.location.reload();
-    } catch (error) {
-      // setServerError(error);
-      // setIsLoading(false);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -164,10 +153,18 @@ const ShoppingCart = () => {
           flexGrow: 1,
           height: "100vh",
           overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Container maxWidth="lg" sx={{}}>
-          <Accordion defaultExpanded={false}>
+        <Container maxWidth="lg" sx={{
+          // display: "flex",
+          // flexDirection: "column",
+          // alignItems: "center",
+          minWidth: "85vw",
+        }}>
+          <Accordion defaultExpanded={true}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -205,8 +202,13 @@ const ShoppingCart = () => {
                       >
                         {product.productPhotoUrl && (
                           <CardMedia
+                            sx={{
+                              maxHeight: "10rem",
+                              maxWidth: "10rem",
+                            }}
                             component="img"
-                            height="100%"
+                            height="auto"
+                            width="auto"
                             image={
                               product.productPhotoUrl !== "null" // TODO fix
                                 ? product.productPhotoUrl

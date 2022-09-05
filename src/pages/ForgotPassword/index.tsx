@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 
 import { API_URL } from "../../utils/API_URL";
+import { getRandomBackground } from "../../utils/getRandomBackground";
 import Logo from "../../layout/Logo";
 
 const ResetPassword = () => {
@@ -31,7 +32,7 @@ const ResetPassword = () => {
 
     // compare new password and confirm password
     if (forgotPasswordFormValus.email != forgotPasswordFormValus.confirmEmail) {
-      notify("Email and confirm email do not match");
+      notify(translate("echtzeitkiosk.errors.email_mismatch"));
       setLoading(false);
       return false;
     } else {
@@ -45,7 +46,7 @@ const ResetPassword = () => {
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
-            notify("Forgot password email sent successfully");
+            notify(translate("echtzeitkiosk.errors.forgot_pw_mail_sent"));
             setIsSuccess(true);
           } else {
             setLoading(false);
@@ -59,7 +60,7 @@ const ResetPassword = () => {
         })
         .catch((error) => {
           setLoading(false);
-          notify(`Forgot password email failed: ${error}`);
+          notify(`${translate("echtzeitkiosk.errors.forgot_pw_mail")} ${error}`);
           setIsSuccess(false);
         });
     }
@@ -74,7 +75,7 @@ const ResetPassword = () => {
 
         alignItems: "center",
         justifyContent: "flex-start",
-        background: "url(https://source.unsplash.com/random/1600x900/?food)",
+        background: getRandomBackground(),
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
@@ -103,7 +104,7 @@ const ResetPassword = () => {
           }}
         >
           <Logo />
-          <Typography variant="h5">Forgot Password?</Typography>
+          <Typography variant="h5">{translate("custom_auth.forgot_password")}</Typography>
 
           {!loading && !isSuccess ? (
             <Typography
@@ -113,8 +114,7 @@ const ResetPassword = () => {
                 marginBottom: "1rem",
               }}
             >
-              Incorrect or missing email address. Please try again.
-              {/* TODO translate */}
+              {translate("custom_auth.email_error")}
             </Typography>
           ) : (
             <></>
@@ -163,7 +163,7 @@ const ResetPassword = () => {
                     marginBottom: "1rem",
                   }}
                 >
-                  Send password reset link to your email
+                  {translate("echtzeitkiosk.buttons.reset_pw")}
                 </Button>
               </Box>
             </Form>
@@ -175,7 +175,7 @@ const ResetPassword = () => {
                 marginBottom: "1rem",
               }}
             >
-              Password reset link has been sent to your email.
+              {translate("echtzeitkiosk.feedback.success.forgot_pw_mail_sent")}
             </Typography>
           )}
 

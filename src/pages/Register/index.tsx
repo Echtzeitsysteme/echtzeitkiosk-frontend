@@ -23,6 +23,7 @@ import {
 import HelpIcon from "@mui/icons-material/Help";
 
 import { API_URL } from "../../utils/API_URL";
+import { getRandomBackground } from "../../utils/getRandomBackground";
 import Logo from "../../layout/Logo";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -39,8 +40,10 @@ const Register = () => {
     let response;
     try {
       if (registerFormValues.password !== registerFormValues.confirmPassword) {
-        throw new Error("Passwords do not match");
+        throw new Error(translate("resources.customers.fieldGroups.password_missmatch"));
       }
+
+      
 
       const urlParams = {
         email: registerFormValues.email,
@@ -74,25 +77,41 @@ const Register = () => {
       }
     } catch (error) {
       setLoading(false);
-      notify(
-        typeof error === "string"
-          ? error
-          : typeof error === "undefined" || !error.message
-          ? "custom.sign_in_error"
-          : error.message,
-        {
-          type: "warning",
-          messageArgs: {
-            _:
-              typeof error === "string"
-                ? error
-                : error && error.message
-                ? error.message
-                : undefined,
-          },
-        }
-      );
-      console.log(error);
+
+      if (error.response?.data.errorsValidation.length > 0) {
+        error.response?.data.errorsValidation.forEach((temp) => {
+          // notify(temp);
+
+          const [keyTemp, valueTemp] = Object.entries(temp)[0];
+
+          Swal.fire({
+            title: `Error: ${keyTemp}`,
+            text: JSON.stringify(valueTemp),
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        });
+      } else {
+        notify(
+          typeof error === "string"
+            ? error
+            : typeof error === "undefined" || !error.message
+            ? "custom.sign_in_error"
+            : error.message,
+          {
+            type: "warning",
+            messageArgs: {
+              _:
+                typeof error === "string"
+                  ? error
+                  : error && error.message
+                  ? error.message
+                  : undefined,
+            },
+          }
+        );
+        console.log(error);
+      }
     }
   };
 
@@ -105,7 +124,7 @@ const Register = () => {
           minHeight: "100vh",
           alignItems: "center",
           justifyContent: "flex-start",
-          background: "url(https://source.unsplash.com/random/1600x900/?food)",
+          background: getRandomBackground(),
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           zIndex: -1,
@@ -190,7 +209,7 @@ const Register = () => {
                   onClick={() => {
                     Swal.fire({
                       title:
-                        "Password must be at least 8 characters long and contain at least one number, one uppercase letter and one lowercase letter!",
+                        translate("resources.customers.fieldGroups.password_req"),
                       icon: "info",
                     });
                   }}

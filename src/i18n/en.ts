@@ -13,6 +13,7 @@ const customEnglishMessages: TranslationMessages = {
     login: "Login",
     already_have_an_account: "Already have an account? Login",
     create_a_new_account: "Create a new account",
+    email_error: "Incorrect or missing email address. Please try again."
   },
   pos: {
     search: "Search",
@@ -51,10 +52,14 @@ const customEnglishMessages: TranslationMessages = {
     },
   },
   resources: {
+    users: {
+      name: "Users",
+    },
     customers: {
       name: "Customer |||| Customers",
       fields: {
         commands: "Orders",
+        user_name: "Username",
         first_seen: "First seen",
         groups: "Segments",
         last_seen: "Last seen",
@@ -66,6 +71,14 @@ const customEnglishMessages: TranslationMessages = {
         password: "Password",
         confirm_password: "Confirm password",
         stateAbbr: "State",
+        is_approved: "Approved",
+        approval: "Approve",
+        non_approval: "Decline",
+        mail_verified: "Email verified",
+        is_verified: "Yes",
+        is_not_verified: "No",
+        created_at: "Created at",
+        balance: "Balance (EUR)"
       },
       filters: {
         last_visited: "Last visited",
@@ -85,7 +98,14 @@ const customEnglishMessages: TranslationMessages = {
         stats: "Stats",
         history: "History",
         password: "Password",
-        change_password: "Change Password",
+        change_password: "Change password",
+        old_password: "Old password",
+        new_password: "New password",
+        confirm_password: "Repeat password",
+        password_success: "Password changed successfully",
+        password_missmatch: "Passwords do not match",
+        password_req: "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character",
+
       },
       page: {
         delete: "Delete Customer",
@@ -177,9 +197,6 @@ const customEnglishMessages: TranslationMessages = {
         never_sold: "Never sold",
       },
     },
-    users: {
-      name: "User |||| Users",
-    },
     categories: {
       name: "Category |||| Categories",
       fields: {
@@ -228,6 +245,51 @@ const customEnglishMessages: TranslationMessages = {
       },
     },
   },
+  echtzeitkiosk:{
+    recentRegistrations: 'Recent Registrations',
+    balance:{
+      update: "Update Balance",
+      update_descr: "Enter the new balance",
+      update_placeholder: "New Balance, e.g. 100.00"
+    },
+    buttons:{
+      update: "Update",
+      cancel: "Cancel",
+      delete: "Delete",
+      create_product: "Create new product",
+      yes: "Yes",
+      no: "No",
+      reset_pw: "Send password reset link to your email"
+    },
+    feedback:{
+      success:{
+          product_saved: "Product successfully saved",
+          approved: "Approved",
+          not_approved: "Not approved",
+          forgot_pw_mail_sent: "Reset password email successfully sent.",
+      },
+      errors:{
+          something_wrong: "Something went wrong.",
+          email_mismatch: "Email addresses don't match.",
+          forgot_pw_mail: "Failed to send Email for resetting password: ",
+          },
+      question:{
+        sure: "Are you sure?",
+        sure_yes: "Pressing 'Yes' will change",
+      },
+    },
+    products:{
+      title: "Products",
+      product_title: "Product Title",
+      quantity: "Quantity",
+      photo_url: "URL Product Photo",
+      created_at: "Created at",
+      unit_price: "Unit Price (EUR)",
+      delete_option: "Option Delete",
+    },
+  },
+  from: "von",
+  to: "zu",
 };
 
 export default customEnglishMessages;
