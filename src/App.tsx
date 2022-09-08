@@ -31,7 +31,7 @@ import RESTdataProvider from "./dataProvider";
 import Configuration from "./configuration/Configuration";
 import Users from "./pages/superuserPages/Users";
 import Products from "./pages/superuserPages/Products";
-import SystemConfig from "./pages/superuserPages/SystemConfig";
+import SystemConfig from "./pages/superuserPages/SystemState";
 import PreviousOrders from "./components/commonComponents/PreviousOrders";
 
 import { API_URL } from "./utils/API_URL";
@@ -157,7 +157,7 @@ const App = () => {
 
       <CustomRoutes>
         <Route
-          path="/system-config"
+          path="/system-state"
           element={
             <Authenticated>
               <SystemConfig />

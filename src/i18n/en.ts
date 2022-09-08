@@ -285,10 +285,16 @@ const customEnglishMessages: TranslationMessages = {
       photo_url: "URL Product Photo",
       created_at: "Created at",
       unit_price: "Unit Price (EUR)",
-      delete_option: "Option Delete",
+      delete_option: "Delete!",
     },
     previous_orders: {
       name: "Previous Orders",
+    },
+    system_state: {
+      name: "System State",
+    },
+    customer_invoices: {
+      name: "Customer Invoices",
     },
   },
   from: "von",

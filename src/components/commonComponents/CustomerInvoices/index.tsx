@@ -197,7 +197,7 @@ const CustomerInvoices = (props: Props) => {
               marginTop: "1rem",
             }}
           >
-            {translate("echtzeitkiosk.CustomerInvoices")}
+            {translate("echtzeitkiosk.customer_invoices.name")}
           </Typography>
 
           <DataGrid

@@ -301,10 +301,16 @@ const customGermanMessages: TranslationMessages = {
       photo_url: "URL Produktfoto",
       created_at: "Erstellt am",
       unit_price: "Stückpreis (EUR)",
-      delete_option: "Option Löschen",
+      delete_option: "Löschen!",
     },
     previous_orders: {
       name: "Vorherige Bestellungen",
+    },
+    system_state: {
+      name: "Systemstatus",
+    },
+    customer_invoices: {
+      name: "Kundenrechnungen",
     },
   },
   from: "von",
