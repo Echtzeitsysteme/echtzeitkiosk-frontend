@@ -182,7 +182,7 @@ const PreviousOrders = (props: Props) => {
               marginTop: "1rem",
             }}
           >
-            {translate("echtzeitkiosk.PreviousOrders")}
+            {translate("echtzeitkiosk.previous_orders.name")}
           </Typography>
 
           <DataGrid

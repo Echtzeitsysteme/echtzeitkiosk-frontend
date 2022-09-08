@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 import { useMediaQuery, Theme } from "@mui/material";
 
 import ShoppingCart from "./ShoppingCart";

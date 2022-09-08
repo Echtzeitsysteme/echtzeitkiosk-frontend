@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useGetIdentity, Resource, ListGuesser } from "react-admin";
-import dataProvider from "../dataProvider";
-import { SuperuserDashboard } from "../superuserDashboard";
-import { CustomerDashboard } from "../customerDashboard";
+import { useEffect, useState } from "react";
+import { useGetIdentity } from "react-admin";
+
+import { SuperuserDashboard } from "../../superuserPages/SuperuserDashboard";
+import { CustomerDashboard } from "../../customerPages/CustomerDashboard";
 
 const Dashboard = () => {
   const [userRole, setUserRole] = useState<any>();

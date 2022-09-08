@@ -81,7 +81,7 @@ const Menu = ({ dense = false }: MenuProps) => {
         <MenuItemLink
           to="/previous-orders"
           state={{ _scrollToTop: true }}
-          primaryText={translate(`resources.previous_orders.name`, {
+          primaryText={translate(`echtzeitkiosk.previous_orders.name`, {
             smart_count: 2,
           })}
           leftIcon={<HistoryIcon />}

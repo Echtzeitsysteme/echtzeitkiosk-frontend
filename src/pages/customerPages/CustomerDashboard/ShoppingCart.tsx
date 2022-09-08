@@ -52,11 +52,11 @@ import {
   remove,
 } from "cart-localstorage";
 
-import { API_URL } from "../utils/API_URL";
+import { API_URL } from "../../../utils/API_URL";
 import {
   exampleProductsData,
   exampleProductsData2,
-} from "../utils/productsMockData";
+} from "../../../utils/productsMockData";
 
 interface Product {
   id: string;

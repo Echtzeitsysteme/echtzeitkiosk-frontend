@@ -13,7 +13,7 @@ const customEnglishMessages: TranslationMessages = {
     login: "Login",
     already_have_an_account: "Already have an account? Login",
     create_a_new_account: "Create a new account",
-    email_error: "Incorrect or missing email address. Please try again."
+    email_error: "Incorrect or missing email address. Please try again.",
   },
   pos: {
     search: "Search",
@@ -78,7 +78,7 @@ const customEnglishMessages: TranslationMessages = {
         is_verified: "Yes",
         is_not_verified: "No",
         created_at: "Created at",
-        balance: "Balance (EUR)"
+        balance: "Balance (EUR)",
       },
       filters: {
         last_visited: "Last visited",
@@ -104,8 +104,8 @@ const customEnglishMessages: TranslationMessages = {
         confirm_password: "Repeat password",
         password_success: "Password changed successfully",
         password_missmatch: "Passwords do not match",
-        password_req: "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character",
-
+        password_req:
+          "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character",
       },
       page: {
         delete: "Delete Customer",
@@ -245,40 +245,40 @@ const customEnglishMessages: TranslationMessages = {
       },
     },
   },
-  echtzeitkiosk:{
-    recentRegistrations: 'Recent Registrations',
-    balance:{
+  echtzeitkiosk: {
+    recentRegistrations: "Recent Registrations",
+    balance: {
       update: "Update Balance",
       update_descr: "Enter the new balance",
-      update_placeholder: "New Balance, e.g. 100.00"
+      update_placeholder: "New Balance, e.g. 100.00",
     },
-    buttons:{
+    buttons: {
       update: "Update",
       cancel: "Cancel",
       delete: "Delete",
       create_product: "Create new product",
       yes: "Yes",
       no: "No",
-      reset_pw: "Send password reset link to your email"
+      reset_pw: "Send password reset link to your email",
     },
-    feedback:{
-      success:{
-          product_saved: "Product successfully saved",
-          approved: "Approved",
-          not_approved: "Not approved",
-          forgot_pw_mail_sent: "Reset password email successfully sent.",
+    feedback: {
+      success: {
+        product_saved: "Product successfully saved",
+        approved: "Approved",
+        not_approved: "Not approved",
+        forgot_pw_mail_sent: "Reset password email successfully sent.",
       },
-      errors:{
-          something_wrong: "Something went wrong.",
-          email_mismatch: "Email addresses don't match.",
-          forgot_pw_mail: "Failed to send Email for resetting password: ",
-          },
-      question:{
+      errors: {
+        something_wrong: "Something went wrong.",
+        email_mismatch: "Email addresses don't match.",
+        forgot_pw_mail: "Failed to send Email for resetting password: ",
+      },
+      question: {
         sure: "Are you sure?",
         sure_yes: "Pressing 'Yes' will change",
       },
     },
-    products:{
+    products: {
       title: "Products",
       product_title: "Product Title",
       quantity: "Quantity",
@@ -286,6 +286,9 @@ const customEnglishMessages: TranslationMessages = {
       created_at: "Created at",
       unit_price: "Unit Price (EUR)",
       delete_option: "Option Delete",
+    },
+    previous_orders: {
+      name: "Previous Orders",
     },
   },
   from: "von",

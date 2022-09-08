@@ -12,9 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import { API_URL } from "../../utils/API_URL";
-import { getRandomBackground } from "../../utils/getRandomBackground";
-import Logo from "../../layout/Logo";
+import { API_URL } from "../../../utils/API_URL";
+import { getRandomBackground } from "../../../utils/getRandomBackground";
+import Logo from "../../../layout/Logo";
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState(true);
@@ -25,40 +25,28 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const handleResetPassword = (
-    resetPasswordFormValues: ResetPasswordFormValues
+  const handleForgotPassword = (
+    forgotPasswordFormValus: ForgotPasswordFormValus
   ) => {
     setLoading(true);
 
     // compare new password and confirm password
-    if (
-      resetPasswordFormValues.newPassword !=
-      resetPasswordFormValues.confirmPassword
-    ) {
-      console.log("password mismatch");
-      notify("Password and confirm password do not match");
+    if (forgotPasswordFormValus.email != forgotPasswordFormValus.confirmEmail) {
+      notify(translate("echtzeitkiosk.errors.email_mismatch"));
       setLoading(false);
-      console.log("Password and confirm password do not match");
       return false;
     } else {
-      console.log("password match");
-
-      fetch(
-        API_URL + `/auth/reset-password?token=${searchParams.get("token")}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: `password=${encodeURIComponent(
-            resetPasswordFormValues.newPassword
-          )}`,
-        }
-      )
+      fetch(API_URL + `/auth/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `email=${encodeURIComponent(forgotPasswordFormValus.email)}`,
+      })
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
-            notify("Password reset successfully");
+            notify(translate("echtzeitkiosk.errors.forgot_pw_mail_sent"));
             setIsSuccess(true);
           } else {
             setLoading(false);
@@ -72,7 +60,7 @@ const ResetPassword = () => {
         })
         .catch((error) => {
           setLoading(false);
-          notify(`Password reset failed: ${error}`);
+          notify(`${translate("echtzeitkiosk.errors.forgot_pw_mail")} ${error}`);
           setIsSuccess(false);
         });
     }
@@ -116,7 +104,7 @@ const ResetPassword = () => {
           }}
         >
           <Logo />
-          <Typography variant="h5">Reset Password</Typography>
+          <Typography variant="h5">{translate("custom_auth.forgot_password")}</Typography>
 
           {!loading && !isSuccess ? (
             <Typography
@@ -126,14 +114,13 @@ const ResetPassword = () => {
                 marginBottom: "1rem",
               }}
             >
-              Wrong/empty token or wrong password provided!
-              {/* TODO translate */}
+              {translate("custom_auth.email_error")}
             </Typography>
           ) : (
             <></>
           )}
           {!isSuccess ? (
-            <Form onSubmit={handleResetPassword}>
+            <Form onSubmit={handleForgotPassword}>
               <Box
                 sx={{
                   display: "flex",
@@ -143,11 +130,11 @@ const ResetPassword = () => {
                 }}
               >
                 <TextInput
-                  source="newPassword"
-                  label="New password"
-                  name="newPassword"
-                  type="password"
-                  placeholder="New password"
+                  source="email"
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
                   variant="standard"
                   margin="normal"
                   required
@@ -155,11 +142,11 @@ const ResetPassword = () => {
                   autoFocus
                 />
                 <TextInput
-                  source="confirmPassword"
-                  label="Confirm new password"
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Confirm new password"
+                  source="confirmEmail"
+                  label="Confirm email"
+                  name="confirmEmail"
+                  type="email"
+                  placeholder="Confirm email"
                   variant="standard"
                   margin="normal"
                   required
@@ -176,7 +163,7 @@ const ResetPassword = () => {
                     marginBottom: "1rem",
                   }}
                 >
-                  Reset Password
+                  {translate("echtzeitkiosk.buttons.reset_pw")}
                 </Button>
               </Box>
             </Form>
@@ -188,7 +175,7 @@ const ResetPassword = () => {
                 marginBottom: "1rem",
               }}
             >
-              Password reset successfully!
+              {translate("echtzeitkiosk.feedback.success.forgot_pw_mail_sent")}
             </Typography>
           )}
 
@@ -216,7 +203,7 @@ ResetPassword.propTypes = {
 
 export default ResetPassword;
 
-interface ResetPasswordFormValues {
-  newPassword: string;
-  confirmPassword: string;
+interface ForgotPasswordFormValus {
+  email: string;
+  confirmEmail: string;
 }

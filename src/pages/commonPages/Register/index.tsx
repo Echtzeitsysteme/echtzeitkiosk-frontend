@@ -22,9 +22,9 @@ import {
 
 import HelpIcon from "@mui/icons-material/Help";
 
-import { API_URL } from "../../utils/API_URL";
-import { getRandomBackground } from "../../utils/getRandomBackground";
-import Logo from "../../layout/Logo";
+import { API_URL } from "../../../utils/API_URL";
+import { getRandomBackground } from "../../../utils/getRandomBackground";
+import Logo from "../../../layout/Logo";
 import axios from "axios";
 import Swal from "sweetalert2";
 

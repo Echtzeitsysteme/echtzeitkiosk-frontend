@@ -21,10 +21,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import { API_URL } from "../../utils/API_URL";
-import { getRandomBackground } from "../../utils/getRandomBackground";
+import { API_URL } from "../../../utils/API_URL";
+import { getRandomBackground } from "../../../utils/getRandomBackground";
 
-import Logo from "../../layout/Logo";
+import Logo from "../../../layout/Logo";
 
 const VerifyEmail = () => {
   const [loading, setLoading] = useState(true);
