@@ -21,7 +21,7 @@ const authProvider: AuthProvider = {
     // TODO take precautions to prevent XSS attacks. Use cookies with httpOnly. Do not use url-encoded method, use JSON.
     return axios
       .request(options)
-      .then(function (response) {
+      .then(function(response) {
         if (response.data.message === "Token successfully created.") {
           const decodedToken: any = jwtDecode(response.data.data);
 
@@ -37,13 +37,7 @@ const authProvider: AuthProvider = {
           Promise.reject(response.data.message);
         }
       })
-      .catch(function (error) {
-        // console.error(error);
-        Swal.fire({
-          title: "Error",
-          text: error.response.data.errors[0],
-          icon: "error",
-        });
+      .catch(function(error) {
         throw new Error(error);
       });
   },
