@@ -100,7 +100,7 @@ const Users = () => {
     {
       field: "balance",
       headerName: translate("resources.customers.fields.balance"),
-      width: 200,
+      width: 250,
       renderCell: (params: any) => {
         return (
           <>
