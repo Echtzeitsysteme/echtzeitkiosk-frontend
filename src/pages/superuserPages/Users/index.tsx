@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
-import PropTypes, { any } from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
-import moment from "moment";
+
 import Swal from "sweetalert2";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate } from "react-admin";
 
 import {
   Box,
@@ -33,9 +26,6 @@ const Users = () => {
   const [rows, setRows] = useState([]);
 
   const translate = useTranslate();
-  const notify = useNotify();
-  const navigate = useNavigate();
-
 
   const columns: GridColDef[] = [
     {
@@ -51,7 +41,7 @@ const Users = () => {
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 300,
     },
     {
       field: "username",
@@ -77,7 +67,7 @@ const Users = () => {
             >
               {translate("resources.customers.fields.approval")}
             </Button>
-  
+
             <Button
               sx={{ marginLeft: "1rem" }}
               variant="contained"
@@ -97,7 +87,9 @@ const Users = () => {
       headerName: translate("resources.customers.fields.mail_verified"),
       width: 150,
       renderCell: (params: any) => {
-        return params.value ? translate("resources.customers.fields.is_verified") : translate("resources.customers.fields.is_not_verified");
+        return params.value
+          ? translate("resources.customers.fields.is_verified")
+          : translate("resources.customers.fields.is_not_verified");
       },
     },
     {
@@ -109,33 +101,32 @@ const Users = () => {
       field: "balance",
       headerName: translate("resources.customers.fields.balance"),
       width: 200,
-      renderCell: (params: any) => {  
+      renderCell: (params: any) => {
         return (
           <>
-            <Box display="flex" 
-            justifyContent="center" 
-            alignItems="space-between"
-            >           
-            
-            <Typography variant="body2">{params.value}</Typography>
-            <Button
-              sx={{ marginLeft: "1rem"}}
-              variant="contained"
-              color="primary"
-              onClick={(event) => {
-                handleUpdateBalance(event, params);
-              }}
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="row"
             >
-              {translate("echtzeitkiosk.buttons.update")}
-            </Button>
+              <Typography variant="body2">{params.value}</Typography>
+              <Button
+                sx={{ marginLeft: "1rem" }}
+                variant="contained"
+                color="primary"
+                onClick={(event) => {
+                  handleUpdateBalance(event, params);
+                }}
+              >
+                {translate("echtzeitkiosk.buttons.update")}
+              </Button>
             </Box>
           </>
         );
-
       },
     },
     {
-      
       field: "Delete",
       hideSortIcons: true,
       filterable: false,
@@ -148,9 +139,22 @@ const Users = () => {
             <Button
               sx={{ marginLeft: "1rem" }}
               variant="contained"
-              color="primary"
+              color="error"
               onClick={(event) => {
-                handleDeleteUser(event, params);
+                Swal.fire({
+                  title: translate("echtzeitkiosk.feedback.warning.title"),
+                  text: translate("echtzeitkiosk.feedback.warning.text"),
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: translate("echtzeitkiosk.buttons.yes"),
+                  cancelButtonText: translate("echtzeitkiosk.buttons.no"),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleDeleteUser(event, params);
+                  }
+                });
               }}
             >
               {translate("echtzeitkiosk.buttons.delete")}
@@ -159,13 +163,50 @@ const Users = () => {
         );
       },
     },
+    {
+      field: "Send Invoice",
+      hideSortIcons: true,
+      filterable: false,
+      sortable: false,
+      headerName: translate("echtzeitkiosk.buttons.send_invoice"),
+      width: 200,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <Button
+              sx={{ marginLeft: "1rem" }}
+              variant="contained"
+              color="error"
+              onClick={(event) => {
+                Swal.fire({
+                  title: translate("echtzeitkiosk.feedback.warning.title"),
+                  text: translate("echtzeitkiosk.feedback.warning.text"),
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: translate("echtzeitkiosk.buttons.yes"),
+                  cancelButtonText: translate("echtzeitkiosk.buttons.no"),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleSendInvoice(event, params);
+                  }
+                });
+              }}
+            >
+              {translate("echtzeitkiosk.buttons.send_invoice")}
+            </Button>
+          </>
+        );
+      },
+    },
   ];
-  
+
   // const rows: GridRowsProp = [];
-  
+
   const handleUpdateBalance = async (event: any, params: any) => {
     console.log("handleUpdateBalance", params);
-  
+
     const updateBalance = async (balance, id) => {
       try {
         const urlParams = {
@@ -174,25 +215,25 @@ const Users = () => {
         const data = Object.keys(urlParams)
           .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
           .join("&");
-  
+
         console.log(data);
         // => format=json&option=value
-  
+
         const options = {
           method: "PATCH",
           headers: {
             "content-type": "application/x-www-form-urlencoded",
             Authorization: `${localStorage.getItem("token")}`,
           },
-  
+
           data,
           url: `${API_URL}/users/` + id,
         };
-  
+
         const resp = await axios(options);
       } catch (error) {}
     };
-  
+
     Swal.fire({
       title: translate("echtzeitkiosk.balance.update"),
       text: translate("echtzeitkiosk.balance.update_descr"),
@@ -210,10 +251,10 @@ const Users = () => {
       window.location.reload();
     });
   };
-  
+
   const handleApproveRegistration = async (event: any, params: any) => {
     console.log("handleApproveRegistration", params);
-  
+
     const callAPI = async () => {
       try {
         const resp = await axios({
@@ -225,15 +266,15 @@ const Users = () => {
         });
       } catch (error) {}
     };
-  
+
     await callAPI();
-  
+
     window.location.reload();
   };
-  
+
   const handleDeclineRegistration = async (event: any, params: any) => {
     console.log("handleDeclineRegistration", params);
-  
+
     const callAPI = async () => {
       try {
         const resp = await axios({
@@ -245,15 +286,15 @@ const Users = () => {
         });
       } catch (error) {}
     };
-  
+
     await callAPI();
-  
+
     window.location.reload();
   };
-  
+
   const handleDeleteUser = async (event: any, params: any) => {
     console.log("handleDeleteUser", params);
-  
+
     const callAPI = async () => {
       try {
         const resp = await axios({
@@ -265,21 +306,40 @@ const Users = () => {
         });
       } catch (error) {}
     };
-  
+
     await callAPI();
-  
+
     window.location.reload();
   };
 
+  const handleSendInvoice = async (event: any, params: any) => {
+    const callAPI = async () => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+          url: `${API_URL}/customer-invoices/send-to/` + params.row.id,
+        };
 
+        const resp = await axios(options);
 
+        if (resp.status === 200) {
+          Swal.fire({
+            title: translate("echtzeitkiosk.feedback.success"),
+            text: translate("echtzeitkiosk.feedback.invoice_sent"),
+            icon: "success",
+            confirmButtonText: translate("echtzeitkiosk.buttons.ok"),
+          });
+        }
+      } catch (error) {}
+    };
 
+    await callAPI();
 
-
-
-
-
-
+    window.location.reload();
+  };
 
   // ----------------
 
@@ -332,11 +392,12 @@ const Users = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
           minWidth: "95vw",
-          minHeight: "50vh",
-          marginTop: "8em",
+          minHeight: "70vh",
+          // height: "80%",
+          marginTop: "2em",
           boxShadow: "0px 10px 13px -7px #000000",
           border: "5px 5px 15px 5px #000000",
         }}
@@ -350,21 +411,31 @@ const Users = () => {
             padding: "1em",
           }}
         >
-          <Typography variant="h5">{translate("resources.users.name")}</Typography>
+          <Typography variant="h5">
+            {translate("resources.users.name")}
+          </Typography>
+
           <Box
             sx={{
               // padding: "1em",
               // minHeight: "300%",
               minWidth: "90vw",
-              minHeight: "50vh",
+              minHeight: "80vh",
             }}
           >
             <DataGrid
               rows={rows}
               columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
               disableSelectionOnClick
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              }}
             />
           </Box>
         </Box>

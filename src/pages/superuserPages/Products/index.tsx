@@ -1,34 +1,22 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+
 import {
   DataGrid,
   GridRowModel,
-  GridColumns,
-  GridRowId,
-  GridRowsProp,
   GridColDef,
+  GridToolbar,
 } from "@mui/x-data-grid";
 import axios from "axios";
-import moment from "moment";
+
 import Swal from "sweetalert2";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate } from "react-admin";
 
 import {
   Box,
   Button,
   Card,
-  CardActions,
-  CircularProgress,
-  TextField,
   Typography,
   Avatar,
   Snackbar,
@@ -42,18 +30,9 @@ import Alert, { AlertProps } from "@mui/material/Alert";
 import { API_URL } from "../../../utils/API_URL";
 
 const Products = () => {
-  const [loading, setLoading] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [rows, setRows] = useState([]);
 
   const translate = useTranslate();
-  const notify = useNotify();
-  const navigate = useNavigate();
-
-  const productTitleRef = useRef<HTMLInputElement>(null);
-  const resalePricePerUnitRef = useRef<HTMLInputElement>(null);
-  const quantityRef = useRef<HTMLInputElement>(null);
-  const productPhotoUrlRef = useRef<HTMLInputElement>(null);
 
   const columns: GridColDef[] = [
     {
@@ -116,7 +95,20 @@ const Products = () => {
               variant="contained"
               color="error"
               onClick={(event) => {
-                handleDeleteProduct(event, params);
+                Swal.fire({
+                  title: translate("echtzeitkiosk.feedback.warning.title"),
+                  text: translate("echtzeitkiosk.feedback.warning.text"),
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: translate("echtzeitkiosk.buttons.yes"),
+                  cancelButtonText: translate("echtzeitkiosk.buttons.no"),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleDeleteProduct(event, params);
+                  }
+                });
               }}
             >
               {translate("echtzeitkiosk.buttons.delete")}
@@ -126,7 +118,7 @@ const Products = () => {
       },
     },
   ];
-    
+
   const handleDeleteProduct = async (event: any, params: any) => {
     const callAPI = async () => {
       try {
@@ -139,9 +131,9 @@ const Products = () => {
         });
       } catch (error) {}
     };
-  
+
     await callAPI();
-  
+
     window.location.reload();
   };
 
@@ -160,28 +152,28 @@ const Products = () => {
           quantity,
           productPhotoUrl,
         };
-  
+
         const data = Object.keys(urlParams)
           .map((key) => `${key}=${encodeURIComponent(urlParams[key])}`)
           .join("&");
-  
+
         console.log(data);
-  
+
         const options = {
           method: "PATCH",
           headers: {
             "content-type": "application/x-www-form-urlencoded",
             Authorization: `${localStorage.getItem("token")}`,
           },
-  
+
           data,
           url: `${API_URL}/products/` + id,
         };
-  
+
         const resp = await axios(options);
       } catch (error) {}
     };
-  
+
     await updateProduct(
       params.id,
       params.productTitle,
@@ -190,31 +182,38 @@ const Products = () => {
       params.productPhotoUrl
     );
   };
-  
+
   function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
     if (newRow.productTitle !== oldRow.productTitle) {
-      return `${translate("echtzeitkiosk.products.product_title")}  ${translate("from")} '${oldRow.productTitle}' ${translate("to")} '${newRow.productTitle}'`;
+      return `${translate("echtzeitkiosk.products.product_title")}  ${translate(
+        "from"
+      )} '${oldRow.productTitle}' ${translate("to")} '${newRow.productTitle}'`;
     }
     if (newRow.resalePricePerUnit !== oldRow.resalePricePerUnit) {
-      return `${translate("echtzeitkiosk.products.unit_price")}  ${translate("from")} '${oldRow.resalePricePerUnit || ""}' ${translate("to")} '${
+      return `${translate("echtzeitkiosk.products.unit_price")}  ${translate(
+        "from"
+      )} '${oldRow.resalePricePerUnit || ""}' ${translate("to")} '${
         newRow.resalePricePerUnit || ""
       }'`;
     }
-  
+
     if (newRow.quantity !== oldRow.quantity) {
-      return `${translate("echtzeitkiosk.products.quantity")} ${translate("from")}  '${oldRow.quantity}' ${translate("to")}  '${newRow.quantity}'`;
+      return `${translate("echtzeitkiosk.products.quantity")} ${translate(
+        "from"
+      )}  '${oldRow.quantity}' ${translate("to")}  '${newRow.quantity}'`;
     }
     if (newRow.productPhotoUrl !== oldRow.productPhotoUrl) {
-      return `${translate("echtzeitkiosk.products.photo_url")} ${translate("from")} '${oldRow.productPhotoUrl || ""}' ${translate("to")}  '${
+      return `${translate("echtzeitkiosk.products.photo_url")} ${translate(
+        "from"
+      )} '${oldRow.productPhotoUrl || ""}' ${translate("to")}  '${
         newRow.productPhotoUrl || ""
       }'`;
     }
-  
+
     return null;
   }
 
-
-// ---------- 
+  // ----------
 
   useEffect(() => {
     const fetchData = async () => {
@@ -229,16 +228,10 @@ const Products = () => {
 
         const data: [] = await resp?.data.data;
 
-        setLoading(false);
-        setIsSuccess(true);
-
         const products = data;
         setRows(products);
         console.log(products);
-      } catch (error) {
-        // setServerError(error);
-        setLoading(false);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -319,9 +312,13 @@ const Products = () => {
         TransitionProps={{ onEntered: handleEntered }}
         open={!!promiseArguments}
       >
-        <DialogTitle>{translate("echtzeitkiosk.feedback.question.sure")}</DialogTitle>
+        <DialogTitle>
+          {translate("echtzeitkiosk.feedback.question.sure")}
+        </DialogTitle>
         <DialogContent dividers>
-          {`${translate("echtzeitkiosk.feedback.question.sure_yes")} ${mutation}.`}
+          {`${translate(
+            "echtzeitkiosk.feedback.question.sure_yes"
+          )} ${mutation}.`}
         </DialogContent>
         <DialogActions>
           <Button ref={noButtonRef} onClick={handleNo}>
@@ -340,7 +337,6 @@ const Products = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
 
         alignItems: "center",
         justifyContent: "flex-start",
@@ -353,11 +349,11 @@ const Products = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
           minWidth: "95vw",
-          minHeight: "50vh",
-          marginTop: "8em",
+          minHeight: "85vh",
+          marginTop: "2em",
+          marginBottom: "2em",
           boxShadow: "0px 10px 13px -7px #000000",
           border: "5px 5px 15px 5px #000000",
         }}
@@ -368,13 +364,10 @@ const Products = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            padding: "1em",
           }}
         >
           <Box
             sx={{
-              // width: "30%",
-              // height: "50%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -382,7 +375,9 @@ const Products = () => {
               padding: "1em",
             }}
           >
-            <Typography variant="h5">{translate("echtzeitkiosk.products.title")}</Typography>
+            <Typography variant="h5">
+              {translate("echtzeitkiosk.products.title")}
+            </Typography>
             <Button
               variant="contained"
               color="primary"
@@ -392,10 +387,18 @@ const Products = () => {
                   const { value: formValues } = await Swal.fire({
                     title: translate("echtzeitkiosk.buttons.create_product"),
                     html:
-                      `<input type="text" id="swal-input1" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.product_title")}">` +
-                      `<input type="number" id="swal-input2" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.unit_price")}">` +
-                      `<input type="number" id="swal-input3" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.quantity")}">` +
-                      `<input type="url" id="swal-input4" class="swal2-input" placeholder="${translate("echtzeitkiosk.products.photo_url")}">`,
+                      `<input type="text" id="swal-input1" class="swal2-input" placeholder="${translate(
+                        "echtzeitkiosk.products.product_title"
+                      )}">` +
+                      `<input type="number" id="swal-input2" class="swal2-input" placeholder="${translate(
+                        "echtzeitkiosk.products.unit_price"
+                      )}">` +
+                      `<input type="number" id="swal-input3" class="swal2-input" placeholder="${translate(
+                        "echtzeitkiosk.products.quantity"
+                      )}">` +
+                      `<input type="url" id="swal-input4" class="swal2-input" placeholder="${translate(
+                        "echtzeitkiosk.products.photo_url"
+                      )}">`,
                     focusConfirm: false,
                     preConfirm: () => {
                       const productTitle = (
@@ -463,7 +466,9 @@ const Products = () => {
                     } catch (error) {
                       await Swal.fire({
                         title: "Error",
-                        text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
+                        text: `${translate(
+                          "echtzeitkiosk.feedback.errors.something_wrong"
+                        )}
                               ${error}`,
 
                         icon: "error",
@@ -473,14 +478,18 @@ const Products = () => {
 
                     if (response.status === 200) {
                       await Swal.fire({
-                        title: translate("echtzeitkiosk.feedback.success.product_saved"),
+                        title: translate(
+                          "echtzeitkiosk.feedback.success.product_saved"
+                        ),
                         icon: "success",
                       });
                       window.location.reload();
                     } else {
                       await Swal.fire({
                         title: "Error",
-                        text: `${translate("echtzeitkiosk.feedback.errors.something_wrong")}
+                        text: `${translate(
+                          "echtzeitkiosk.feedback.errors.something_wrong"
+                        )}
                               ${response}`,
                         icon: "error",
                       });
@@ -499,12 +508,13 @@ const Products = () => {
               // padding: "1em",
               // minHeight: "300%",
               minWidth: "90vw",
-              minHeight: "50vh",
+              minHeight: "70vh",
             }}
           >
             <div style={{ height: "100%", width: "100%" }}>
               {renderConfirmDialog()}
               <DataGrid
+                sx={{ minWidth: "88vw", minHeight: "40vh" }}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
@@ -512,6 +522,13 @@ const Products = () => {
                 disableSelectionOnClick
                 processRowUpdate={processRowUpdate}
                 experimentalFeatures={{ newEditingApi: true }}
+                components={{ Toolbar: GridToolbar }}
+                componentsProps={{
+                  toolbar: {
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 500 },
+                  },
+                }}
               />
               {!!snackbar && (
                 <Snackbar

@@ -1,19 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
-import // Title,
-// useGetList,
-// Datagrid,
-// NumberField,
-// DateField,
-// TextField as TextFieldReactAdmin,
-"react-admin";
+import { useEffect, useState } from "react";
+import { useTranslate } from "react-admin";
 import {
-  Alert,
   Card,
   Container,
   Box,
   Button,
-  Toolbar,
-  TextField,
   CardMedia,
   CardActions,
   CardContent,
@@ -52,11 +43,11 @@ import {
   remove,
 } from "cart-localstorage";
 
-import { API_URL } from "../utils/API_URL";
+import { API_URL } from "../../../utils/API_URL";
 import {
   exampleProductsData,
   exampleProductsData2,
-} from "../utils/productsMockData";
+} from "../../../utils/productsMockData";
 
 interface Product {
   id: string;
@@ -76,6 +67,10 @@ const ShoppingCart = () => {
     let cart = list();
     return cart || null;
   });
+
+  const [userBalance, setUserBalance] = useState(undefined);
+
+  const translate = useTranslate();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -105,7 +100,6 @@ const ShoppingCart = () => {
 
         setLoading(false);
       } catch (e) {
-        console.log("Failed fetchProducts", e);
         setLoading(false);
         setError(error);
       } finally {
@@ -115,6 +109,21 @@ const ShoppingCart = () => {
 
     fetchProducts();
   }, [onChange(setCart)]);
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+        Authorization: `${localStorage.getItem("token")}`,
+      },
+      url: `${API_URL}/users/` + localStorage.getItem("userId"),
+    };
+
+    axios(options).then((response) => {
+      setUserBalance(response.data.data.balance);
+    });
+  }, []);
 
   const handleCheckout = async () => {
     const body = {
@@ -139,7 +148,12 @@ const ShoppingCart = () => {
       const data: any = await resp?.data.data;
 
       destroy();
-      Swal.fire("Current balance:", `${data?.balanceAfterOrder}`, "success");
+
+      await Swal.fire(
+        "Current balance:",
+        `${data?.balanceAfterOrder}`,
+        "success"
+      );
 
       window.location.reload();
     } catch (error) {}
@@ -158,12 +172,12 @@ const ShoppingCart = () => {
           alignItems: "center",
         }}
       >
-        <Container maxWidth="lg" sx={{
-          // display: "flex",
-          // flexDirection: "column",
-          // alignItems: "center",
-          minWidth: "85vw",
-        }}>
+        <Container
+          maxWidth="lg"
+          sx={{
+            minWidth: "85vw",
+          }}
+        >
           <Accordion defaultExpanded={true}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -171,7 +185,7 @@ const ShoppingCart = () => {
               id="panel1a-header"
             >
               <Typography variant="h4" component="h1" gutterBottom>
-                Products
+                {translate("echtzeitkiosk.products.title")}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -194,6 +208,11 @@ const ShoppingCart = () => {
                           mx: 2,
                           my: 2,
                           maxWidth: "40vh",
+
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
 
                           borderRadius: "1rem",
                           boxShadow:
@@ -224,7 +243,8 @@ const ShoppingCart = () => {
                             {product.price}€
                           </Typography>
                           <Typography variant="body1" color="text.secondary">
-                            {product.quantity} left
+                            {product.quantity}{" "}
+                            {translate("echtzeitkiosk.products.in_stock")}
                           </Typography>
                         </CardContent>
                         <CardActions
@@ -254,9 +274,12 @@ const ShoppingCart = () => {
                                 flexDirection: "column",
                                 alignItems: "center",
                                 justifyContent: "center",
+                                padding: "0.5rem",
                               }}
                             >
-                              <Typography variant="body1">In Cart:</Typography>
+                              <Typography variant="body1">
+                                {translate("echtzeitkiosk.products.in_cart")}
+                              </Typography>
 
                               <Typography variant="h6" fontWeight="bold">
                                 {get(product.id).quantity.toString()}
@@ -296,7 +319,7 @@ const ShoppingCart = () => {
                 }}
               >
                 <Typography variant="h4" component="h1" gutterBottom>
-                  Cart
+                  {translate("echtzeitkiosk.products.cart")}
                 </Typography>
                 {/* <Spacer /> */}
                 <Typography
@@ -315,10 +338,18 @@ const ShoppingCart = () => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Product</TableCell>
-                        <TableCell>Price(€)</TableCell>
-                        <TableCell>Quantity</TableCell>
-                        <TableCell>Subtotal(€)</TableCell>
+                        <TableCell>
+                          {translate("echtzeitkiosk.products.product_title")}
+                        </TableCell>
+                        <TableCell>
+                          {translate("echtzeitkiosk.products.cart_price")}
+                        </TableCell>
+                        <TableCell>
+                          {translate("echtzeitkiosk.products.quantity")}
+                        </TableCell>
+                        <TableCell>
+                          {translate("echtzeitkiosk.products.cart_subtotal")}
+                        </TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -399,6 +430,15 @@ const ShoppingCart = () => {
               )}
             </AccordionDetails>
           </Accordion>
+          <Typography
+            variant="h4"
+            sx={{
+              marginTop: "1rem",
+            }}
+          >
+            {translate("echtzeitkiosk.balance.name")}:{" "}
+            {userBalance !== undefined ? `${userBalance} €` : "Loading..."}
+          </Typography>
         </Container>
       </Box>
     </>

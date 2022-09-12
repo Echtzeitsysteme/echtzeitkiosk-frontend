@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import DownloadIcon from "@mui/icons-material/Download";
 import axios from "axios";
-import moment from "moment";
-import Swal from "sweetalert2";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate } from "react-admin";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 
 import { API_URL } from "../../../utils/API_URL";
 
@@ -39,48 +24,51 @@ const CustomerInvoices = (props: Props) => {
   const columns: GridColDef[] = [
     {
       field: "customerInvoiceMonthYear",
-      //   headerName: translate("resources.users.firstName"),
-      headerName: "Month-Year",
-      width: 150,
+      headerName: translate("echtzeitkiosk.customer_invoices.month_year"),
+      width: 100,
     },
     {
       field: "total",
-      //   headerName: translate("resources.users.balance"),
-      headerName: "Total (EUR)",
+
+      headerName: translate("echtzeitkiosk.customer_invoices.total"),
       width: 150,
     },
     {
       field: "user",
-      //   headerName: translate("resources.users.balance"),
-      headerName: "User",
-      width: 150,
+
+      headerName: translate("echtzeitkiosk.customer_invoices.user"),
+      width: 300,
     },
     {
       field: "currentUserBalance",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Current User Balance (EUR)",
+      headerName: translate(
+        "echtzeitkiosk.customer_invoices.current_user_balance"
+      ),
+
       width: 200,
     },
     {
       field: "customerInvoiceType",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Type",
-      width: 200,
+      headerName: translate("echtzeitkiosk.customer_invoices.type"),
+      width: 100,
     },
     {
       field: "createdAt",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Created At",
+      headerName: translate("resources.customers.fields.created_at"),
       width: 200,
     },
     {
       field: "Download",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Download",
-      width: 200,
+      headerName: translate("echtzeitkiosk.customer_invoices.download"),
+      width: 150,
       renderCell: (params) => {
         return (
           <Button
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             variant="contained"
             color="primary"
             onClick={() => {
@@ -90,19 +78,16 @@ const CustomerInvoices = (props: Props) => {
               );
             }}
           >
-            Download PDF
+            {/* {translate("echtzeitkiosk.buttons.download_pdf")} */}
+            <PictureAsPdfIcon />
+            <DownloadIcon />
           </Button>
         );
       },
     },
   ];
 
-  const [loading, setLoading] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [rows, setRows] = useState([]);
-
-  const notify = useNotify();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,11 +102,6 @@ const CustomerInvoices = (props: Props) => {
 
         const data: [] = await resp?.data.data;
 
-        console.log(data);
-
-        setLoading(false);
-        setIsSuccess(true);
-
         let customerInvoicesToDisplay = [];
 
         data.forEach((customerInvoice: any) => {
@@ -133,7 +113,7 @@ const CustomerInvoices = (props: Props) => {
                 timeZone: "Europe/Berlin",
               }
             ),
-            customerInvoiceMonthYear: customerInvoice.monthYear,
+            customerInvoiceMonthYear: customerInvoice.customerInvoiceMonthYear,
             customerInvoiceType: customerInvoice.customerInvoiceType,
             total: customerInvoice.total,
             user: customerInvoice.user.email,
@@ -141,14 +121,8 @@ const CustomerInvoices = (props: Props) => {
           });
         });
 
-        console.log(customerInvoicesToDisplay);
-
         setRows(customerInvoicesToDisplay);
-        console.log("customerInvoicesToDisplay", customerInvoicesToDisplay);
-      } catch (error) {
-        // setServerError(error);
-        setLoading(false);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -179,6 +153,7 @@ const CustomerInvoices = (props: Props) => {
 
           minHeight: "50vh",
           marginTop: "2em",
+          marginBottom: "2em",
           boxShadow: "0px 10px 13px -7px #000000",
           border: "5px 5px 15px 5px #000000",
         }}
@@ -197,16 +172,23 @@ const CustomerInvoices = (props: Props) => {
               marginTop: "1rem",
             }}
           >
-            {translate("echtzeitkiosk.CustomerInvoices")}
+            {translate("echtzeitkiosk.customer_invoices.name")}
           </Typography>
 
           <DataGrid
             sx={dataGridSx || { minWidth: "88vw", minHeight: "40vh" }}
             rows={rows}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             disableSelectionOnClick
+            components={{ Toolbar: GridToolbar }}
+            componentsProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
           />
         </Box>
       </Card>

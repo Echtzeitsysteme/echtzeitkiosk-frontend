@@ -8,20 +8,20 @@ import {
   Authenticated,
 } from "react-admin";
 
-import { CssBaseline } from "@mui/material";
+// import { CssBaseline } from "@mui/material";
 
 import polyglotI18nProvider from "ra-i18n-polyglot";
-import jsonServerProvider from "ra-data-json-server";
+// import jsonServerProvider from "ra-data-json-server";
 import { Route } from "react-router";
 
 import authProvider from "./authProvider";
 import { Login, Layout } from "./layout";
-import { Dashboard } from "./dashboard";
+import { Dashboard } from "./pages/commonPages/Dashboard";
 
-import Register from "./pages/Register";
-import VerifyEmail from "./pages/VerifyEmail";
-import ResetPassword from "./pages/ResetPassword";
-import ForgotPassword from "./pages/ForgotPassword";
+import Register from "./pages/commonPages/Register";
+import VerifyEmail from "./pages/commonPages/VerifyEmail";
+import ResetPassword from "./pages/commonPages/ResetPassword";
+import ForgotPassword from "./pages/commonPages/ForgotPassword";
 
 import englishMessages from "./i18n/en";
 import { lightTheme } from "./layout/themes";
@@ -31,20 +31,20 @@ import RESTdataProvider from "./dataProvider";
 import Configuration from "./configuration/Configuration";
 import Users from "./pages/superuserPages/Users";
 import Products from "./pages/superuserPages/Products";
+import SystemConfig from "./pages/superuserPages/SystemState";
 import PreviousOrders from "./components/commonComponents/PreviousOrders";
-import Invoices from "./components/commonComponents/CustomerInvoices";
 
 import { API_URL } from "./utils/API_URL";
 import CustomerInvoices from "./components/commonComponents/CustomerInvoices";
 
-const dummyDataProvider = jsonServerProvider(
-  "https://jsonplaceholder.typicode.com"
-);
+// const dummyDataProvider = jsonServerProvider(
+//   "https://jsonplaceholder.typicode.com"
+// );
 
 const dataProvider = combineDataProviders((resource) => {
   switch (resource) {
-    case "dummy":
-      return dummyDataProvider;
+    // case "dummy":
+    //   return dummyDataProvider;
     default:
       return RESTdataProvider;
   }
@@ -155,9 +155,16 @@ const App = () => {
         />
       </CustomRoutes>
 
-      {/* <CustomRoutes noLayout>
-        <Route path="/forgot-password" element={<ForgetPassword />} />
-      </CustomRoutes> */}
+      <CustomRoutes>
+        <Route
+          path="/system-state"
+          element={
+            <Authenticated>
+              <SystemConfig />
+            </Authenticated>
+          }
+        />
+      </CustomRoutes>
 
       <Resource name="dummy" list={ListGuesser} />
     </Admin>

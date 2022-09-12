@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
-import moment from "moment";
-import Swal from "sweetalert2";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate } from "react-admin";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 
 import { API_URL } from "../../../utils/API_URL";
 
@@ -39,39 +22,33 @@ const PreviousOrders = (props: Props) => {
   const columns: GridColDef[] = [
     {
       field: "productTitle",
-      //   headerName: translate("resources.users.firstName"),
-      headerName: "Product Title",
+      headerName: translate("echtzeitkiosk.products.product_title"),
       width: 150,
     },
     {
       field: "pricePerUnit",
-      //   headerName: translate("resources.users.balance"),
-      headerName: "Unit Price (EUR)",
+      headerName: translate("echtzeitkiosk.products.unit_price"),
       width: 150,
     },
     {
       field: "quantity",
-      //   headerName: translate("resources.users.balance"),
-      headerName: "Quantity",
+      headerName: translate("echtzeitkiosk.products.quantity"),
       width: 150,
     },
     {
       field: "createdAt",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Created At",
+      headerName: translate("echtzeitkiosk.products.created_at"),
       width: 200,
     },
     {
       field: "orderId",
-      //   headerName: translate("resources.users.createdAt"),
-      headerName: "Order ID",
+      headerName: translate("echtzeitkiosk.customer_invoices.order_id"),
       width: 200,
     },
     {
       field: "email",
-      //   headerName: translate("resources.users.email"),
-      headerName: "Email",
-      width: 200,
+      headerName: translate("echtzeitkiosk.customer_invoices.user"),
+      width: 300,
     },
     {
       field: "id",
@@ -81,12 +58,7 @@ const PreviousOrders = (props: Props) => {
     },
   ];
 
-  const [loading, setLoading] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [rows, setRows] = useState([]);
-
-  const notify = useNotify();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,11 +72,6 @@ const PreviousOrders = (props: Props) => {
         });
 
         const data: [] = await resp?.data.data;
-
-        console.log(data);
-
-        setLoading(false);
-        setIsSuccess(true);
 
         let customerOrdersToDisplay = [];
 
@@ -129,11 +96,7 @@ const PreviousOrders = (props: Props) => {
         });
 
         setRows(customerOrdersToDisplay);
-        console.log("customerOrdersToDisplay", customerOrdersToDisplay);
-      } catch (error) {
-        // setServerError(error);
-        setLoading(false);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -182,7 +145,7 @@ const PreviousOrders = (props: Props) => {
               marginTop: "1rem",
             }}
           >
-            {translate("echtzeitkiosk.PreviousOrders")}
+            {translate("echtzeitkiosk.previous_orders.name")}
           </Typography>
 
           <DataGrid
@@ -196,6 +159,13 @@ const PreviousOrders = (props: Props) => {
             pageSize={5}
             rowsPerPageOptions={[5]}
             disableSelectionOnClick
+            components={{ Toolbar: GridToolbar }}
+            componentsProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
           />
         </Box>
       </Card>

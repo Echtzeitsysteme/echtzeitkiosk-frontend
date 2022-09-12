@@ -111,7 +111,7 @@ const LanguageDropdown = () => {
             >
               {getFlagIcon("de")}
             </Button>
-            <Divider />
+            {/* <Divider />
             <Button
               onClick={() => handleLocaleSelect("fr")}
               sx={{
@@ -120,7 +120,7 @@ const LanguageDropdown = () => {
               }}
             >
               {getFlagIcon("fr")}
-            </Button>
+            </Button> */}
           </Box>
         )}
       </Stack>

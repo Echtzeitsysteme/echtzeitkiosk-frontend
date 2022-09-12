@@ -1,9 +1,8 @@
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 import { useMediaQuery, Theme } from "@mui/material";
 
-import WelcomeSuperuser from "./WelcomeSuperuser";
-import RecentRegistrations from "../components/superuserComponents/RecentRegistrations";
-import PreviousOrders from "../components/commonComponents/PreviousOrders";
+import RecentRegistrations from "../../../components/superuserComponents/RecentRegistrations";
+import PreviousOrders from "../../../components/commonComponents/PreviousOrders";
 
 const styles = {
   flex: { display: "flex" },

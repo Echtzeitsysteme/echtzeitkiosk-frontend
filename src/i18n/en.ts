@@ -4,7 +4,10 @@ import englishMessages from "ra-language-english";
 const customEnglishMessages: TranslationMessages = {
   ...englishMessages,
   custom_auth: {
+    invitation_code_not_valid: "Invitation code is not valid",
+    user_already_exists: "User already exists",
     forgot_password: "Forgot your password?",
+    confirm_email: "Confirm email",
     register: "Register",
     register_error: "Register error",
     register_success: "Registered successfully! Please check your email.",
@@ -13,7 +16,7 @@ const customEnglishMessages: TranslationMessages = {
     login: "Login",
     already_have_an_account: "Already have an account? Login",
     create_a_new_account: "Create a new account",
-    email_error: "Incorrect or missing email address. Please try again."
+    email_error: "Incorrect or missing email address. Please try again.",
   },
   pos: {
     search: "Search",
@@ -78,7 +81,7 @@ const customEnglishMessages: TranslationMessages = {
         is_verified: "Yes",
         is_not_verified: "No",
         created_at: "Created at",
-        balance: "Balance (EUR)"
+        balance: "Balance (EUR)",
       },
       filters: {
         last_visited: "Last visited",
@@ -104,8 +107,8 @@ const customEnglishMessages: TranslationMessages = {
         confirm_password: "Repeat password",
         password_success: "Password changed successfully",
         password_missmatch: "Passwords do not match",
-        password_req: "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character",
-
+        password_req:
+          "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character",
       },
       page: {
         delete: "Delete Customer",
@@ -245,47 +248,91 @@ const customEnglishMessages: TranslationMessages = {
       },
     },
   },
-  echtzeitkiosk:{
-    recentRegistrations: 'Recent Registrations',
-    balance:{
+  echtzeitkiosk: {
+    email: {
+      notification_checkbox_for_customer_order:
+        "Email notification for customer order",
+      verify_email_title: "Verify Email",
+      verify_email_success: "Email verified successfully",
+      verify_email_error: "Email verification failed",
+      bad_token: "Wrong token or empty token provided!",
+    },
+    recentRegistrations: "Recent Registrations",
+    balance: {
       update: "Update Balance",
       update_descr: "Enter the new balance",
-      update_placeholder: "New Balance, e.g. 100.00"
+      update_placeholder: "New Balance, e.g. 100.00",
+      name: "Balance",
     },
-    buttons:{
+    treasury: {
+      current_balance: "System Balance",
+      update_dialog: {
+        title: "Update System Balance",
+        description: "Enter the new system balance",
+        placeholder: "New Balance, e.g. 100.00",
+      },
+    },
+    buttons: {
       update: "Update",
       cancel: "Cancel",
       delete: "Delete",
       create_product: "Create new product",
       yes: "Yes",
       no: "No",
-      reset_pw: "Send password reset link to your email"
+      reset_pw: "Send password reset link to your email",
+      send_invoice: "Send invoice",
+      download_pdf: "Download PDF",
     },
-    feedback:{
-      success:{
-          product_saved: "Product successfully saved",
-          approved: "Approved",
-          not_approved: "Not approved",
-          forgot_pw_mail_sent: "Reset password email successfully sent.",
+    feedback: {
+      success: {
+        product_saved: "Product successfully saved",
+        approved: "Approved",
+        not_approved: "Not approved",
+        forgot_pw_mail_sent: "Reset password email successfully sent.",
       },
-      errors:{
-          something_wrong: "Something went wrong.",
-          email_mismatch: "Email addresses don't match.",
-          forgot_pw_mail: "Failed to send Email for resetting password: ",
-          },
-      question:{
+      errors: {
+        something_wrong: "Something went wrong.",
+        email_mismatch: "Email addresses don't match.",
+        forgot_pw_mail: "Failed to send Email for resetting password: ",
+      },
+      question: {
         sure: "Are you sure?",
         sure_yes: "Pressing 'Yes' will change",
       },
+      warning: {
+        title: "Warning",
+        text: "This action cannot be undone.",
+      },
     },
-    products:{
+    products: {
       title: "Products",
       product_title: "Product Title",
       quantity: "Quantity",
       photo_url: "URL Product Photo",
       created_at: "Created at",
       unit_price: "Unit Price (EUR)",
-      delete_option: "Option Delete",
+      delete_option: "Delete!",
+      in_stock: "in stock",
+      in_cart: "In Cart:",
+      cart: "Cart",
+      cart_price: "Price (EUR)",
+      cart_subtotal: "Subtotal (EUR)",
+    },
+    previous_orders: {
+      name: "Previous Orders",
+    },
+    system_state: {
+      name: "System State",
+    },
+    customer_invoices: {
+      name: "Customer Invoices",
+      download: "Download",
+      type: "Type",
+      current_user_balance: "Current User Balance (EUR)",
+      user: "User",
+      total: "Total (EUR)",
+      month_year: "Month-Year",
+      order_id: "Order ID",
     },
   },
   from: "von",

@@ -63,7 +63,7 @@ const Configuration = () => {
     <Card>
       <Title title={translate("pos.configuration")} />
       <CardContent>
-        <Box sx={{ width: "10em", display: "inline-block" }}>
+        <Box sx={{ width: "15em", display: "inline-block" }}>
           {translate("pos.theme.name")}
         </Box>
         <Button
@@ -84,7 +84,7 @@ const Configuration = () => {
         </Button>
       </CardContent>
       <CardContent>
-        <Box sx={{ width: "10em", display: "inline-block" }}>
+        <Box sx={{ width: "15em", display: "inline-block" }}>
           {translate("pos.language")}
         </Box>
         <Button
@@ -116,14 +116,16 @@ const Configuration = () => {
         <CardContent>
           <Box
             sx={{
-              width: "10em",
+              width: "15em",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
             {/* impl a check box for optional email notf for orders */}
-            {translate("echtzeitkiosk.email_notification_for_customer_order")}
+            {translate(
+              "echtzeitkiosk.email.notification_checkbox_for_customer_order"
+            )}
             <Checkbox
               checked={isEmailNotfForOrderEnabled}
               onClick={() => {
@@ -152,10 +154,9 @@ const Configuration = () => {
 
                   const resp = await axios(options);
                   setIsEmailNotfForOrderEnabled(!isEmailNotfForOrderEnabled);
-                  console.log(resp);
                 })();
               }}
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 28 }, marginLeft: "2em" }}
+              sx={{ "& .MuiSvgIcon-root": { fontSize: 28 }, left: "4em" }}
             />
           </Box>
         </CardContent>

@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import moment from "moment";
 import Swal from "sweetalert2";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate } from "react-admin";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 
 import { API_URL } from "../../../utils/API_URL";
 
@@ -44,7 +29,7 @@ const RecentRegistrations = () => {
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 300,
     },
     {
       field: "username",
@@ -90,8 +75,10 @@ const RecentRegistrations = () => {
       headerName: translate("resources.customers.fields.mail_verified"),
       width: 150,
       renderCell: (params: any) => {
-        return params.value ? translate("resources.customers.fields.is_verified") : translate("resources.customers.fields.is_not_verified");
-      }
+        return params.value
+          ? translate("resources.customers.fields.is_verified")
+          : translate("resources.customers.fields.is_not_verified");
+      },
     },
     {
       field: "createdAt",
@@ -124,12 +111,7 @@ const RecentRegistrations = () => {
     },
   ];
 
-  const [loading, setLoading] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [rows, setRows] = useState([]);
-
-  const notify = useNotify();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -144,9 +126,6 @@ const RecentRegistrations = () => {
 
         const data: [] = await resp?.data.data;
 
-        setLoading(false);
-        setIsSuccess(true);
-
         const usersToShow = data.filter((user: any) => {
           return (
             user.isApproved === false ||
@@ -157,10 +136,7 @@ const RecentRegistrations = () => {
 
         setRows(usersToShow);
         console.log(usersToShow);
-      } catch (error) {
-        // setServerError(error);
-        setLoading(false);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -307,6 +283,13 @@ const RecentRegistrations = () => {
             pageSize={5}
             rowsPerPageOptions={[5]}
             disableSelectionOnClick
+            components={{ Toolbar: GridToolbar }}
+            componentsProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 500 },
+              },
+            }}
           />
         </Box>
       </Card>

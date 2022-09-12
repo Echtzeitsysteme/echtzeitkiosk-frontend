@@ -29,6 +29,7 @@ const authProvider: AuthProvider = {
             token: response.data.data,
             role: decodedToken.role,
             userId: decodedToken.id,
+            email,
           });
 
           Promise.resolve();
@@ -51,8 +52,6 @@ const authProvider: AuthProvider = {
   },
   checkError: () => Promise.resolve(),
   checkAuth: () => {
-    // localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
-
     // check if there is a token in localStorage and if it is still valid
     const token = localStorage.getItem("token");
     if (token) {
@@ -71,7 +70,9 @@ const authProvider: AuthProvider = {
     Promise.resolve({
       id: "user",
       fullName:
-        localStorage.getItem("role") === "SUPERUSER" ? "SUPERUSER" : "STANDARD",
+        localStorage.getItem("role") === "SUPERUSER"
+          ? "SUPERUSER"
+          : localStorage.getItem("email"),
       userRole: localStorage.getItem("role"),
       ...(localStorage.getItem("role") === "SUPERUSER" && {
         avatar:
@@ -86,6 +87,7 @@ const removeAuthenticationItems = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("role");
   localStorage.removeItem("userId");
+  localStorage.removeItem("email");
 };
 
 function storeAuthenticationItems(authElement: any) {
@@ -94,4 +96,5 @@ function storeAuthenticationItems(authElement: any) {
     localStorage.setItem("role", authElement.role || "STANDARD");
   authElement.userId &&
     localStorage.setItem("userId", authElement.userId || "");
+  authElement.email && localStorage.setItem("email", authElement.email || "");
 }

@@ -22,9 +22,9 @@ import {
 
 import HelpIcon from "@mui/icons-material/Help";
 
-import { API_URL } from "../../utils/API_URL";
-import { getRandomBackground } from "../../utils/getRandomBackground";
-import Logo from "../../layout/Logo";
+import { API_URL } from "../../../utils/API_URL";
+import { getRandomBackground } from "../../../utils/getRandomBackground";
+import Logo from "../../../layout/Logo";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -40,10 +40,10 @@ const Register = () => {
     let response;
     try {
       if (registerFormValues.password !== registerFormValues.confirmPassword) {
-        throw new Error(translate("resources.customers.fieldGroups.password_missmatch"));
+        throw new Error(
+          translate("resources.customers.fieldGroups.password_missmatch")
+        );
       }
-
-      
 
       const urlParams = {
         email: registerFormValues.email,
@@ -78,7 +78,23 @@ const Register = () => {
     } catch (error) {
       setLoading(false);
 
-      if (error.response?.data.errorsValidation.length > 0) {
+      if (error?.response?.data.errorMessage === "Invitation code is not valid") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: translate("custom_auth.invitation_code_not_valid"),
+        });
+      }
+
+      if (error?.response?.data.errorMessage === "User already exists") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: translate("custom_auth.user_already_exists"),
+        });
+      }
+
+      if (error.response?.data.errorsValidation?.length > 0) {
         error.response?.data.errorsValidation.forEach((temp) => {
           // notify(temp);
 
@@ -208,8 +224,9 @@ const Register = () => {
                   }}
                   onClick={() => {
                     Swal.fire({
-                      title:
-                        translate("resources.customers.fieldGroups.password_req"),
+                      title: translate(
+                        "resources.customers.fieldGroups.password_req"
+                      ),
                       icon: "info",
                     });
                   }}

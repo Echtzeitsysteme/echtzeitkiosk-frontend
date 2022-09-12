@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import {
-  Form,
-  useTranslate,
-  useNotify,
-  required,
-  TextInput,
-  email,
-} from "react-admin";
+import { useTranslate, useNotify } from "react-admin";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 
-import { API_URL } from "../../utils/API_URL";
-import { getRandomBackground } from "../../utils/getRandomBackground";
+import { API_URL } from "../../../utils/API_URL";
+import { getRandomBackground } from "../../../utils/getRandomBackground";
 
-import Logo from "../../layout/Logo";
+import Logo from "../../../layout/Logo";
 
 const VerifyEmail = () => {
   const [loading, setLoading] = useState(true);
@@ -102,31 +87,35 @@ const VerifyEmail = () => {
           }}
         >
           <Logo />
-          <Typography variant="h5">Verify Email</Typography>
+          <Typography
+            sx={{
+              margin: "1em",
+            }}
+            variant="h5"
+          >
+            {translate("echtzeitkiosk.email.verify_email_title")}
+          </Typography>
 
           {loading && !isSuccess ? (
             <Typography
               variant="body1"
               sx={{
-                marginTop: "1rem",
                 marginBottom: "1rem",
               }}
             >
-              Wrong token or empty token provided!
-              {/* TODO translate */}
+              {translate("echtzeitkiosk.email.bad_token")}
             </Typography>
           ) : (
             <>
               <Typography
                 variant="h4"
                 sx={{
-                  marginTop: "1rem",
                   marginBottom: "1rem",
                 }}
               >
                 {isSuccess
-                  ? "Email verified successfully"
-                  : "Email verification failed"}
+                  ? translate("echtzeitkiosk.email.verify_email_success")
+                  : translate("echtzeitkiosk.email.verify_email_error")}
               </Typography>
             </>
           )}
@@ -140,7 +129,7 @@ const VerifyEmail = () => {
               marginBottom: "1rem",
             }}
           >
-            Login
+            {translate("ra.auth.sign_in")}
           </Button>
         </Box>
       </Card>

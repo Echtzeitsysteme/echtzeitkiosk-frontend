@@ -5,6 +5,7 @@ import WarehouseIcon from "@mui/icons-material/Warehouse";
 import GroupIcon from "@mui/icons-material/Group";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import HistoryIcon from "@mui/icons-material/History";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 
 import {
   useTranslate,
@@ -81,7 +82,7 @@ const Menu = ({ dense = false }: MenuProps) => {
         <MenuItemLink
           to="/previous-orders"
           state={{ _scrollToTop: true }}
-          primaryText={translate(`resources.previous_orders.name`, {
+          primaryText={translate(`echtzeitkiosk.previous_orders.name`, {
             smart_count: 2,
           })}
           leftIcon={<HistoryIcon />}
@@ -91,12 +92,22 @@ const Menu = ({ dense = false }: MenuProps) => {
       <MenuItemLink
         to="/customer-invoices"
         state={{ _scrollToTop: true }}
-        primaryText={translate(`resources.invoices.name`, {
-          smart_count: 2,
-        })}
+        primaryText={translate("echtzeitkiosk.customer_invoices.name")}
         leftIcon={<ReceiptLongIcon />}
         dense={dense}
       />
+
+      {userRole === "SUPERUSER" && (
+        <MenuItemLink
+          to="/system-state"
+          state={{ _scrollToTop: true }}
+          primaryText={translate(`echtzeitkiosk.system_state.name`, {
+            smart_count: 2,
+          })}
+          leftIcon={<PointOfSaleIcon />}
+          dense={dense}
+        />
+      )}
     </Box>
   );
 };
