@@ -334,12 +334,14 @@ const customGermanMessages: TranslationMessages = {
       cart: "Warenkorb",
       cart_price: "Preis (EUR)",
       cart_subtotal: "Zwischensumme (EUR)",
+      out_of_stock: "Nicht genug auf Lager",
     },
     previous_orders: {
       name: "Vorherige Bestellungen",
     },
     system_state: {
       name: "Systemstatus",
+      send_invoice_to_all: "Rechnung an alle Kunden senden",
     },
     customer_invoices: {
       name: "Kundenrechnungen",

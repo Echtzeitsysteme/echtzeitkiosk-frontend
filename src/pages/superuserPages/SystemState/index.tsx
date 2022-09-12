@@ -50,7 +50,7 @@ const SystemState = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          
+
           flexWrap: "wrap",
           alignItems: "center",
           minWidth: "95vw",
@@ -124,7 +124,7 @@ const SystemState = () => {
                 });
               }}
             >
-              Send Invoice To All Customers
+              {translate("echtzeitkiosk.system_state.send_invoice_to_all")}
             </Button>
           </Card>
 

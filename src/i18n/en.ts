@@ -272,6 +272,7 @@ const customEnglishMessages: TranslationMessages = {
         placeholder: "New Balance, e.g. 100.00",
       },
     },
+
     buttons: {
       update: "Update",
       cancel: "Cancel",
@@ -317,12 +318,14 @@ const customEnglishMessages: TranslationMessages = {
       cart: "Cart",
       cart_price: "Price (EUR)",
       cart_subtotal: "Subtotal (EUR)",
+      out_of_stock: "Out of stock",
     },
     previous_orders: {
       name: "Previous Orders",
     },
     system_state: {
       name: "System State",
+      send_invoice_to_all: "Send Invoice To All Customers",
     },
     customer_invoices: {
       name: "Customer Invoices",

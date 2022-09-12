@@ -291,6 +291,19 @@ const ShoppingCart = () => {
                             variant="contained"
                             color="success"
                             onClick={() => {
+                              if (
+                                get(product.id)?.quantity >= product.quantity
+                              ) {
+                                Swal.fire({
+                                  icon: "error",
+                                  title: "Oops...",
+                                  text: translate(
+                                    "echtzeitkiosk.products.out_of_stock"
+                                  ),
+                                });
+                                return;
+                              }
+
                               add(product);
                             }}
                           >
@@ -383,6 +396,19 @@ const ShoppingCart = () => {
                               variant="contained"
                               color="success"
                               onClick={() => {
+                                if (
+                                  get(product.id)?.quantity >= product.quantity
+                                ) {
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: translate(
+                                      "echtzeitkiosk.products.out_of_stock"
+                                    ),
+                                  });
+                                  return;
+                                }
+
                                 add(product);
                               }}
                             >
