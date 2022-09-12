@@ -3,6 +3,7 @@ import { TranslationMessages } from 'ra-core';
 const englishMessages: TranslationMessages = {
     ra: {
         action: {
+            remove_all_filters: 'Remove all filters',
             add_filter: 'Add filter',
             add: 'Add',
             back: 'Go Back',

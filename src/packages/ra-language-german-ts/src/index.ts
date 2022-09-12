@@ -3,6 +3,7 @@ import { TranslationMessages } from 'ra-core';
 const germanMessages: TranslationMessages = {
     ra: {
         action: {
+            remove_all_filters: 'Alle Filter entfernen',
             add_filter: 'Filter hinzufügen',
             add: 'Neu',
             back: 'Zurück',
