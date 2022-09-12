@@ -50,7 +50,6 @@ const RecentRegistrations = () => {
               color="success"
               onClick={(event) => {
                 handleApproveRegistration(event, params);
-                // console.log("params", params);
               }}
             >
               {translate("resources.customers.fields.approval")}
@@ -135,7 +134,6 @@ const RecentRegistrations = () => {
         });
 
         setRows(usersToShow);
-        console.log(usersToShow);
       } catch (error) {}
     };
 
@@ -143,8 +141,6 @@ const RecentRegistrations = () => {
   }, []);
 
   const handleApproveRegistration = async (event: any, params: any) => {
-    console.log("handleApproveRegistration", params);
-
     const fetchData = async () => {
       try {
         const resp = await axios({
@@ -163,8 +159,6 @@ const RecentRegistrations = () => {
   };
 
   const handleDeclineRegistration = async (event: any, params: any) => {
-    console.log("handleDeclineRegistration", params);
-
     const fetchData = async () => {
       try {
         const resp = await axios({
@@ -183,8 +177,6 @@ const RecentRegistrations = () => {
   };
 
   const handleUpdateBalance = async (event: any, params: any) => {
-    console.log("handleUpdateBalance", params);
-
     const updateBalance = async (balance, id) => {
       try {
         const urlParams = {

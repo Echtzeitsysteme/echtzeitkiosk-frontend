@@ -27,6 +27,7 @@ import {
 
 import Logo from "./Logo";
 import { getRandomBackground } from "../utils/getRandomBackground";
+import Swal from "sweetalert2";
 
 const LanguageDropdown = () => {
   const [locale, setLocale] = useLocaleState();
@@ -142,7 +143,7 @@ const Login = () => {
     login(
       auth,
       location.state ? (location.state as any).nextPathname : "/"
-    ).catch((error) => {
+    ).catch(async (error) => {
       setLoading(false);
 
       notify(
