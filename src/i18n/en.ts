@@ -4,7 +4,10 @@ import englishMessages from "ra-language-english";
 const customEnglishMessages: TranslationMessages = {
   ...englishMessages,
   custom_auth: {
+    invitation_code_not_valid: "Invitation code is not valid",
+    user_already_exists: "User already exists",
     forgot_password: "Forgot your password?",
+    confirm_email: "Confirm email",
     register: "Register",
     register_error: "Register error",
     register_success: "Registered successfully! Please check your email.",
@@ -246,11 +249,28 @@ const customEnglishMessages: TranslationMessages = {
     },
   },
   echtzeitkiosk: {
+    email: {
+      notification_checkbox_for_customer_order:
+        "Email notification for customer order",
+      verify_email_title: "Verify Email",
+      verify_email_success: "Email verified successfully",
+      verify_email_error: "Email verification failed",
+      bad_token: "Wrong token or empty token provided!",
+    },
     recentRegistrations: "Recent Registrations",
     balance: {
       update: "Update Balance",
       update_descr: "Enter the new balance",
       update_placeholder: "New Balance, e.g. 100.00",
+      name: "Balance",
+    },
+    treasury: {
+      current_balance: "System Balance",
+      update_dialog: {
+        title: "Update System Balance",
+        description: "Enter the new system balance",
+        placeholder: "New Balance, e.g. 100.00",
+      },
     },
     buttons: {
       update: "Update",
@@ -260,6 +280,8 @@ const customEnglishMessages: TranslationMessages = {
       yes: "Yes",
       no: "No",
       reset_pw: "Send password reset link to your email",
+      send_invoice: "Send invoice",
+      download_pdf: "Download PDF",
     },
     feedback: {
       success: {
@@ -277,6 +299,10 @@ const customEnglishMessages: TranslationMessages = {
         sure: "Are you sure?",
         sure_yes: "Pressing 'Yes' will change",
       },
+      warning: {
+        title: "Warning",
+        text: "This action cannot be undone.",
+      },
     },
     products: {
       title: "Products",
@@ -286,6 +312,11 @@ const customEnglishMessages: TranslationMessages = {
       created_at: "Created at",
       unit_price: "Unit Price (EUR)",
       delete_option: "Delete!",
+      in_stock: "in stock",
+      in_cart: "In Cart:",
+      cart: "Cart",
+      cart_price: "Price (EUR)",
+      cart_subtotal: "Subtotal (EUR)",
     },
     previous_orders: {
       name: "Previous Orders",
@@ -295,6 +326,13 @@ const customEnglishMessages: TranslationMessages = {
     },
     customer_invoices: {
       name: "Customer Invoices",
+      download: "Download",
+      type: "Type",
+      current_user_balance: "Current User Balance (EUR)",
+      user: "User",
+      total: "Total (EUR)",
+      month_year: "Month-Year",
+      order_id: "Order ID",
     },
   },
   from: "von",

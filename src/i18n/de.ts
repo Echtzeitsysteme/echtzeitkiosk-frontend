@@ -5,10 +5,13 @@ const customGermanMessages: TranslationMessages = {
   ...germanMessages,
   custom_auth: {
     forgot_password: "Passwort vergessen?",
+    confirm_email: "Email bestätigen",
+    invitation_code_not_valid: "Einladungscode ist nicht gültig",
+    user_already_exists: "Benutzer existiert bereits",
     register: "Registrieren",
     register_error: "Registrierungserror",
     register_success:
-      "Erfolgreich registriert! Please überprüfen Sie Ihre Emails.",
+      "Erfolgreich registriert! Bitte überprüfen Sie Ihre Emails.",
     confirm_password: "Passwort bestätigen",
     invitation_code: "Einladungscode",
     login: "Login",
@@ -261,11 +264,28 @@ const customGermanMessages: TranslationMessages = {
     },
   },
   echtzeitkiosk: {
+    email: {
+      notification_checkbox_for_customer_order:
+        "Benachrichtigung für Kundenbestellung",
+      verify_email_title: "E-Mail-Adresse Bestätigung",
+      verify_email_success: "E-Mail-Adresse wurde erfolgreich bestätigt",
+      verify_email_error: "E-Mail-Adresse konnte nicht bestätigt werden",
+      bad_token: "Ungültiger E-Mail-Verifizierung Token",
+    },
     recentRegistrations: "Neueste Registrierungen",
     balance: {
       update: "Guthaben Aktualisieren",
       update_descr: "Geben Sie einen neuen Guthabenstand ein",
       update_placeholder: "Neues Guthaben, z.B. 100.00",
+      name: "Guthaben",
+    },
+    treasury: {
+      current_balance: "Aktueller Kassenbestand",
+      update_dialog: {
+        title: "Kassenbestand aktualisieren",
+        description: "Geben Sie einen neuen Kassenbestand ein",
+        placeholder: "Neuer Kassenbestand, z.B. 100.00",
+      },
     },
     buttons: {
       update: "Aktualisieren",
@@ -275,6 +295,8 @@ const customGermanMessages: TranslationMessages = {
       yes: "Ja",
       no: "Nein",
       reset_pw: "Passwort zurücksetzen",
+      send_invoice: "Rechnung senden",
+      download_pdf: "PDF herunterladen",
     },
     feedback: {
       success: {
@@ -293,6 +315,10 @@ const customGermanMessages: TranslationMessages = {
         sure: "Bist du sicher?",
         sure_yes: "Bestätigung mit 'Ja' ändert",
       },
+      warning: {
+        title: "Warnung",
+        text: "Dieser Vorgang kann nicht rückgängig gemacht werden.",
+      },
     },
     products: {
       title: "Produkte",
@@ -302,6 +328,12 @@ const customGermanMessages: TranslationMessages = {
       created_at: "Erstellt am",
       unit_price: "Stückpreis (EUR)",
       delete_option: "Löschen!",
+      left: "auf Lager",
+      in_cart: "Im Warenkorb:",
+      in_stock: "auf Lager",
+      cart: "Warenkorb",
+      cart_price: "Preis (EUR)",
+      cart_subtotal: "Zwischensumme (EUR)",
     },
     previous_orders: {
       name: "Vorherige Bestellungen",
@@ -311,6 +343,13 @@ const customGermanMessages: TranslationMessages = {
     },
     customer_invoices: {
       name: "Kundenrechnungen",
+      download: "Herunterladen",
+      type: "Typ",
+      current_user_balance: "Guthabenstand (EUR)",
+      user: "Benutzer",
+      total: "Summe (EUR)",
+      month_year: "Monat-Jahr",
+      order_id: "Bestellung-ID",
     },
   },
   from: "von",

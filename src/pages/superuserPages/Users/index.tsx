@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 
 import Swal from "sweetalert2";
@@ -41,7 +41,7 @@ const Users = () => {
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 300,
     },
     {
       field: "username",
@@ -107,7 +107,8 @@ const Users = () => {
             <Box
               display="flex"
               justifyContent="center"
-              alignItems="space-between"
+              alignItems="center"
+              flexDirection="row"
             >
               <Typography variant="body2">{params.value}</Typography>
               <Button
@@ -138,12 +139,62 @@ const Users = () => {
             <Button
               sx={{ marginLeft: "1rem" }}
               variant="contained"
-              color="primary"
+              color="error"
               onClick={(event) => {
-                handleDeleteUser(event, params);
+                Swal.fire({
+                  title: translate("echtzeitkiosk.feedback.warning.title"),
+                  text: translate("echtzeitkiosk.feedback.warning.text"),
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: translate("echtzeitkiosk.buttons.yes"),
+                  cancelButtonText: translate("echtzeitkiosk.buttons.no"),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleDeleteUser(event, params);
+                  }
+                });
               }}
             >
               {translate("echtzeitkiosk.buttons.delete")}
+            </Button>
+          </>
+        );
+      },
+    },
+    {
+      field: "Send Invoice",
+      hideSortIcons: true,
+      filterable: false,
+      sortable: false,
+      headerName: translate("echtzeitkiosk.buttons.send_invoice"),
+      width: 200,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <Button
+              sx={{ marginLeft: "1rem" }}
+              variant="contained"
+              color="error"
+              onClick={(event) => {
+                Swal.fire({
+                  title: translate("echtzeitkiosk.feedback.warning.title"),
+                  text: translate("echtzeitkiosk.feedback.warning.text"),
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: translate("echtzeitkiosk.buttons.yes"),
+                  cancelButtonText: translate("echtzeitkiosk.buttons.no"),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    handleSendInvoice(event, params);
+                  }
+                });
+              }}
+            >
+              {translate("echtzeitkiosk.buttons.send_invoice")}
             </Button>
           </>
         );
@@ -261,6 +312,35 @@ const Users = () => {
     window.location.reload();
   };
 
+  const handleSendInvoice = async (event: any, params: any) => {
+    const callAPI = async () => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+          url: `${API_URL}/customer-invoices/send-to/` + params.row.id,
+        };
+
+        const resp = await axios(options);
+
+        if (resp.status === 200) {
+          Swal.fire({
+            title: translate("echtzeitkiosk.feedback.success"),
+            text: translate("echtzeitkiosk.feedback.invoice_sent"),
+            icon: "success",
+            confirmButtonText: translate("echtzeitkiosk.buttons.ok"),
+          });
+        }
+      } catch (error) {}
+    };
+
+    await callAPI();
+
+    window.location.reload();
+  };
+
   // ----------------
 
   useEffect(() => {
@@ -312,11 +392,12 @@ const Users = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
           minWidth: "95vw",
-          minHeight: "50vh",
-          marginTop: "8em",
+          minHeight: "70vh",
+          // height: "80%",
+          marginTop: "2em",
           boxShadow: "0px 10px 13px -7px #000000",
           border: "5px 5px 15px 5px #000000",
         }}
@@ -339,15 +420,22 @@ const Users = () => {
               // padding: "1em",
               // minHeight: "300%",
               minWidth: "90vw",
-              minHeight: "50vh",
+              minHeight: "80vh",
             }}
           >
             <DataGrid
               rows={rows}
               columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
               disableSelectionOnClick
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              }}
             />
           </Box>
         </Box>

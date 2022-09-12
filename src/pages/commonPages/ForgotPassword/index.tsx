@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Form, useTranslate, useNotify, TextInput } from "react-admin";
 
@@ -23,7 +23,6 @@ const ResetPassword = () => {
   const translate = useTranslate();
   const notify = useNotify();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
   const handleForgotPassword = (
     forgotPasswordFormValus: ForgotPasswordFormValus
@@ -60,7 +59,9 @@ const ResetPassword = () => {
         })
         .catch((error) => {
           setLoading(false);
-          notify(`${translate("echtzeitkiosk.errors.forgot_pw_mail")} ${error}`);
+          notify(
+            `${translate("echtzeitkiosk.errors.forgot_pw_mail")} ${error}`
+          );
           setIsSuccess(false);
         });
     }
@@ -104,7 +105,9 @@ const ResetPassword = () => {
           }}
         >
           <Logo />
-          <Typography variant="h5">{translate("custom_auth.forgot_password")}</Typography>
+          <Typography sx={{ padding: "1em" }} variant="h5">
+            {translate("custom_auth.forgot_password")}
+          </Typography>
 
           {!loading && !isSuccess ? (
             <Typography
@@ -143,10 +146,10 @@ const ResetPassword = () => {
                 />
                 <TextInput
                   source="confirmEmail"
-                  label="Confirm email"
+                  label={translate("custom_auth.confirm_email")}
                   name="confirmEmail"
                   type="email"
-                  placeholder="Confirm email"
+                  placeholder={translate("custom_auth.confirm_email")}
                   variant="standard"
                   margin="normal"
                   required
@@ -188,7 +191,7 @@ const ResetPassword = () => {
               marginBottom: "1rem",
             }}
           >
-            Login
+            {translate("ra.auth.sign_in")}
           </Button>
         </Box>
       </Card>

@@ -12,13 +12,16 @@ export const getRandomBackground = () => {
     "chocolate",
     "cake",
     "icecream",
+    "fruits",
   ];
 
   const random = Math.floor(Math.random() * topics.length);
 
   topic = topics[random];
 
-  const template = `url(https://source.unsplash.com/random/800x450/?${topic})`;
+  // const template = `url(https://source.unsplash.com/random/800x450/?${topic})`;
+  const template = `url(https://source.unsplash.com/random/1920x1080/?${topic})`;
+
 
   return template;
 };
