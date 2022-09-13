@@ -45,7 +45,7 @@ const ResetPassword = () => {
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
-            notify(translate("echtzeitkiosk.errors.forgot_pw_mail_sent"));
+            notify(translate("echtzeitkiosk.feedback.success.forgot_pw_mail_sent"));
             setIsSuccess(true);
           } else {
             setLoading(false);

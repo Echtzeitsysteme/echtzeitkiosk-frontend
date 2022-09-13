@@ -397,7 +397,9 @@ const ShoppingCart = () => {
                               color="success"
                               onClick={() => {
                                 if (
-                                  get(product.id)?.quantity >= product.quantity
+                                  get(product.id)?.quantity >=
+                                  products.find((p) => p.id === product.id)
+                                    ?.quantity
                                 ) {
                                   Swal.fire({
                                     icon: "error",

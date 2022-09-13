@@ -13,6 +13,7 @@ export const getRandomBackground = () => {
     "cake",
     "icecream",
     "fruits",
+    "waffle"
   ];
 
   const random = Math.floor(Math.random() * topics.length);
