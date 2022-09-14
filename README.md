@@ -54,7 +54,9 @@ REACT_APP_API_URL=http://localhost:4000/v1
 
 ```
 ## GitHub Actions
-* `./github/workflows/arm64.yml`  and `./github/workflows/amd64.yml` are used to build docker images for ARM64 and AMD64 architectures respectively and then push them to GitHub Container Registry.
+* `./github/workflows/arm64.yml`  and `./github/workflows/amd64.yml` are used to build docker images for ARM64 and AMD64 architectures respectively and then push them to GitHub Container Registry. When a new commit is pushed to the `deployment` branch, the workflow is triggered. You can use the images in your own project by changing the image name in the docker-compose files. 
+  * Images are stored in the `packages` tab of the GitHub Container Registry.
+    * https://github.com/Echtzeitsysteme/echtzeitkiosk-frontend/pkgs/container/echtzeitkiosk-frontend
   * https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
   * You should create a `read:packages` token on GitHub. Then you can use it on your server to pull the images from GitHub Container Registry.
   * Be sure that you pull the correct image for your architecture. You can check your architecture with `uname -m` command on your server. And you should also use the correct image in your docker-compose file.
