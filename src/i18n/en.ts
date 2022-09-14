@@ -338,8 +338,8 @@ const customEnglishMessages: TranslationMessages = {
       order_id: "Order ID",
     },
   },
-  from: "von",
-  to: "zu",
+  from: "from",
+  to: "to",
 };
 
 export default customEnglishMessages;

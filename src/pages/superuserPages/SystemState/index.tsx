@@ -210,7 +210,7 @@ const SystemState = () => {
             </Button>
           </Card>
 
-          <Card
+          {/* <Card
             sx={{
               minWidth: "20vw",
               minHeight: "20vh",
@@ -220,7 +220,7 @@ const SystemState = () => {
             }}
           >
             <Typography>Test</Typography>
-          </Card>
+          </Card> */}
         </Box>
       </Card>
     </Box>

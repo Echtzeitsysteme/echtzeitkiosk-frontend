@@ -421,9 +421,11 @@ const Users = () => {
               // minHeight: "300%",
               minWidth: "90vw",
               minHeight: "80vh",
+              height: "100%",
             }}
           >
             <DataGrid
+              sx={{ minWidth: "90vw", minHeight: "80vh" }}
               rows={rows}
               columns={columns}
               pageSize={10}

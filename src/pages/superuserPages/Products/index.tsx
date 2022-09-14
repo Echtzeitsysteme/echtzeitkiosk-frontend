@@ -514,7 +514,7 @@ const Products = () => {
             <div style={{ height: "100%", width: "100%" }}>
               {renderConfirmDialog()}
               <DataGrid
-                sx={{ minWidth: "88vw", minHeight: "40vh" }}
+                sx={{ minWidth: "88vw", minHeight: "70vh" }}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
