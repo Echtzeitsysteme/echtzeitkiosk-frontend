@@ -1,3 +1,4 @@
+// import fallbackImageURL from "../utils/waffle.jpg";
 export const getRandomBackground = () => {
   let topic = "bakery";
 
@@ -13,7 +14,7 @@ export const getRandomBackground = () => {
     "cake",
     "icecream",
     "fruits",
-    "waffle"
+    "waffle",
   ];
 
   const random = Math.floor(Math.random() * topics.length);
@@ -22,7 +23,9 @@ export const getRandomBackground = () => {
 
   // const template = `url(https://source.unsplash.com/random/800x450/?${topic})`;
   const template = `url(https://source.unsplash.com/random/1920x1080/?${topic})`;
+  // const template = `url(https://source.unsplash.com/random/960x540/?${topic})`;
 
+  // const template = `url(${fallbackImageURL})`;
 
   return template;
 };
