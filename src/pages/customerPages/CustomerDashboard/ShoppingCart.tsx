@@ -18,7 +18,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  CircularProgress,
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -30,7 +29,6 @@ import EuroIcon from "@mui/icons-material/Euro";
 
 import Swal from "sweetalert2";
 import axios from "axios";
-// import { useFetch } from "usehooks-ts";
 
 import {
   total,
@@ -44,10 +42,6 @@ import {
 } from "cart-localstorage";
 
 import { API_URL } from "../../../utils/API_URL";
-import {
-  exampleProductsData,
-  exampleProductsData2,
-} from "../../../utils/productsMockData";
 
 interface Product {
   id: string;
@@ -291,6 +285,19 @@ const ShoppingCart = () => {
                             variant="contained"
                             color="success"
                             onClick={() => {
+                              if (
+                                get(product.id)?.quantity >= product.quantity
+                              ) {
+                                Swal.fire({
+                                  icon: "error",
+                                  title: "Oops...",
+                                  text: translate(
+                                    "echtzeitkiosk.products.out_of_stock"
+                                  ),
+                                });
+                                return;
+                              }
+
                               add(product);
                             }}
                           >
@@ -383,6 +390,21 @@ const ShoppingCart = () => {
                               variant="contained"
                               color="success"
                               onClick={() => {
+                                if (
+                                  get(product.id)?.quantity >=
+                                  products.find((p) => p.id === product.id)
+                                    ?.quantity
+                                ) {
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: translate(
+                                      "echtzeitkiosk.products.out_of_stock"
+                                    ),
+                                  });
+                                  return;
+                                }
+
                                 add(product);
                               }}
                             >

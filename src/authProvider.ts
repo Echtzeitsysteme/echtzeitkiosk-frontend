@@ -18,7 +18,6 @@ const authProvider: AuthProvider = {
       )}`,
     };
 
-    // TODO take precautions to prevent XSS attacks. Use cookies with httpOnly. Do not use url-encoded method, use JSON.
     return axios
       .request(options)
       .then(function(response) {
@@ -38,6 +37,11 @@ const authProvider: AuthProvider = {
         }
       })
       .catch(function(error) {
+        Swal.fire({
+          title: "Error",
+          text: error.response.data.errors[0],
+          icon: "error",
+        });
         throw new Error(error);
       });
   },

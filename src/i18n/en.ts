@@ -272,6 +272,7 @@ const customEnglishMessages: TranslationMessages = {
         placeholder: "New Balance, e.g. 100.00",
       },
     },
+
     buttons: {
       update: "Update",
       cancel: "Cancel",
@@ -317,12 +318,17 @@ const customEnglishMessages: TranslationMessages = {
       cart: "Cart",
       cart_price: "Price (EUR)",
       cart_subtotal: "Subtotal (EUR)",
+      out_of_stock: "Out of stock",
     },
     previous_orders: {
       name: "Previous Orders",
     },
     system_state: {
       name: "System State",
+      send_invoice_to_all: "Send Invoice To All Customers",
+
+      send_invoice_to_all_help_text:
+        "Sends only if a user has a customer order that has not yet been assigned to an invoice.",
     },
     customer_invoices: {
       name: "Customer Invoices",
@@ -335,8 +341,8 @@ const customEnglishMessages: TranslationMessages = {
       order_id: "Order ID",
     },
   },
-  from: "von",
-  to: "zu",
+  from: "from",
+  to: "to",
 };
 
 export default customEnglishMessages;

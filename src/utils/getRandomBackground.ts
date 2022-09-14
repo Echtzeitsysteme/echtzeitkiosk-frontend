@@ -1,27 +1,31 @@
+import fallbackImageURL from "../utils/waffle.jpg";
 export const getRandomBackground = () => {
-  let topic = "bakery";
+  // let topic = "bakery";
 
-  const topics = [
-    "bakery",
-    "food",
-    "coffee",
-    "cafe",
-    "dinner",
-    "breakfast",
-    "lunch",
-    "chocolate",
-    "cake",
-    "icecream",
-    "fruits",
-  ];
+  // const topics = [
+  //   "bakery",
+  //   "food",
+  //   "coffee",
+  //   "cafe",
+  //   "dinner",
+  //   "breakfast",
+  //   "lunch",
+  //   "chocolate",
+  //   "cake",
+  //   "icecream",
+  //   "fruits",
+  //   "waffle",
+  // ];
 
-  const random = Math.floor(Math.random() * topics.length);
+  // const random = Math.floor(Math.random() * topics.length);
 
-  topic = topics[random];
+  // topic = topics[random];
 
   // const template = `url(https://source.unsplash.com/random/800x450/?${topic})`;
-  const template = `url(https://source.unsplash.com/random/1920x1080/?${topic})`;
+  // const template = `url(https://source.unsplash.com/random/1920x1080/?${topic})`;
+  // const template = `url(https://source.unsplash.com/random/960x540/?${topic})`;
 
+  const template = `url(${fallbackImageURL})`;
 
   return template;
 };

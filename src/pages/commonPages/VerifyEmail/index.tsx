@@ -59,6 +59,7 @@ const VerifyEmail = () => {
         alignItems: "center",
         justifyContent: "flex-start",
         background: getRandomBackground(),
+        backgroundColor: "rgba(0,0,0,0.5)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         zIndex: -1,
