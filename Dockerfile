@@ -10,7 +10,8 @@ ENV NODE_ENV=production
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile
+# RUN yarn install --production --frozen-lockfile
+RUN yarn 
 COPY . .
 RUN yarn build
 
