@@ -28,11 +28,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "commit": "cz",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "commit": "git-cz"
+    "eject": "react-scripts eject"
   },
   "config": {
     "commitizen": {
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@types/react-world-flags": "^1.4.2",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "cz-emoji": "^1.3.2-canary.2"
   }
 }

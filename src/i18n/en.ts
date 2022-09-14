@@ -326,6 +326,9 @@ const customEnglishMessages: TranslationMessages = {
     system_state: {
       name: "System State",
       send_invoice_to_all: "Send Invoice To All Customers",
+
+      send_invoice_to_all_help_text:
+        "Sends only if a user has a customer order that has not yet been assigned to an invoice.",
     },
     customer_invoices: {
       name: "Customer Invoices",

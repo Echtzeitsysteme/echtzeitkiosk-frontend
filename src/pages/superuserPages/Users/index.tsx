@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import HelpIcon from "@mui/icons-material/Help";
+
 import axios from "axios";
 
 import Swal from "sweetalert2";
@@ -168,7 +170,37 @@ const Users = () => {
       hideSortIcons: true,
       filterable: false,
       sortable: false,
-      headerName: translate("echtzeitkiosk.buttons.send_invoice"),
+
+      renderHeader: () => (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Typography variant="body1">
+            {translate("echtzeitkiosk.buttons.send_invoice")}
+          </Typography>
+          <HelpIcon
+            sx={{
+              color: "red",
+              fontSize: "1.5rem",
+              marginLeft: "1rem",
+            }}
+            onClick={() => {
+              Swal.fire({
+                title: translate(
+                  "echtzeitkiosk.system_state.send_invoice_to_all_help_text"
+                ),
+                icon: "info",
+              });
+            }}
+          />
+        </Box>
+      ),
+
       width: 200,
       renderCell: (params: any) => {
         return (

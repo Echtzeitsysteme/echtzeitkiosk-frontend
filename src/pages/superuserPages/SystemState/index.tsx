@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useTranslate } from "react-admin";
 
 import { Box, Button, Card, Typography } from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
 
 import { API_URL } from "../../../utils/API_URL";
 
@@ -81,12 +82,17 @@ const SystemState = () => {
               boxShadow: "0px 10px 13px -7px #000000",
               border: "5px 5px 15px 5px #000000",
               margin: "1rem",
+              padding: "1rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Button
               variant="contained"
               color="warning"
-              sx={{ margin: "1em" }}
+              sx={{ margin: "1rem" }}
               onClick={() => {
                 Swal.fire({
                   title: "Are you sure?",
@@ -126,6 +132,21 @@ const SystemState = () => {
             >
               {translate("echtzeitkiosk.system_state.send_invoice_to_all")}
             </Button>
+            <HelpIcon
+              sx={{
+                color: "red",
+                marginLeft: "0.3rem",
+                fontSize: "2rem",
+              }}
+              onClick={() => {
+                Swal.fire({
+                  title: translate(
+                    "echtzeitkiosk.system_state.send_invoice_to_all_help_text"
+                  ),
+                  icon: "info",
+                });
+              }}
+            />
           </Card>
 
           <Card

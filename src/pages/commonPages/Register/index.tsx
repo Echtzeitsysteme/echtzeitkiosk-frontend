@@ -8,7 +8,6 @@ import {
   useNotify,
   required,
   TextInput,
-  email,
 } from "react-admin";
 
 import {

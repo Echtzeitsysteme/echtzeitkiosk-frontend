@@ -342,6 +342,7 @@ const customGermanMessages: TranslationMessages = {
     system_state: {
       name: "Systemstatus",
       send_invoice_to_all: "Rechnung an alle Kunden senden",
+      send_invoice_to_all_help_text: "Sendet nur, wenn ein Benutzer eine Kundenbestellung hat, der noch keine Rechnung zugewiesen wurde.",
     },
     customer_invoices: {
       name: "Kundenrechnungen",
