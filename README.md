@@ -1,6 +1,6 @@
 # Echtzeitkiosk - Frontend
 
-At the department of Real-Time Systems Lab (ES) at the Technische Universität Darmstadt, employees of the department got together and opened a small kiosk with self-service in the common kitchen. The kiosk was independently filled with different goods to build up a certain stock.  Initially it was financed by an appointed employee (from now on called administrator/superuser) who took over the administration of the kiosk and regularly checked the stock. As a result, any employee at the department is able to purchase available products from the kiosk with one payment. In the context of the project seminar software systems at the TU Darmstadt the two authors of this document are to develop a digital solution for inventory and invoice management. This GitHub repository contains the frontend code of the project. The backend code can be found [here](https://github.com/Echtzeitsysteme/echtzeitkiosk-backend). You can fork this repository and use it as a template for your own project. The frontend is written in TypeScript with [React.js](https://reactjs.org/) and uses [Material-UI](https://material-ui.com/) with the react-admin library for the user interface. The backend is also written in TypeScript with [Node.js](https://nodejs.org/en/) and uses [Express.js](https://expressjs.com/) as web framework. The database is a [PostgreSQL](https://www.postgresql.org/) database and TypeORM is chosen as an object-relational mapper (ORM). Easy deployment with [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) is supported. You can utilize Traefikv2 as a reverse proxy and Let's Encrypt for SSL certificates easily with the provided docker-compose files which contains also Portainer for container management & monitoring and Adminer for database management on browser.
+At the department of Real-Time Systems Lab (ES) at the Technische Universität Darmstadt, employees of the department got together and opened a small kiosk with self-service in the common kitchen. The kiosk was independently filled with different goods to build up a certain stock.  Initially it was financed by an appointed employee (from now on called administrator/superuser) who took over the administration of the kiosk and regularly checked the stock. As a result, any employee at the department is able to purchase available products from the kiosk with one payment. In the context of the project seminar software systems at the TU Darmstadt the two authors of this document are to develop a digital solution for inventory and invoice management. This GitHub repository contains the frontend code of the project. The backend code can be found [here](https://github.com/Echtzeitsysteme/echtzeitkiosk-backend). You can fork this repository and use it as a template for your own project. The frontend is written in TypeScript with [React.js](https://reactjs.org/) and uses [Material-UI](https://material-ui.com/) with the react-admin library for the user interface. The backend is also written in TypeScript with [Node.js](https://nodejs.org/en/) and uses [Express.js](https://expressjs.com/) as web framework. The database is a [PostgreSQL](https://www.postgresql.org/) database and TypeORM is chosen as an object-relational mapper (ORM). Easy deployment with [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) is supported. You can utilize Traefikv2 as a reverse proxy and Let's Encrypt for SSL certificates easily with the provided docker-compose files which contains also Portainer for container management & monitoring and Adminer for database management on browser. Customer invoices can be sent via email manually or automatically using cron jobs.
 
 ![](/screenshots/login.jpg)
 
@@ -54,7 +54,9 @@ REACT_APP_API_URL=http://localhost:4000/v1
 
 ```
 ## GitHub Actions
-* `./github/workflows/arm64.yml`  and `./github/workflows/amd64.yml` are used to build docker images for ARM64 and AMD64 architectures respectively and then push them to GitHub Container Registry.
+* `./github/workflows/arm64.yml`  and `./github/workflows/amd64.yml` are used to build docker images for ARM64 and AMD64 architectures respectively and then push them to GitHub Container Registry. When a new commit is pushed to the `deployment` branch, the workflow is triggered. You can use the images in your own project by changing the image name in the docker-compose files. 
+  * Images are stored in the `packages` tab of the GitHub Container Registry.
+    * https://github.com/Echtzeitsysteme/echtzeitkiosk-frontend/pkgs/container/echtzeitkiosk-frontend
   * https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
   * You should create a `read:packages` token on GitHub. Then you can use it on your server to pull the images from GitHub Container Registry.
   * Be sure that you pull the correct image for your architecture. You can check your architecture with `uname -m` command on your server. And you should also use the correct image in your docker-compose file.
@@ -174,12 +176,12 @@ Init release.
 
 - [ ] Code splitting 🙈
 - [ ] Better folder structure 🙈
-- [ ] Migration to [Vite](https://www.darraghoriordan.com/2021/05/16/migrating-from-create-react-app-to-vite/)\
+- [ ] Migration to [Vite](https://www.darraghoriordan.com/2021/05/16/migrating-from-create-react-app-to-vite/)
 - [ ] Utilize react-admin or remove/replace it 🙈 
 - [ ] Use JSON body instead of url-encoding 🙈 
 - [ ] Testing 🙈
-- [ ] Better CI/CD and linting\ 
-  - [ ] lint-staged\🤕
+- [ ] Better CI/CD and linting 
+  - [ ] lint-staged🤕
   - [ ] husky🤕
   - [ ] ...
 - [ ] Optimize nginx config
