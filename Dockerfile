@@ -10,8 +10,8 @@ ENV NODE_ENV=production
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
-# RUN yarn install --production --frozen-lockfile
-RUN yarn 
+RUN yarn install --production --frozen-lockfile --network-timeout 1000000
+
 COPY . .
 RUN yarn build
 
