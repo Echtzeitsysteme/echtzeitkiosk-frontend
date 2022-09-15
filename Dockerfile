@@ -1,6 +1,8 @@
-FROM node as builder
+FROM node:lts-alpine as builder
 
-ENV TZ Europe/Berlin
+ENV TZ Etc/Universal
+RUN apk update && apk add tzdata
+
 ENV GENERATE_SOURCEMAP=false 
 ENV DISABLE_ESLINT_PLUGIN=true
 ENV TSC_COMPILE_ON_ERROR=true
