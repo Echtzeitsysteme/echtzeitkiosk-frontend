@@ -8,7 +8,8 @@ ENV DISABLE_ESLINT_PLUGIN=true
 ENV TSC_COMPILE_ON_ERROR=true
 ENV NODE_ENV=production
 # ENV REACT_APP_API_URL=https://api.echtzeitkiosk.mertalpulus.eu/v1
-ENV REACT_APP_API_URL=http://kiosk.fg.es.e-technik.tu-darmstadt.de:4000/v1
+#ENV REACT_APP_API_URL=http://kiosk.fg.es.e-technik.tu-darmstadt.de:4000/v1
+ENV REACT_APP_API_URL=https://api.echtzeitkiosk.de/v1
 
 WORKDIR /usr/src/app
 
