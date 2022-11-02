@@ -108,7 +108,7 @@ const customEnglishMessages: TranslationMessages = {
         password_success: "Password changed successfully",
         password_missmatch: "Passwords do not match",
         password_req:
-          "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character. Minimum lenght is 8 digits.",
+          "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character. Minimum length is 8 digits.",
       },
       page: {
         delete: "Delete Customer",
