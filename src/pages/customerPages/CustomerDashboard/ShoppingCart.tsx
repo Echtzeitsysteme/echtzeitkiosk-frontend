@@ -144,7 +144,7 @@ const ShoppingCart = () => {
       destroy();
 
       await Swal.fire(
-        "Current balance:",
+        translate("echtzeitkiosk.customer_invoices.current_user_balance"),
         `${data?.balanceAfterOrder}`,
         "success"
       );

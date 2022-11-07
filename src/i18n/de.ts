@@ -114,10 +114,10 @@ const customGermanMessages: TranslationMessages = {
         old_password: "Altes Passwort",
         new_password: "Neues Passwort",
         confirm_password: "Passwort wiederholen",
-        password_success: "Password erfolgreicht geändert.",
+        password_success: "Password erfolgreich geändert.",
         password_missmatch: "Passwörter stimmen nicht überein.",
         password_req:
-          "Passwörter müssen mindestens ein Kleinbuchstabe, ein Großbuchstabe, eine Zahl und ein Spezialcharakter enthalten.",
+          "Passwörter müssen mindestens ein Kleinbuchstabe, ein Großbuchstabe, eine Zahl und ein Spezialcharakter enthalten. Mindestlänge sind 8 Zeichen.",
       },
       page: {
         delete: "Kunde löschen",

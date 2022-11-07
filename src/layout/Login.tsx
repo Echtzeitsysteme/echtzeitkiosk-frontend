@@ -18,6 +18,7 @@ import Flag from "react-world-flags";
 import {
   Form,
   required,
+  email,
   TextInput,
   useTranslate,
   useLocaleState,
@@ -222,7 +223,7 @@ const Login = () => {
                 type="email"
                 label="Email"
                 disabled={loading}
-                validate={required()}
+                validate={[required(), email()]}
                 fullWidth
                 variant="standard"
               />
