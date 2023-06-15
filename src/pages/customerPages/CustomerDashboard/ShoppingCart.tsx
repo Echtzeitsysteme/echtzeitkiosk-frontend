@@ -187,7 +187,7 @@ const ShoppingCart = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  alignItems: "center",
+                  alignItems: "end",
                   justifyContent: "center",
                   maxWidth: "100%",
                   flexWrap: "wrap",
