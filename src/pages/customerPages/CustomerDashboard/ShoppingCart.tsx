@@ -310,7 +310,7 @@ const ShoppingCart = () => {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <Accordion>
+          <Accordion defaultExpanded={true}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
