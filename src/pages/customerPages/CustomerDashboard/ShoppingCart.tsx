@@ -202,6 +202,8 @@ const ShoppingCart = () => {
                           mx: 2,
                           my: 2,
                           maxWidth: "40vh",
+						  width: "12em",
+						  alignSelf: "stretch",
 
                           display: "flex",
                           flexDirection: "column",
@@ -218,6 +220,9 @@ const ShoppingCart = () => {
                             sx={{
                               maxHeight: "10rem",
                               maxWidth: "10rem",
+							  width: "100%",
+							  height: "10rem",
+							  objectFit: "scale-down"
                             }}
                             component="img"
                             height="auto"
@@ -245,10 +250,11 @@ const ShoppingCart = () => {
                           sx={{
                             display: "flex",
                             flexDirection: "row",
-                            alignItems: "center",
+                            alignItems: "end",
                             justifyContent: "space-evenly",
                             maxWidth: "100%",
                             flexWrap: "wrap",
+							flex: "1 1 0%",
                           }}
                         >
                           <Button
