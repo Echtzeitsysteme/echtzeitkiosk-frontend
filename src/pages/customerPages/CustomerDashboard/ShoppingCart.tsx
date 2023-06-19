@@ -159,7 +159,6 @@ const ShoppingCart = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          height: "100vh",
           overflow: "auto",
           display: "flex",
           flexDirection: "column",
