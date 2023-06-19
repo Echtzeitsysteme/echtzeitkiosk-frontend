@@ -235,9 +235,12 @@ const ShoppingCart = () => {
                           />
                         )}
                         <CardContent>
-                          <Typography gutterBottom variant="h6" component="div">
+                          <Typography gutterBottom variant="h6" component="div" lineHeight="1.25" height="2.5em">
                             {product.productTitle}
                           </Typography>
+                        </CardContent>
+
+						<CardContent>
                           <Typography variant="body1" color="text.secondary">
                             {product.price}€
                           </Typography>
@@ -246,6 +249,27 @@ const ShoppingCart = () => {
                             {translate("echtzeitkiosk.products.in_stock")}
                           </Typography>
                         </CardContent>
+
+						{get(product.id) && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: "0.5rem",
+                              }}
+                            >
+                              <Typography variant="body1">
+                                {translate("echtzeitkiosk.products.in_cart")}
+                              </Typography>
+
+                              <Typography variant="h6" fontWeight="bold">
+                                {get(product.id).quantity.toString()}
+                              </Typography>
+                            </Box>
+                          )}
+
                         <CardActions
                           sx={{
                             display: "flex",
@@ -267,25 +291,7 @@ const ShoppingCart = () => {
                           >
                             <RemoveShoppingCartIcon />
                           </Button>
-                          {get(product.id) && (
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                padding: "0.5rem",
-                              }}
-                            >
-                              <Typography variant="body1">
-                                {translate("echtzeitkiosk.products.in_cart")}
-                              </Typography>
 
-                              <Typography variant="h6" fontWeight="bold">
-                                {get(product.id).quantity.toString()}
-                              </Typography>
-                            </Box>
-                          )}
                           <Button
                             size="small"
                             variant="contained"
