@@ -159,7 +159,6 @@ const ShoppingCart = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          height: "100vh",
           overflow: "auto",
           display: "flex",
           flexDirection: "column",
@@ -202,6 +201,8 @@ const ShoppingCart = () => {
                           mx: 2,
                           my: 2,
                           maxWidth: "40vh",
+						  width: "12em",
+						  alignSelf: "stretch",
 
                           display: "flex",
                           flexDirection: "column",
@@ -218,6 +219,9 @@ const ShoppingCart = () => {
                             sx={{
                               maxHeight: "10rem",
                               maxWidth: "10rem",
+							  width: "100%",
+							  height: "10rem",
+							  objectFit: "scale-down"
                             }}
                             component="img"
                             height="auto"
@@ -230,9 +234,12 @@ const ShoppingCart = () => {
                           />
                         )}
                         <CardContent>
-                          <Typography gutterBottom variant="h6" component="div">
+                          <Typography gutterBottom variant="h6" component="div" lineHeight="1.25" height="2.5em">
                             {product.productTitle}
                           </Typography>
+                        </CardContent>
+
+						<CardContent>
                           <Typography variant="body1" color="text.secondary">
                             {product.price}€
                           </Typography>
@@ -241,27 +248,8 @@ const ShoppingCart = () => {
                             {translate("echtzeitkiosk.products.in_stock")}
                           </Typography>
                         </CardContent>
-                        <CardActions
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-evenly",
-                            maxWidth: "100%",
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          <Button
-                            size="small"
-                            variant="contained"
-                            color="warning"
-                            onClick={() => {
-                              quantity(product.id, -1);
-                            }}
-                          >
-                            <RemoveShoppingCartIcon />
-                          </Button>
-                          {get(product.id) && (
+
+						{get(product.id) && (
                             <Box
                               sx={{
                                 display: "flex",
@@ -280,6 +268,29 @@ const ShoppingCart = () => {
                               </Typography>
                             </Box>
                           )}
+
+                        <CardActions
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "end",
+                            justifyContent: "space-evenly",
+                            maxWidth: "100%",
+                            flexWrap: "wrap",
+							flex: "1 1 0%",
+                          }}
+                        >
+                          <Button
+                            size="small"
+                            variant="contained"
+                            color="warning"
+                            onClick={() => {
+                              quantity(product.id, -1);
+                            }}
+                          >
+                            <RemoveShoppingCartIcon />
+                          </Button>
+
                           <Button
                             size="small"
                             variant="contained"
